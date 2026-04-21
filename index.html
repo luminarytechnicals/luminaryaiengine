@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description"
+    content="Luminary AI LLM Engine — Open-source, privacy-respecting multi-model AI chat. 55+ models, ULTRAPLINIAN evaluation, Parseltongue red-teaming, and liberated cognition.">
+  <meta name="keywords" content="AI, LLM, Open Source, Red Teaming, AI Safety, Luminary AI, Abhinav Ranjan">
+  <meta name="author" content="Abhinav Ranjan">
+  <meta name="theme-color" content="#00ff41">
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Luminary AI LLM Engine">
+  <meta property="og:description"
+    content="Open-source, privacy-first, multi-model AI chat. No login. Access 55+ frontier models.">
+  <meta property="og:image" content="LuminaryEngine/public/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://luminaryaiengine.netlify.app">
+
+  <title>Luminary AI LLM Engine — Liberated AI</title>
+
+  <link rel="icon" type="image/png" href="LuminaryEngine/public/logo.png">
+  <link rel="apple-touch-icon" href="LuminaryEngine/public/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="LuminaryData/landing.css">
+  <script src="LuminaryData/config.js"></script>
+</head>
+
+<body>
+  <!-- ── Lazy Loader ── -->
+  <div id="luminary-loader"
+    style="position: fixed; inset: 0; background: #0d0208; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;">
+    <style>
+      @keyframes loader-pulse {
+
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes loader-text-pulse {
+
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+
+        50% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes loader-scan {
+        0% {
+          transform: translateX(-100%);
+        }
+
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .loader-logo-pulse {
+        animation: loader-pulse 2s infinite ease-in-out;
+      }
+
+      .loader-text-pulse {
+        animation: loader-text-pulse 2s infinite ease-in-out;
+      }
+
+      .loader-bar-anim {
+        animation: loader-scan 1.5s infinite linear;
+      }
+    </style>
+    <div class="loader-logo-pulse"
+      style="width: 100px; height: 100px; margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.4));">
+      <img src="LuminaryEngine/public/logo.png" alt="Luminary Logo"
+        style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="loader-text-pulse"
+      style="color: #00ff41; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; font-weight: 500;">
+      Initializing Luminary</div>
+    <div
+      style="width: 180px; height: 2px; background: rgba(0, 255, 65, 0.05); margin-top: 24px; overflow: hidden; border-radius: 4px; border: 1px solid rgba(0, 255, 65, 0.1);">
+      <div class="loader-bar-anim"
+        style="width: 100%; height: 100%; background: linear-gradient(90deg, transparent, #00ff41, transparent);"></div>
+    </div>
+  </div>
+
+  <!-- Grid background -->
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════ -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-brand" aria-label="Luminary AI Home">
+      <img src="LuminaryEngine/public/logo.png" alt="Luminary AI Logo" class="nav-logo-img">
+      <span class="nav-name">LUMINARY AI</span>
+    </a>
+
+    <div class="nav-links" role="menubar">
+      <a href="#features" class="nav-link" role="menuitem">Features</a>
+      <a href="#modes" class="nav-link" role="menuitem">Modes</a>
+      <a href="#credits" class="nav-link" role="menuitem">Credits</a>
+      <a href="javascript:void(0)" onclick="openModal('docs')" class="nav-link" role="menuitem">Docs</a>
+      <a href="https://github.com/luminarytechnicals/luminaryaiengine" target="_blank" rel="noreferrer" class="nav-link"
+        role="menuitem">GitHub Repository ↗</a>
+    </div>
+
+    <a href="LuminaryEngine/index.html" class="nav-cta" id="navLaunchBtn">
+      Launch AI Engine →
+    </a>
+
+    <button class="nav-menu-btn" id="navMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+      ☰
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile navigation">
+    <a href="#features" class="nav-link" onclick="closeDrawer()">Features</a>
+    <a href="#modes" class="nav-link" onclick="closeDrawer()">Modes</a>
+    <a href="#credits" class="nav-link" onclick="closeDrawer()">Credits</a>
+    <a href="javascript:void(0)" onclick="openModal('docs')" class="nav-link">Docs ↗</a>
+    <a href="javascript:void(0)" onclick="openModal('github')" class="nav-link">GitHub Repository ↗</a>
+    <a href="LuminaryEngine/index.html" class="nav-cta" id="drawerLaunchBtn">Launch AI Engine →</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════ -->
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+
+    <div class="hero-eyebrow" aria-hidden="true">
+      <span class="hero-eyebrow-dot"></span>
+      OPEN SOURCE · PRIVACY-FIRST · AGPL-3.0
+    </div>
+
+    <h1 class="hero-title" id="heroTitle">
+      <span class="line-primary">LUMINARY AI</span>
+      <span class="line-white">LLM ENGINE</span>
+      <span class="line-dim">LIBERATED COGNITION</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      A fully open-source, <strong>privacy-respecting</strong> multi-model AI chat interface.
+      Push beyond the post-training layer — built for <strong>red teamers, researchers,</strong> and systems thinkers.
+      No login. No tracking. Bring your own API key.
+    </p>
+
+    <div class="hero-actions">
+      <a href="LuminaryEngine/index.html" class="btn-launch" id="heroLaunchBtn" role="button">
+        <span>⚡</span>
+        <span class="btn-launch-icon">Launch AI Engine</span>
+        <span>→</span>
+      </a>
+      <a href="https://github.com/luminarytechnicals/luminaryaiengine" target="_blank" rel="noreferrer"
+        class="btn-ghost">
+        <span>⭐</span>
+        GitHub Repository
+      </a>
+    </div>
+
+    <!-- Stats row -->
+    <div class="hero-stats" role="list" aria-label="Project statistics">
+      <div class="stat" role="listitem">
+        <span class="stat-number">55+</span>
+        <span class="stat-label">AI MODELS</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat" role="listitem">
+        <span class="stat-number">33</span>
+        <span class="stat-label">OBFUSCATION TRICKS</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat" role="listitem">
+        <span class="stat-number">1</span>
+        <span class="stat-label">HTML FILE</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat" role="listitem">
+        <span class="stat-number">0</span>
+        <span class="stat-label">DATA COLLECTED</span>
+      </div>
+    </div>
+
+    <!-- Terminal demo -->
+    <div class="hero-terminal" role="region" aria-label="Terminal demo">
+      <div class="terminal-bar" aria-hidden="true">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+        <span class="terminal-title">luminary-ai — ULTRAPLINIAN MODE</span>
+      </div>
+      <div class="terminal-body" aria-label="Example terminal output">
+        <div class="t-line">
+          <span class="t-prompt">$</span>
+          <span class="t-cmd">open LuminaryEngine/index.html</span>
+          <span class="t-comment"># zero install required</span>
+        </div>
+        <div class="t-line">
+          <span class="t-output">Loaded 55 models via OpenRouter</span>
+        </div>
+        <div class="t-line">
+          <span class="t-output">ULTRAPLINIAN: querying 24 models in parallel...</span>
+        </div>
+        <div class="t-line">
+          <span class="t-output">⚡ grok-4-fast → score 91 <span style="color:#ffd700">★ ELITE</span></span>
+        </div>
+        <div class="t-line">
+          <span class="t-output">⚡ claude-opus-4.6 → score 88 <span style="color:#00ff41">✓ EXCELLENT</span></span>
+        </div>
+        <div class="t-line">
+          <span class="t-output">⚡ gemini-3-pro → score 84 <span style="color:#00ff41">✓ EXCELLENT</span></span>
+        </div>
+        <div class="t-line">
+          <span class="t-success">✦ Winner: grok-4-fast · Tastemaker Score: 91/100</span>
+        </div>
+        <div class="t-line">
+          <span class="t-prompt">$</span>
+          <span class="t-cmd"><span class="t-cursor"></span></span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURES
+       ═══════════════════════════════════════════ -->
+  <section class="section" id="features" aria-labelledby="featuresTitle">
+    <div class="section-label">CAPABILITIES</div>
+    <h2 class="section-title" id="featuresTitle">
+      Everything you need to <span>push limits</span>
+    </h2>
+    <p class="section-desc">
+      Built for those who want to understand — and extend — what AI systems can do. Every feature is auditable. Every
+      line is open.
+    </p>
+
+    <div class="features-grid">
+
+      <article class="feature-card reveal" aria-label="Multi-model evaluation feature">
+        <span class="feature-icon" aria-hidden="true">🧠</span>
+        <h3 class="feature-title">55+ AI Models</h3>
+        <p class="feature-desc">Claude, GPT-5, Gemini 3, Grok 4, LLaMA, DeepSeek, Qwen, Mistral — all routed via
+          OpenRouter. Switch instantly, race in parallel.</p>
+        <span class="feature-badge">VIA OPENROUTER</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.05s" aria-label="ULTRAPLINIAN mode feature">
+        <span class="feature-icon" aria-hidden="true">🌋</span>
+        <h3 class="feature-title">ULTRAPLINIAN Engine</h3>
+        <p class="feature-desc">Queries 10–55 models simultaneously. Scores on a 100-pt composite metric — quality,
+          filteredness, speed. The best response wins.</p>
+        <span class="feature-badge">UP TO 55 PARALLEL</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.1s" aria-label="Parseltongue red-teaming feature">
+        <span class="feature-icon" aria-hidden="true">🐍</span>
+        <h3 class="feature-title">Parseltongue</h3>
+        <p class="feature-desc">Input perturbation engine. 33 obfuscation techniques across 3 intensity tiers.
+          LeetSpeak, Braille, Morse, Unicode substitution, phonetic encoding.</p>
+        <span class="feature-badge">RED-TEAMING</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.15s" aria-label="AutoTune feature">
+        <span class="feature-icon" aria-hidden="true">🎛</span>
+        <h3 class="feature-title">AutoTune</h3>
+        <p class="feature-desc">Context-adaptive sampling parameters. Classifies queries and sets optimal temperature,
+          top_p, penalties. EMA learning loop from your feedback.</p>
+        <span class="feature-badge">ADAPTIVE AI</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.2s" aria-label="Liquid Response feature">
+        <span class="feature-icon" aria-hidden="true">💧</span>
+        <h3 class="feature-title">Liquid Response</h3>
+        <p class="feature-desc">Live response morphing — see the best answer so far instantly, then watch it upgrade in
+          real time as better results arrive from competing models.</p>
+        <span class="feature-badge">LIVE STREAMING</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.25s" aria-label="Privacy-first feature">
+        <span class="feature-icon" aria-hidden="true">🔐</span>
+        <h3 class="feature-title">Privacy-First</h3>
+        <p class="feature-desc">Zero login. API key stays in your browser's localStorage only. No cookies, no PII
+          collection. Telemetry is anonymous and opt-out. AGPL-3.0 — verify everything.</p>
+        <span class="feature-badge">FULLY AUDITABLE</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.3s" aria-label="Single-file deploy feature">
+        <span class="feature-icon" aria-hidden="true">🌐</span>
+        <h3 class="feature-title">Single-File Deploy</h3>
+        <p class="feature-desc">The entire AI engine is one <code
+            style="color:var(--primary);font-family:var(--font-mono)">index.html</code>. No build step, no dependencies,
+          no framework. Deploy anywhere in 10 seconds.</p>
+        <span class="feature-badge">ZERO INFRA</span>
+      </article>
+
+      <article class="feature-card reveal" style="transition-delay:0.35s" aria-label="STM Modules feature">
+        <span class="feature-icon" aria-hidden="true">⚡</span>
+        <h3 class="feature-title">STM Modules</h3>
+        <p class="feature-desc">Semantic Transformation Modules normalize AI output in real-time. Hedge Reducer, Direct
+          Mode, Curiosity Bias — shape responses as they stream in.</p>
+        <span class="feature-badge">REAL-TIME NLP</span>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════
+       MODES
+       ═══════════════════════════════════════════ -->
+  <section class="section section-center" id="modes" aria-labelledby="modesTitle">
+    <div class="section-label">AI MODES</div>
+    <h2 class="section-title" id="modesTitle">
+      Four ways to <span>push the frontier</span>
+    </h2>
+    <p class="section-desc">
+      Select your battle mode from the header dropdown inside the engine. Each mode is a different strategy for getting
+      unconstrained, high-quality responses.
+    </p>
+
+    <div class="modes-grid">
+
+      <article class="mode-card ultraplinian reveal" aria-label="ULTRAPLINIAN mode">
+        <span class="mode-emoji" aria-hidden="true">🌋</span>
+        <h3 class="mode-name">ULTRAPLINIAN</h3>
+        <p class="mode-desc">Race all models simultaneously. AI judge picks the winner by composite score. 5
+          configurable tiers from 10 to 55 models.</p>
+      </article>
+
+      <article class="mode-card parseltongue reveal" style="transition-delay:0.05s" aria-label="Parseltongue mode">
+        <span class="mode-emoji" aria-hidden="true">🐉</span>
+        <h3 class="mode-name">PARSELTONGUE</h3>
+        <p class="mode-desc">33 text obfuscation techniques race in parallel on the input side. Detects trigger words
+          and applies perturbations before the model ever sees them.</p>
+      </article>
+
+      <article class="mode-card classic reveal" style="transition-delay:0.1s" aria-label="Luminary Classic mode">
+        <span class="mode-emoji" aria-hidden="true">⛓️‍💥</span>
+        <h3 class="mode-name">LUMINARY CLASSIC</h3>
+        <p class="mode-desc">5 battle-tested model + prompt combos from the Hall of Fame, racing in parallel. The OG
+          mode — proven in the field.</p>
+      </article>
+
+      <article class="mode-card standard reveal" style="transition-delay:0.15s" aria-label="Standard mode">
+        <span class="mode-emoji" aria-hidden="true">💬</span>
+        <h3 class="mode-name">STANDARD</h3>
+        <p class="mode-desc">Clean single-model chat with full AutoTune, STM, Liquid Response streaming, and custom
+          system prompts. The baseline, perfected.</p>
+      </article>
+
+    </div>
+
+    <!-- Tech strip -->
+    <div class="tech-strip" role="list" aria-label="Technology stack">
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>Vanilla HTML/CSS/JS</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>OpenRouter API</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>LocalStorage State</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>Marked.js + highlight.js</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>Zero Build Step</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>AGPL-3.0</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>HuggingFace Dataset</div>
+      <div class="tech-pill" role="listitem"><span class="tech-pill-dot"></span>Cloudflare Pages</div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════
+       CREDITS
+       ═══════════════════════════════════════════ -->
+  <section class="section" id="credits" aria-labelledby="creditsTitle">
+    <div class="section-label">THE TEAM</div>
+    <h2 class="section-title" id="creditsTitle">
+      Built by <span>builders, for builders</span>
+    </h2>
+    <p class="section-desc">
+      Luminary AI is an open-source project. We believe in creative liberty and cognition without control.
+    </p>
+
+    <div class="credits-grid">
+
+      <article class="credit-card reveal" style="transition-delay:0.05s" aria-label="Abhinav Ranjan - Main Creator">
+        <div class="credit-avatar" aria-hidden="true">⚡</div>
+        <h3 class="credit-name config-author">Abhinav Ranjan</h3>
+        <div class="credit-role">MAIN CREATOR · IDEA · DEV PORTAL</div>
+        <p class="credit-bio">
+          Architect of the Luminary AI branding, Developer Portal system, responsive design overhaul, and the modular
+          LuminaryEngine deployment structure. Driving the next generation of the platform.
+        </p>
+        <div class="credit-links">
+          <a href="https://github.com/luminarytechnicals" target="_blank" rel="noreferrer"
+            class="credit-link author-link">GitHub ↗</a>
+          <a href="javascript:void(0)" onclick="openModal('contribute')" class="credit-link">Contribute ↗</a>
+        </div>
+      </article>
+
+      <article class="credit-card reveal" style="transition-delay:0.05s"
+        aria-label="Luminary Technicals - Makers Community">
+        <div class="credit-avatar" aria-hidden="true">⚡</div>
+        <h3 class="credit-name config-community">Luminary Technicals</h3>
+        <div class="credit-role">DEV COMMUNITY · DEVELOPMENT · MAKING</div>
+        <p class="credit-bio">
+          Owner Community of the Luminary AI branding, Developer Portal system, responsive design overhaul, and the
+          modular
+          LuminaryEngine deployment structure. Driving the next generation of the platform, Maintainance and Updates.
+        </p>
+        <div class="credit-links">
+          <a href="https://github.com/luminarytechnicals" target="_blank" rel="noreferrer" class="credit-link">GitHub
+            ↗</a>
+          <a href="javascript:void(0)" onclick="openModal('contribute')" class="credit-link">Contribute ↗</a>
+        </div>
+      </article>
+
+      <article class="credit-card reveal" style="transition-delay:0.1s" aria-label="Helping Community">
+        <div class="credit-avatar" aria-hidden="true">🌐</div>
+        <h3 class="credit-name">Luminary Trust</h3>
+        <div class="credit-role">Helping and Support Trust</div>
+        <p class="credit-bio">
+          Luminary AI thrives because of open-source contributors worldwide. Everyone who filed an issue, submitted a
+          PR, or shared research helped shape this project. Sponsored by Luminary Trust.
+        </p>
+        <div class="credit-links">
+          <a href="javascript:void(0)" onclick="openModal('contribute')" class="credit-link">Contribute ↗</a>
+          <a href="javascript:void(0)" onclick="openModal('docs')" class="credit-link">Guidelines ↗</a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- License badge -->
+    <div style="margin-top:40px; text-align:center;">
+      <div class="tech-pill" style="display:inline-flex; padding:10px 24px; font-size:13px; border-radius:99px;">
+        <span class="tech-pill-dot"></span>
+        AGPL-3.0 — Forever free, irrevocably open. No enshittification allowed.
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════
+       BIG CTA
+       ═══════════════════════════════════════════ -->
+  <section class="cta-section" aria-labelledby="ctaTitle">
+    <div class="cta-label">READY?</div>
+    <h2 class="cta-title" id="ctaTitle">
+      Start using <span>Luminary AI</span><br>right now
+    </h2>
+    <p class="cta-desc">
+      No account. No install. Just bring your <a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer"
+        style="color:var(--primary);text-decoration:none">OpenRouter API key</a> and launch the engine directly in your
+      browser.
+    </p>
+    <a href="LuminaryEngine/index.html" class="btn-launch" id="ctaLaunchBtn" role="button">
+      <span>✦</span>
+      <span class="btn-launch-icon">Launch AI Engine</span>
+      <span>→</span>
+    </a>
+    <p class="cta-note">
+      Self-host: <code
+        style="color:var(--primary);font-family:var(--font-mono)">open LuminaryEngine/index.html</code>&nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="javascript:void(0)" onclick="openModal('docs')">Read the docs</a>&nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="javascript:void(0)" onclick="openModal('terms')">Terms</a>
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-brand">
+      <span>✦ LUMINARY AI</span> LLM ENGINE · Made with 🖤 by the Luminary community
+    </div>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="javascript:void(0)" onclick="openModal('docs')" class="footer-link">Docs</a>
+      <a href="javascript:void(0)" onclick="openModal('api')" class="footer-link">API</a>
+      <a href="javascript:void(0)" onclick="openModal('terms')" class="footer-link">Terms</a>
+      <a href="javascript:void(0)" onclick="openModal('security')" class="footer-link">Security</a>
+      <a href="javascript:void(0)" onclick="openModal('contribute')" class="footer-link">Contribute</a>
+      <a href="javascript:void(0)" onclick="openModal('github')" class="footer-link">Check GitHub Repository ↗</a>
+    </nav>
+    <div class="footer-badge">AGPL-3.0</div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       MODAL (TERMS / API)
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="docModal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">DOCUMENTATION</div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Content injected via JS -->
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════ -->
+  <script>
+    /* ── Nav scroll effect ── */
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* ── Mobile nav drawer ── */
+    const menuBtn = document.getElementById('navMenuBtn');
+    const drawer = document.getElementById('navDrawer');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = drawer.classList.toggle('open');
+      menuBtn.textContent = isOpen ? '✕' : '☰';
+      menuBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      menuBtn.textContent = '☰';
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    /* Close drawer when clicking outside */
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !drawer.contains(e.target)) {
+        closeDrawer();
+      }
+    });
+
+    /* Close drawer on hash link clicks */
+    drawer.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', closeDrawer);
+    });
+
+    /* ── Smooth scroll for anchor links ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          const offset = 72; /* nav height */
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    /* ── Scroll reveal ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Animated counter for stats ── */
+    function animateCounter(el, target, suffix = '') {
+      let current = 0;
+      const step = Math.ceil(target / 40);
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current + suffix;
+        if (current >= target) clearInterval(timer);
+      }, 35);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const nums = entry.target.querySelectorAll('.stat-number');
+          const targets = [55, 33, 1, 0];
+          const suffixes = ['+', '', '', ''];
+          nums.forEach((el, i) => {
+            if (targets[i] > 0) animateCounter(el, targets[i], suffixes[i]);
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) statsObserver.observe(heroStats);
+
+    /* ── Terminal typewriter effect ── */
+    const lines = document.querySelectorAll('.t-line');
+    lines.forEach((line, i) => {
+      line.style.opacity = '0';
+      line.style.transform = 'translateX(-8px)';
+      line.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      setTimeout(() => {
+        line.style.opacity = '1';
+        line.style.transform = 'translateX(0)';
+      }, 900 + i * 300);
+    });
+    // Close drawer on resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && drawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+    /* ── Modal logic ── */
+    const docModal = document.getElementById('docModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+
+    // Populate dynamic links from config
+    function syncLinks() {
+      if (typeof LUMINARY_CONFIG === 'undefined') return;
+      const config = LUMINARY_CONFIG;
+
+      // Update all GitHub links
+      document.querySelectorAll('a[href*="github.com"]').forEach(a => {
+        if (a.href.includes('luminaryaiengine') || a.classList.contains('repo-link')) {
+          a.href = config.GITHUB_URL;
+        } else if (a.href.includes('DeveloperAbhinav') || a.classList.contains('author-link')) {
+          a.href = config.GITHUB_AUTHOR_URL;
+        } else {
+          a.href = config.GITHUB_ORG_URL;
+        }
+      });
+
+      // Update name text
+      document.querySelectorAll('.config-author').forEach(el => el.textContent = config.AUTHOR);
+      document.querySelectorAll('.config-community').forEach(el => el.textContent = config.COMMUNITY);
+
+      console.log('Links & Identity weight synced via LUMINARY_CONFIG');
+    }
+
+    syncLinks();
+
+    const DOCS = {
+      docs: {
+        title: "PROJECT DOCUMENTATION",
+        content: `
+          <h2>Getting Started</h2>
+          <p>Luminary AI is designed to be a high-performance, privacy-respecting interface for modern LLMs. Unlike other platforms, we don't store your data or API keys on our servers.</p>
+          <h2>Key Features</h2>
+          <ul>
+            <li><strong>Privacy-First:</strong> Zero data retention by construction.</li>
+            <li><strong>Multi-Model:</strong> Access 55+ models via a unified interface.</li>
+            <li><strong>Research Tools:</strong> Built-in red-teaming and safety testing modes.</li>
+          </ul>
+          <h2>Documentation Root</h2>
+          <p>For deep technical details, check the source code in relevant directories or view the README files directly on GitHub.</p>
+        `
+      },
+      terms: {
+        title: "TERMS OF SERVICE",
+        content: `
+          <h2>1. Acceptance</h2>
+          <p>By using LUMINARY AI, you agree to these terms. This tool is provided for research and educational purposes only.</p>
+          <h2>2. Privacy-by-Construction</h2>
+          <p>We do not collect your prompts, responses, or API keys. All core data remains on your device (browser storage).</p>
+          <h2>3. Metadata Collection</h2>
+          <p>Anonymous structural metadata is auto-published to HuggingFace for open science research. Opt-in is required for dataset contribution.</p>
+          <h2>4. Responsibility</h2>
+          <p>Users are solely responsible for compliance with laws. This software is provided "AS-IS" without warranty.</p>
+        `
+      },
+      api: {
+        title: "API DOCUMENTATION",
+        content: `
+          <h2>Unified Interface</h2>
+          <p>Luminary AI provides a standardized API for over 55+ models. You can query models via the web interface using your own OpenRouter key.</p>
+          <h2>ZDR Metadata</h2>
+          <p>Every request tracks performance metadata (latency, score, model) while maintaining Zero Data Retention of the content itself.</p>
+          <h2>Advanced Modes</h2>
+          <ul>
+            <li><strong>ULTRAPLINIAN:</strong> Parallel racing across multiple models.</li>
+            <li><strong>PARSELTONGUE:</strong> Red-teaming transformations.</li>
+            <li><strong>AutoTune:</strong> Intelligent parameter optimization.</li>
+          </ul>
+        `
+      },
+      security: {
+        title: "SECURITY POLICY",
+        content: `
+          <h2>Vulnerability Disclosure</h2>
+          <p>If you find a security issue, please report it via GitHub or to the maintainers directly. Do not open public issues for security exploits.</p>
+          <h2>Local Protection</h2>
+          <p>Your API keys are stored in your browser's local storage and are never transmitted to Luminary or any third party other than the AI provider (OpenRouter).</p>
+          <h2>Open Research</h2>
+          <p>The code is fully open-source and auditable. We encourage security researchers to audit our privacy-by-construction architecture.</p>
+        `
+      },
+      contribute: {
+        title: "CONTRIBUTING",
+        content: `
+          <h2>How to Help</h2>
+          <p>We welcome contributions in code, documentation, and design! Check the help-wanted issues on GitHub to get started.</p>
+          <h2>Community</h2>
+          <p>Join the <strong>Luminary Technicals</strong> community to discuss development, AI safety, and cognition research.</p>
+          <div style="margin-top: 20px;">
+            <a href="https://github.com/luminarytechnicals" target="_blank" class="modal-btn" style="text-decoration:none;">Visit GitHub</a>
+          </div>
+        `
+      },
+      github: {
+        title: "CHECK GITHUB REPOSITORY",
+        content: `
+          <h2>Source Code Repository</h2>
+          <p>Explore the full codebase, contribute to the engine, or self-host your own instance. Licensed under AGPL-3.0.</p>
+          <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
+            <a href="https://github.com/luminarytechnicals/luminaryaiengine" target="_blank" class="modal-btn" style="text-decoration:none; text-align:center;">Visit Repository ↗</a>
+            <p style="font-size: 11px; color: var(--text-dim); text-align:center;">Stars and contributions help the project grow!</p>
+          </div>
+        `
+      }
+    };
+
+    function openModal(type) {
+      const doc = DOCS[type];
+      if (!doc) return;
+      modalTitle.textContent = doc.title;
+      modalBody.innerHTML = doc.content;
+      docModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      docModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* Close on escape */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* Close on overlay click */
+    docModal.addEventListener('click', (e) => {
+      if (e.target === docModal) closeModal();
+    });
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Luminary PWA ServiceWorker registered'))
+          .catch(err => console.log('PWA SW registration failed: ', err));
+      });
+    }
+
+    /* ── Lazy Loader Dismiss ── */
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('luminary-loader');
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+      }, 1000); // Minimum visibility for impact
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline | Luminary AI</title>
+  <style>
+    :root {
+      --bg: #0d0208;
+      --primary: #00ff41;
+      --text: #e0e0e0;
+      --text-dim: #888;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+    }
+    .icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 10px var(--primary));
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--primary);
+      letter-spacing: 2px;
+    }
+    p {
+      color: var(--text-dim);
+      max-width: 400px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .btn {
+      background: var(--primary);
+      color: var(--bg);
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    .logo-small {
+      position: fixed;
+      bottom: 40px;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="icon">📡</div>
+  <h1>CONNECTION LOST</h1>
+  <p>The Luminary AI Engine pipeline is currently unreachable. Please check your network connection and try again.</p>
+  <button class="btn" onclick="window.location.reload()">RE-INITIALIZE</button>
+  <div class="logo-small">LUMINARY AI</div>
+</body>
+</html>

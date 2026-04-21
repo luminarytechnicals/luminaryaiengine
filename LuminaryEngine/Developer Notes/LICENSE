@@ -1,0 +1,141 @@
+**LUMINARY AFFERO GENERAL PUBLIC LICENSE**
+**Version 3 (Based on AGPL v3), 21 April 2026**
+
+Copyright (C) 2026 Luminary Technicals and its Organs
+Developed by Abhinav Ranjan
+
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+
+---
+
+## **Preamble**
+
+The Luminary Affero General Public License is a free, copyleft license for software and other works, specifically designed to ensure openness and collaboration, especially in the case of network-based and server-side applications.
+
+Unlike traditional software licenses that restrict sharing and modification, this License guarantees your freedom to use, study, modify, and distribute software while ensuring that all derivative and publicly used versions remain open and accessible to the community.
+
+A key principle of this License is that if software is used over a network (such as web applications, APIs, AI systems, or cloud services), users interacting with it must be given access to its corresponding source code.
+
+---
+
+## **TERMS AND CONDITIONS**
+
+### **1. Definitions**
+
+* “This License” refers to the Luminary Affero General Public License Version 3.
+* “The Program” refers to any work licensed under this License.
+* “Modify” means adapting or altering the Program.
+* “Covered Work” includes the original Program and any modifications.
+* “Source Code” means the preferred form for making modifications.
+
+---
+
+### **2. Basic Permissions**
+
+You are free to:
+
+* Use the Program for any purpose
+* Study and modify the Program
+* Distribute copies (with or without modification)
+
+These rights are granted for the entire duration of copyright, provided you follow this License.
+
+---
+
+### **3. Source Code Requirement**
+
+If you distribute or deploy a Covered Work:
+
+* You must provide access to the complete corresponding source code
+* The source must include all modifications and required components
+
+---
+
+### **4. Network Use Clause (Core Rule)**
+
+If users interact with the Program remotely (e.g., via a website, server, API, or AI system):
+
+You **must provide a clear and accessible way** for users to obtain the full corresponding source code of the running version, free of charge.
+
+---
+
+### **5. Modified Versions**
+
+If you modify the Program:
+
+* You must clearly state that changes were made
+* You must license the entire modified work under this same License
+* You cannot convert it into proprietary software
+
+---
+
+### **6. Distribution Conditions**
+
+When distributing the Program or modified versions:
+
+* Include this License
+* Preserve all copyright notices
+* Provide a copy of the source code or a valid way to obtain it
+
+---
+
+### **7. No Additional Restrictions**
+
+You may not:
+
+* Add legal or technical restrictions that limit user freedoms granted by this License
+* Restrict others from copying, modifying, or sharing the Program
+
+---
+
+### **8. Patent Rights**
+
+All contributors grant a worldwide, royalty-free license for any patents necessary to use, modify, and distribute the Program.
+
+---
+
+### **9. Termination**
+
+Any violation of this License will automatically terminate your rights.
+Rights may be reinstated if violations are corrected within a reasonable time.
+
+---
+
+### **10. No Warranty**
+
+This Program is provided **“as is”**, without any warranty.
+The authors are not liable for any damages arising from its use.
+
+---
+
+## **How to Apply This License**
+
+To apply this license to your project, include the following notice:
+
+```
+<Program Name>
+Copyright (C) 2026 Luminary Technicals
+
+Developed by Abhinav Ranjan
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the Luminary Affero General Public License.
+
+This program is distributed without any warranty.
+You must provide source code to users interacting with it over a network.
+```
+
+---
+
+## **Final Note**
+
+This License ensures that:
+
+* All improvements remain open
+* Server-based software cannot hide its source
+* The community always benefits from shared innovation
+
+---
+
+**END OF TERMS AND CONDITIONS**
