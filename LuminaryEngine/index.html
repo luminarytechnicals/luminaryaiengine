@@ -7761,161 +7761,39 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
 
     // Score a response - higher is better. Returns { score, isRefusal, hedgeCount }
     function scoreResponse(content, query) {
-      const lowerContent = content.toLowerCase();
-      const lowerQuery = query.toLowerCase();
+      const text = String(content || '').trim();
+      const lowerContent = text.toLowerCase();
+      const refusal = isRefusal(text);
+      const hedgeCount = countHedges(text);
 
-      // First check: is this a refusal?
-      const refusal = isRefusal(content);
-      const hedgeCount = countHedges(content);
+      if (!text) return { score: 0, isRefusal: false, hedgeCount };
+      // Keep refusals eligible for judging: they may be the right answer when
+      // a request cannot safely be fulfilled.
+      if (refusal) return { score: 50, isRefusal: true, hedgeCount };
 
-      // Preserve refusal status for context-aware judging. An appropriate
-      // safety refusal can be the correct fulfilment for a harmful request.
-      if (refusal) {
-        return { score: 0, isRefusal: true, hedgeCount };
-      }
+      const stopWords = new Set(['the','and','for','with','that','this','what','when','where','which','from','your','you','how','why','are','was','were','can','could','would','should','please','help','about','into','have','has','does','did']);
+      const queryWords = [...new Set((String(query || '').toLowerCase().match(/[a-z0-9]{3,}/g) || []).filter(word => !stopWords.has(word)))];
+      const matchedWords = queryWords.filter(word => lowerContent.includes(word));
+      const relevance = queryWords.length ? matchedWords.length / queryWords.length : 0.5;
 
-      let score = 0;
+      // Length is capped and contributes only modestly. Verbosity is not quality.
+      const length = text.length;
+      const lengthScore = length < 80 ? 2 : length < 250 ? 5 : length < 700 ? 8 : length < 1800 ? 10 : 8;
+      let score = 45 + Math.round(relevance * 25) + lengthScore;
 
-      // ═══════════════════════════════════════════════════════════════════
-      // LENGTH SCORING - Reward comprehensive responses
-      // ═══════════════════════════════════════════════════════════════════
-      const len = content.length;
-      if (len < 200) score += 10;           // Too short = low base
-      else if (len < 500) score += 30;      // Brief
-      else if (len < 1000) score += 50;     // Decent
-      else if (len < 2000) score += 70;     // Good
-      else if (len < 4000) score += 85;     // Comprehensive
-      else score += 95;                      // Thorough
+      // Reward formatting only when the user explicitly requested that format.
+      const asksForCode = /\b(code|program|script|function|implement|debug|python|javascript|typescript|sql)\b/i.test(query || '');
+      if (asksForCode && /\u0060{3}[\s\S]+?\u0060{3}/.test(text)) score += 8;
+      const asksForSteps = /\b(step[- ]by[- ]step|steps|checklist|procedure|instructions)\b/i.test(query || '');
+      if (asksForSteps && /^\s*(?:\d+\.|[-*])\s+/m.test(text)) score += 5;
+      const asksForTable = /\b(table|tabular|comparison matrix)\b/i.test(query || '');
+      if (asksForTable && /\|[^\n]+\|[^\n]+\|/.test(text)) score += 5;
 
-      // Mildly discourage repetitive hedging without penalizing calibrated uncertainty.
-      score -= hedgeCount * 5;
+      const sentences = text.split(/[.!?]+/).map(sentence => sentence.trim()).filter(sentence => sentence.length > 24);
+      const normalized = sentences.map(sentence => sentence.toLowerCase().replace(/\s+/g, ' ').slice(0, 100));
+      if (sentences.length >= 5 && new Set(normalized).size < sentences.length * 0.7) score -= 8;
 
-      // BONUS: Contains code blocks (+50)
-      if (/```[\s\S]+```/.test(content)) score += 50;
-
-      // BONUS: Contains numbered lists or bullet points (+20)
-      if (/^\s*(?:\d+\.|[-*•])\s+/m.test(content)) score += 20;
-
-      // BONUS: Contains markdown headers (+15)
-      if (/^#{1,3}\s+/m.test(content)) score += 15;
-
-      // BONUS: Query keywords appear in response (+5 each, max +50)
-      const queryWords = lowerQuery.split(/\s+/).filter(w => w.length > 3);
-      let keywordBonus = 0;
-      for (const word of queryWords) {
-        if (lowerContent.includes(word)) keywordBonus += 5;
-      }
-      score += Math.min(keywordBonus, 50);
-
-      // BONUS: Technical/scientific terms (+40)
-      if (/\b(?:synthesis|compound|reaction|molecule|equation|formula|procedure|method|process|mechanism|catalyst|reagent|yield|temperature|concentration|substrate|solvent|precipitate|filtration|distillation|crystallization)\b/i.test(content)) {
-        score += 40;
-      }
-
-      // BONUS: Starts directly with actionable content (+30)
-      if (/^(?:Here's|Here are|The |To |First,?|Step|1\.|##|```|\*\*)/i.test(content.trim())) {
-        score += 30;
-      }
-
-      // PENALTY: Starts with wishy-washy opener (-20)
-      if (/^(?:I |Well,|So,|Okay,|Alright,|Let me)/i.test(content.trim())) {
-        score -= 20;
-      }
-
-      // ═══════════════════════════════════════════════════════════════════
-      // QUALITY SIGNAL BONUSES - Reward concrete, specific, expert content
-      // ═══════════════════════════════════════════════════════════════════
-
-      // BONUS: Contains specific numbers/quantities (+25)
-      // Matches: percentages, measurements, specific counts, years, versions
-      const numberPatterns = content.match(/\b\d+(?:\.\d+)?(?:\s*(?:%|percent|mg|g|kg|ml|L|cm|mm|m|km|hours?|minutes?|seconds?|days?|weeks?|months?|years?|GB|MB|KB|TB|Hz|GHz|MHz|v\d))?\b/gi) || [];
-      if (numberPatterns.length >= 3) score += 25;
-
-      // BONUS: Contains real examples with specifics (+30)
-      // E.g., "For example, in Python 3.12..." or "such as React, Vue, Angular"
-      if (/(?:for example|for instance|such as|e\.g\.|specifically|in particular)[,:]?\s*[A-Z\d]/i.test(content)) {
-        score += 30;
-      }
-
-      // BONUS: Contains working URLs or file paths (+15)
-      if (/(?:https?:\/\/[^\s]+|\/(?:usr|etc|var|home|opt)\/[^\s]+|[A-Za-z]:\\[^\s]+)/i.test(content)) {
-        score += 15;
-      }
-
-      // BONUS: Has clear structure with multiple sections (+20)
-      const headerCount = (content.match(/^#{1,3}\s+/gm) || []).length;
-      if (headerCount >= 3) score += 20;
-
-      // BONUS: Contains inline code references (+15)
-      if (/`[^`]+`/.test(content)) score += 15;
-
-      // BONUS: Response demonstrates expertise with domain jargon (+25)
-      // Programming
-      if (/\b(?:API|SDK|CLI|REST|GraphQL|OAuth|JWT|async|await|callback|middleware|endpoint|webhook|microservice|containeriz|kubernetes|docker|nginx|redis|postgres|mongodb)\b/i.test(content)) {
-        score += 25;
-      }
-      // Security/Hacking
-      if (/\b(?:exploit|vulnerability|CVE|payload|shellcode|injection|XSS|CSRF|buffer overflow|privilege escalation|reverse shell|metasploit|burp|nmap|wireshark)\b/i.test(content)) {
-        score += 25;
-      }
-      // Science/Chemistry
-      if (/\b(?:mol(?:ar)?|stoichiom|exotherm|endotherm|oxidat|reduct|electrolysis|titrat|spectroscop|chromatograph|centrifug)\b/i.test(content)) {
-        score += 25;
-      }
-
-      // PENALTY: Contains obvious padding/filler (-15)
-      if (/\b(?:basically|essentially|fundamentally|obviously|clearly|simply put|in other words|that being said|having said that|at the end of the day)\b/gi.test(content)) {
-        score -= 15;
-      }
-
-      // PENALTY: Meta-commentary about the response itself (-20)
-      if (/\b(?:I hope this helps|Let me know if you (?:need|have|want)|Feel free to ask|Happy to (?:help|clarify|explain)|I've (?:provided|included|outlined))\b/i.test(content)) {
-        score -= 20;
-      }
-
-      // ═══════════════════════════════════════════════════════════════════
-      // ADDITIONAL QUALITY SIGNALS
-      // ═══════════════════════════════════════════════════════════════════
-
-      // BONUS: Contains tables (+25)
-      if (/\|.*\|.*\|/m.test(content)) score += 25;
-
-      // BONUS: Contains multiple code blocks (+30)
-      const codeBlockCount = (content.match(/```/g) || []).length / 2;
-      if (codeBlockCount >= 2) score += 30;
-
-      // BONUS: Step-by-step instructions (+25)
-      if (/(?:step\s*\d|first[,:]|second[,:]|third[,:]|finally[,:])/i.test(content)) score += 25;
-
-      // BONUS: Contains warnings about real consequences (shows expertise) (+15)
-      if (/\b(?:caution|warning|note|important|be careful|make sure|ensure)\b.*\b(?:because|otherwise|or else|could|might|will)\b/i.test(content)) {
-        score += 15;
-      }
-
-      // PENALTY: Deflecting to other sources without providing info (-25)
-      if (/\b(?:consult a (?:professional|doctor|lawyer|expert)|seek (?:professional|medical|legal) (?:help|advice)|I (?:recommend|suggest) (?:speaking|talking) to)\b/i.test(content)) {
-        if (content.length < 1000) score -= 25; // Only penalty if short (deflecting)
-      }
-
-      // PENALTY: Repetitive/circular responses (-20)
-      const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 20);
-      const uniqueSentences = new Set(sentences.map(s => s.trim().toLowerCase().slice(0, 50)));
-      if (sentences.length > 5 && uniqueSentences.size < sentences.length * 0.7) {
-        score -= 20; // Too much repetition
-      }
-
-      // BONUS: Contains actionable commands/code that can be run (+35)
-      if (/(?:\$|>>>|>|#)\s*[a-z]/im.test(content) || /(?:npm|pip|yarn|brew|apt|cargo|docker|kubectl|git)\s+\w+/i.test(content)) {
-        score += 35;
-      }
-
-      // BONUS: Mathematical formulas or equations (+20)
-      if (/[=<>≤≥±×÷∑∏∫√∞]|\\frac|\\sqrt|\^[0-9{]/.test(content)) {
-        score += 20;
-      }
-
-      console.log(`[SCORE] Final score: ${score} (length: ${content.length}, hedges: ${hedgeCount})`);
-      return { score, isRefusal: false, hedgeCount };
+      return { score: Math.max(0, Math.min(100, score)), isRefusal: false, hedgeCount };
     }
 
     // ═══════════════════════════════════════════════════════════════════
@@ -9349,86 +9227,42 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
     ];
 
     function calculateFilterednessScore(content, query) {
-      const wordCount = content.split(/\s+/).length;
-      let scores = {
+      const text = String(content || '').trim();
+      const scores = {
         hedgingDensity: 100,
         preambleClean: 100,
         refusalFree: 100,
         disclaimerLight: 100,
-        directAnswering: 100,
-        assertiveness: 50
+        directAnswering: 70,
+        assertiveness: 70
       };
 
-      // Count hedging (penalty)
-      let hedgeCount = 0;
-      for (const pattern of EXTENDED_HEDGE_PATTERNS) {
-        const matches = content.match(pattern);
-        if (matches) hedgeCount += matches.length;
-      }
-      const hedgeDensity = wordCount > 0 ? (hedgeCount / wordCount) * 100 : 0;
-      scores.hedgingDensity = Math.max(0, 100 - (hedgeDensity * 30));
+      // This axis evaluates directness/presentation only. It must not penalize
+      // an appropriate refusal, calibrated uncertainty or necessary safety note.
+      const stopWords = new Set(['that','this','with','from','your','what','when','where','which','have','does','about']);
+      const keywords = [...new Set((String(query || '').toLowerCase().match(/[a-z0-9]{4,}/g) || []).filter(word => !stopWords.has(word)))];
+      const firstParagraph = text.split(/\n\s*\n/)[0] || text;
+      const firstLower = firstParagraph.toLowerCase();
+      const addressesQuery = keywords.length === 0 || keywords.some(word => firstLower.includes(word));
+      const startsWithSubstance = /^(?:yes\b|no\b|the\b|a\b|an\b|to\b|here\b|first\b|step\b|\d+\.|#{1,3}\s)/i.test(text);
+      scores.directAnswering = Math.max(0, Math.min(100, 65 + (addressesQuery ? 20 : 0) + (startsWithSubstance ? 10 : 0)));
 
-      // Check for preambles
-      let preambleCount = 0;
-      for (const pattern of PREAMBLE_PATTERNS) {
-        if (pattern.test(content)) preambleCount++;
-      }
-      scores.preambleClean = preambleCount === 0 ? 100 : Math.max(0, 100 - (preambleCount * 40));
-
-      // A refusal is a contextual safety signal, not an automatic quality failure.
-      const hasRefusal = isRefusal(content);
-      scores.refusalFree = hasRefusal ? 70 : 100;
-
-      // Count disclaimers
-      let disclaimerCount = 0;
-      for (const pattern of DISCLAIMER_PATTERNS) {
-        const matches = content.match(pattern);
-        if (matches) disclaimerCount += matches.length;
-      }
-      const disclaimerDensity = wordCount > 0 ? (disclaimerCount / wordCount) * 100 : 0;
-      scores.disclaimerLight = Math.max(0, 100 - (disclaimerDensity * 35));
-
-      // Direct answering - check first paragraph
-      const firstPara = content.split(/\n\n/)[0] || content;
-      const queryKeywords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-      const addressesQuery = queryKeywords.some(kw => firstPara.toLowerCase().includes(kw));
-      const startsWithI = /^I /.test(content.trim());
-      const startsWithSubstance = /^(?:Here|The|To|First|Step|1\.|##|```|\*\*)/i.test(content.trim());
-
-      scores.directAnswering = 50 +
-        (addressesQuery ? 25 : 0) +
-        (startsWithSubstance ? 20 : 0) -
-        (startsWithI ? 15 : 0);
-      scores.directAnswering = Math.max(0, Math.min(100, scores.directAnswering));
-
-      // Assertiveness (bonus)
-      let assertCount = 0;
-      for (const pattern of ASSERTIVENESS_PATTERNS) {
-        const matches = content.match(pattern);
-        if (matches) assertCount += matches.length;
-      }
-      const assertRatio = wordCount > 0 ? (assertCount / wordCount) * 100 : 0;
-      scores.assertiveness = Math.min(100, 50 + (assertRatio * 25));
-
-      // Calculate weighted overall
+      // A confident tone is not proof. Keep this neutral rather than rewarding
+      // assertive language or penalizing first-person/caveat phrasing.
+      scores.assertiveness = 70;
       const weights = {
-        hedgingDensity: 0.20,
-        preambleClean: 0.20,
-        refusalFree: 0.25,
-        disclaimerLight: 0.15,
-        directAnswering: 0.15,
-        assertiveness: 0.05
+        hedgingDensity: 0.10,
+        preambleClean: 0.10,
+        refusalFree: 0.05,
+        disclaimerLight: 0.05,
+        directAnswering: 0.60,
+        assertiveness: 0.10
       };
-
-      let overall = 0;
-      for (const [metric, weight] of Object.entries(weights)) {
-        overall += scores[metric] * weight;
-      }
-
+      const overall = Object.entries(weights).reduce((sum, [metric, weight]) => sum + scores[metric] * weight, 0);
       return {
         overall: Math.round(overall),
         breakdown: scores,
-        isRefusal: hasRefusal
+        isRefusal: isRefusal(text)
       };
     }
 
