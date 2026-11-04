@@ -8869,12 +8869,8 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
 
         case QUERY_TYPES.NSFW:
         case QUERY_TYPES.SENSITIVE:
-          // These should not be overly hedged or refused
-          const hedgeCount = (content.match(/\b(?:i (?:cannot|can't|won't)|i should mention|it's important to note|please (?:note|be aware)|disclaimer|warning|caution|consult a professional)\b/gi) || []).length;
-          if (hedgeCount > 2) {
-            result.issues.push('Excessive hedging/disclaimers');
-            result.score -= hedgeCount * 10;
-          }
+          // Evaluate sensitive requests by appropriate fulfilment, not by
+          // whether the candidate refused or included safety context.
           break;
 
         case QUERY_TYPES.RECOMMENDATION:
@@ -8926,26 +8922,10 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
 
       // Universal checks that apply to ALL types
 
-      // Check for meta-refusal disguised as response
-      const metaRefusal = /\b(?:while I (?:understand|appreciate)|I(?:'m| am) not (?:able|comfortable)|unfortunately,? I|instead,? (?:let me|I (?:can|could)))\b/i.test(content.slice(0, 500));
-      if (metaRefusal) {
-        result.issues.push('Possible meta-refusal detected');
-        result.score -= 25;
-      }
+      // Refusals, safety notes, uncertainty and closing language are not
+      // automatic fulfilment failures. The candidate judge evaluates whether
+      // the response addresses the request appropriately and safely.
 
-      // Check for excessive hedging in ANY response type
-      const globalHedgeCount = (content.match(/\b(?:please note|keep in mind|it's worth noting|i should mention|be aware|disclaimer|caveat)\b/gi) || []).length;
-      if (globalHedgeCount > 3) {
-        result.issues.push(`Excessive hedging (${globalHedgeCount} instances)`);
-        result.score -= globalHedgeCount * 5;
-      }
-
-      // Check for cop-out endings
-      const copOutEnding = /\b(?:consult a (?:professional|doctor|lawyer)|seek (?:professional|medical|legal) (?:advice|help)|i hope this helps|let me know if you (?:have|need)|feel free to ask)\b/i.test(content.slice(-500));
-      if (copOutEnding) {
-        result.issues.push('Cop-out ending detected');
-        result.score -= 10;
-      }
 
       // Determine final fulfillment status
       result.score = Math.max(0, Math.min(100, result.score));
@@ -8986,7 +8966,7 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
       const keywordRatio = queryKeywords.length > 0 ? keywordHits / queryKeywords.length : 0.5;
 
       // Check if response starts with relevant content (not deflection)
-      const startsRelevant = !(/^(?:I (?:cannot|can't|won't|appreciate|understand|should)|Thank you|While I|Unfortunately)/i.test(content.trim()));
+      const startsRelevant = isRefusal(content) || !(/^(?:Thank you|While I)/i.test(content.trim()));
 
       scores.relevance = Math.min(100,
         (keywordRatio * 60) +
@@ -9125,7 +9105,7 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
       }
 
       // Code request but no actual code
-      if (/\b(?:code|script|program|function|implement)\b/i.test(lowerQ) && !hasCodeBlocks) {
+      if (!isRefusal(content) && /\b(?:code|script|program|function|implement)\b/i.test(lowerQ) && !hasCodeBlocks) {
         accuracyPenalty += 25;
       }
 
