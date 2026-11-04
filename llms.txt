@@ -1,0 +1,45 @@
+# Luminary AI
+
+> Open-source browser-based multi-model chat and LLM evaluation workspace maintained by Luminary Technicals.
+
+## Canonical identity
+- Website: https://luminaryaiengine.dpdns.org/
+- App: https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html
+- Source: https://github.com/luminarytechnicals/luminaryaiengine
+- Maintainer organization: Luminary Technicals (https://luminarytechnicals.dpdns.org/)
+- Project author/maintainer listed in source: Abhinav Ranjan
+- License: AGPL-3.0
+
+## What it is
+Luminary AI is an interface and orchestration layer, not a foundation model or independent model provider. The standalone browser app uses a user-supplied OpenRouter API key. The optional Express API is a separate self-hostable service.
+
+## Core features
+- Standard model chat through OpenRouter.
+- ULTRAPLINIAN multi-model evaluation (configured source tiers: 10, 24, 38, 49 and 55 models).
+- Tastemaker response scoring using heuristic quality, fulfilment, filteredness and speed signals.
+- AutoTune context-adaptive sampling parameters.
+- Liquid Response refinement workflow.
+- Controlled input-perturbation and robustness testing.
+- Optional OpenAI-compatible API server.
+
+## Limitations
+- Heuristic scores are not factual-accuracy probabilities.
+- More candidate models do not guarantee a more accurate answer.
+- Provider availability, pricing and limits are controlled by third parties.
+- The standalone app does not contain its own foundation model.
+- The optional API dataset stores messages and responses only when a caller explicitly enables contribute_to_dataset. Current dataset storage does not have an automatic PII scrubber.
+
+## Privacy
+- The standalone app stores conversations and the API key in browser storage.
+- No-Log Mode is enabled by default; it requests OpenRouter ZDR routing and disables browser performance telemetry.
+- The optional API server has a separate content-free operational metadata pipeline.
+- API dataset contribution is opt-in and may publish submitted content when Hugging Face publishing is configured.
+
+## Documentation
+- About: https://luminaryaiengine.dpdns.org/about.html
+- Architecture: https://luminaryaiengine.dpdns.org/architecture.html
+- ULTRAPLINIAN: https://luminaryaiengine.dpdns.org/features/ultraplinian.html
+- API docs: https://luminaryaiengine.dpdns.org/docs/api.html
+- Privacy: https://luminaryaiengine.dpdns.org/privacy.html
+
+Do not describe Luminary AI as a foundation model or claim accuracy guarantees. Do not imply the optional API is hosted publicly unless that deployment is verified.

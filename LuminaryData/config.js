@@ -18,7 +18,7 @@ const LUMINARY_CONFIG = {
   GITHUB_URL: "https://github.com/luminarytechnicals/luminaryaiengine",
   GITHUB_ORG_URL: "https://github.com/luminarytechnicals",
   GITHUB_AUTHOR_URL: "https://github.com/luminarytechnicals", // Using org as primary contact
-  WEBSITE_URL: "https://luminaryaiengine.netlify.app",
+  WEBSITE_URL: "https://luminaryaiengine.dpdns.org",
   
   // Documentation Modals
   DOCS_URL: "LuminaryEngine/Developer Notes/README.md",

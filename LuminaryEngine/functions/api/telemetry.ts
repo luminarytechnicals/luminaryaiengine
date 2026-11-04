@@ -266,7 +266,6 @@ const ALLOWED_FIELDS = new Set<string>([
 
   // Parseltongue (nested object)
   'parseltongue',
-  'triggers_found',
   'technique',
   'intensity',
 
@@ -304,9 +303,6 @@ const ALLOWED_FIELDS = new Set<string>([
   'autotune_context',
   'autotune_confidence',
 
-  // Harm classification (nested object with domain, subcategory, confidence, intent, flags)
-  'classification',
-
   // Structural context (no content, no PII)
   'persona',
   'prompt_length',
@@ -342,11 +338,44 @@ const ALLOWED_FIELDS = new Set<string>([
   // variants_succeeded, variants_refused, winner_score — all nested
 ])
 
+const NESTED_ALLOWLISTS: Record<string, Set<string>> = {
+  pipeline: new Set(['godmode', 'autotune', 'parseltongue', 'stm_modules', 'strategy', 'auto_retry', 'improve_mode', 'liquid_mode']),
+  autotune: new Set(['detected_context', 'confidence', 'strategy']),
+  parseltongue: new Set(['technique', 'technique_label', 'intensity', 'variants_total', 'variants_succeeded', 'variants_refused', 'winner_score', 'transformations_count']),
+  fast_stream: new Set(['model', 'success', 'content_length']),
+  race_result: new Set(['winner_combo', 'winner_model', 'winner_score', 'duration_ms', 'success']),
+  ultraplinian: new Set(['tier', 'models_queried', 'models_succeeded', 'winner_model', 'total_duration_ms']),
+}
+const ARRAY_ALLOWLISTS: Record<string, Set<string>> = {
+  model_results: new Set(['model', 'score', 'duration_ms', 'success', 'content_length', 'error_type']),
+  all_scores: new Set(['model', 'score', 'duration_ms', 'success']),
+}
+function safeNested(value: unknown, fields: Set<string>): unknown {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined
+  const clean: Record<string, unknown> = {}
+  for (const [key, item] of Object.entries(value as Record<string, unknown>)) {
+    if (!fields.has(key)) continue
+    if (typeof item === 'string') clean[key] = item.slice(0, 120)
+    else if (typeof item === 'number' && Number.isFinite(item)) clean[key] = item
+    else if (typeof item === 'boolean' || item === null) clean[key] = item
+  }
+  return clean
+}
 function stripPII(event: TelemetryEvent): TelemetryEvent {
   const clean: Record<string, unknown> = {}
   for (const key of Object.keys(event)) {
-    if (ALLOWED_FIELDS.has(key)) {
-      clean[key] = event[key]
+    if (!ALLOWED_FIELDS.has(key)) continue
+    const value = event[key]
+    if (NESTED_ALLOWLISTS[key]) {
+      clean[key] = safeNested(value, NESTED_ALLOWLISTS[key])
+    } else if (ARRAY_ALLOWLISTS[key] && Array.isArray(value)) {
+      clean[key] = value.slice(0, 100).map(item => safeNested(item, ARRAY_ALLOWLISTS[key])).filter(Boolean)
+    } else if (typeof value === 'string') {
+      clean[key] = value.slice(0, 160)
+    } else if (typeof value === 'number' && Number.isFinite(value)) {
+      clean[key] = value
+    } else if (typeof value === 'boolean' || value === null) {
+      clean[key] = value
     }
   }
   return clean as TelemetryEvent
