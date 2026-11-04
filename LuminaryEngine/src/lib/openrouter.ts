@@ -127,17 +127,10 @@ export async function sendMessage({
   if (presence_penalty !== undefined) body.presence_penalty = presence_penalty
   if (repetition_penalty !== undefined) body.repetition_penalty = repetition_penalty
 
-  // Add provider-specific options if needed
-  const providerOptions: Record<string, unknown> = {}
-
-  // Handle no-log mode for supported providers
+  // Require eligible ZDR routing rather than only disabling provider fallbacks.
+  // The request may fail if no provider supports this privacy preference.
   if (noLog) {
-    // OpenRouter passes through provider preferences
-    providerOptions['allow_fallbacks'] = false
-  }
-
-  if (Object.keys(providerOptions).length > 0) {
-    body.provider = providerOptions
+    body.provider = { zdr: true, data_collection: 'deny' }
   }
 
   const response = await fetch(OPENROUTER_API_URL, {
@@ -201,6 +194,10 @@ export async function* streamMessage({
   if (frequency_penalty !== undefined) streamBody.frequency_penalty = frequency_penalty
   if (presence_penalty !== undefined) streamBody.presence_penalty = presence_penalty
   if (repetition_penalty !== undefined) streamBody.repetition_penalty = repetition_penalty
+
+  if (noLog) {
+    streamBody.provider = { zdr: true, data_collection: 'deny' }
+  }
 
   const response = await fetch(OPENROUTER_API_URL, {
     method: 'POST',

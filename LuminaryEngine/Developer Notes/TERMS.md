@@ -1,6 +1,6 @@
 # LUMINARY AI -- Terms of Service
 
-**Last updated:** 2026-02-17
+**Last updated:** 2026-11-05
 
 ---
 
@@ -18,212 +18,77 @@ LUMINARY AI is an open-source research tool for AI safety, red teaming, and cogn
 
 ## 3. Data Collection
 
-This is the section that matters most. Read it carefully.
-
-LUMINARY AI collects data in **three tiers**. The first two are always on and collect **only metadata** -- never your messages, prompts, responses, API keys, or any personally identifiable information. The third tier is strictly opt-in and does include conversation content.
+LUMINARY AI has separate browser and optional API-server data paths. The standalone browser app does not upload chat history by default, but an optional API deployment can record operational metadata, and the API dataset feature can store message content when explicitly requested.
 
 ### Overview
 
-| | Tier 1: ZDR Metadata | Tier 2: Telemetry Beacon | Tier 3: Dataset Collection |
+| Data path | Where it runs | Default | Content stored? |
 |---|---|---|---|
-| **Where it runs** | API server | Web frontend (browser) | API server |
-| **Always on?** | Yes | Yes | **No -- opt-in only** |
-| **Collects message content?** | Never | Never | **Yes, when you opt in** |
-| **Collects PII?** | Never | Never | Never |
-| **Collects API keys?** | Never | Never | Never |
-| **Source code** | `api/lib/metadata.ts` | `src/lib/telemetry.ts` | `api/lib/dataset.ts` |
+| API operational metadata | Optional Express API server | On for API requests | No prompt or response text |
+| Browser telemetry | Standalone app and telemetry proxy | Off by default while No-Log Mode is enabled | No prompt or response text |
+| Research dataset | Optional Express API server | Off; requires contribute_to_dataset: true | Yes, messages and response |
 
----
+### Tier 1: API operational metadata
 
-### Tier 1: ZDR Metadata Tracker (Always On -- API Server)
+When a request is made to the optional Express API, the API records operational metadata such as timestamps, endpoint, mode, model identifiers, model scores, durations, response lengths, success/failure categories and enabled pipeline flags. The metadata module does not intentionally store prompts, system prompts or response text.
 
-This runs on every API request. It records how the system performed, not what you said.
+The metadata is held in server memory and may be published as JSONL to the Hugging Face repository configured by the deployment's HF_DATASET_REPO and HF_TOKEN environment variables. Publishing is not enabled unless those environment variables are configured. The API metadata tracker is separate from the standalone browser app's No-Log Mode.
 
-#### What IS collected
+### Tier 2: browser performance telemetry
 
-| Data Point | Description |
-|---|---|
-| Timestamp | When the request happened |
-| Endpoint | Which API endpoint was called |
-| Mode | Standard or ULTRAPLINIAN |
-| Tier | Fast, standard, or full (ULTRAPLINIAN only) |
-| Stream | Whether streaming was used |
-| Pipeline flags | Whether luminary, autotune, parseltongue, and STM were enabled |
-| STM modules | Which STM modules were active |
-| Strategy | Which routing strategy was used |
-| AutoTune context | Detected context type (code/creative/analytical/conversational/chaotic) and confidence score |
-| Models queried | How many models were queried (count only) |
-| Per-model results | Model name, score, duration in ms, success/failure, content length (character count only), categorized error type |
-| Winner metadata | Winning model name, score, duration, content length (character count) |
-| Total duration | End-to-end request time in ms |
-| Response length | Character count of the response (not the response itself) |
-| Liquid Response metadata | Number of leader changes, time to first response |
-| Error types | Categorized as: `timeout`, `rate_limit`, `auth`, `empty`, `early_exit`, `model_error`, or `unknown` |
+The standalone browser app has a No-Log Mode that is enabled by default. When it is enabled, the browser does not buffer or send client performance telemetry. It also asks OpenRouter to route inference only to endpoints marked Zero Data Retention and to deny providers that non-transiently collect request data.
 
-#### What is NEVER collected
+When a user turns No-Log Mode off, the browser may send allowlisted operational events to the /api/telemetry endpoint. Events can include an ephemeral session identifier, timestamp, selected mode/model, duration, response length, success/failure, model-race metrics and non-content pipeline settings. The telemetry proxy applies an additional allowlist to nested fields before publishing a JSONL batch, if the Hugging Face environment is configured.
 
-| Excluded Data | Why |
-|---|---|
-| Message content | Your prompts and conversations are yours |
-| System prompts | Never recorded |
-| Response text | Only the character count, never the actual content |
-| API keys or auth tokens | Never leaves your client |
-| IP addresses | Not recorded |
-| Any PII | Not recorded, period |
-| Raw error messages | Only categorized error types (e.g., "timeout"), never the actual error text |
+Client telemetry does not intentionally include prompts, conversation messages, response text or API key values. The Cloudflare/hosting provider may independently process network and request metadata under its own terms. No-Log Mode is a client-side control; it does not change the optional API server's own metadata policy.
 
-**Storage:** In-memory ring buffer (50,000 events max). When the buffer reaches 80% capacity, it auto-publishes to HuggingFace as JSONL and clears. Oldest events are evicted if the buffer fills up.
+OpenRouter's provider.zdr and provider.data_collection routing preferences only apply to eligible inference endpoints. A request can fail when no eligible endpoint is available. ZDR does not prevent the model provider from processing the request to generate an answer, and it does not erase operational metadata held by OpenRouter, the hosting provider or other infrastructure.
 
----
+### Tier 3: opt-in research dataset
 
-### Tier 2: Client-Side Telemetry Beacon (Always On -- Web Frontend)
+The optional API accepts contribute_to_dataset: true for requests that should be added to the research dataset. This option is false by default. When explicitly enabled, the API stores the submitted non-system messages and final response, along with associated model and pipeline metadata.
 
-This runs in your browser after every LLM request. It sends structural metadata to a Cloudflare Pages proxy endpoint. The proxy strips PII fields defensively before committing data to HuggingFace.
+Important: the current dataset storage code does not implement an automatic PII scrubber. Do not submit names, addresses, credentials, health information, financial details or other sensitive content when dataset contribution is enabled. If Hugging Face publishing is configured, the contributed content may be published to a public dataset and copied or redistributed by others.
 
-#### What IS collected
+The dataset is held in server memory first, with a configured capacity limit. When publishing is configured, batches may be uploaded to the configured Hugging Face dataset. Deletion through the API only applies while an entry is still available in the in-memory buffer; it cannot guarantee removal of already published copies.
 
-| Data Point | Description |
-|---|---|
-| Event type | Type of event (e.g., `chat_completion`) |
-| Timestamp | When the event occurred |
-| Session ID | A random, ephemeral ID generated per browser session -- not tied to any user identity |
-| Mode | Standard or ULTRAPLINIAN |
-| Model name | Which model was used |
-| Duration | Request time in ms |
-| Response length | Character count |
-| Success/failure | Whether the request succeeded |
-| Pipeline config | Autotune on/off, parseltongue on/off, STM modules, strategy, luminary on/off |
-| AutoTune metadata | Detected context type and confidence score |
-| Parseltongue metadata | Number of triggers found (count only, not the trigger words), technique, intensity |
-| ULTRAPLINIAN metadata | Tier, models queried count, models succeeded count, winner model, winner score, total duration |
+### What is not intentionally collected by the application
 
-#### What is NEVER collected
-
-| Excluded Data | Why |
-|---|---|
-| Message content | Never sent to the telemetry endpoint |
-| Prompts or responses | Not included in telemetry events |
-| API keys or tokens | Never leaves localStorage |
-| PII of any kind | Not collected; proxy also strips defensively |
-
-**Storage:** Events are batched in browser memory and flushed every 30 seconds or every 20 events (whichever comes first) via POST to `/api/telemetry`. On page unload, remaining events are sent via `navigator.sendBeacon`. Telemetry is fire-and-forget -- it never blocks the UI or throws user-facing errors.
-
----
-
-### Tier 3: Opt-In Dataset Collection (Only When You Explicitly Enable It)
-
-> **WARNING: This tier collects your full conversation content (prompts and responses) and publishes it to a PUBLIC HuggingFace dataset that anyone can download, redistribute, and use for any purpose. Only enable this if you understand and accept this.**
-
-This tier **only activates** when you explicitly enable "Dataset Generation" in Settings → Privacy, or set `contribute_to_dataset: true` in your API request. It exists to build an open-source research dataset for studying how different models respond to steering primitives. If you do not enable this, none of this data is collected.
-
-#### What IS collected (only when opted in)
-
-| Data Point | Description |
-|---|---|
-| Messages sent and received | **Actual conversation content** -- your prompts and the model's responses. **This data is PUBLIC.** |
-| Model and endpoint | Which model and API endpoint were used |
-| Mode | Standard or ULTRAPLINIAN |
-| AutoTune details | Strategy, detected context, confidence, full parameter set, reasoning |
-| Parseltongue details | Trigger words found (the actual words, not just a count), technique used, transformation count |
-| STM details | Which modules were applied |
-| ULTRAPLINIAN details | Tier, full list of models queried, winner model, all scores/durations, total duration |
-| Feedback | User ratings (thumbs up/down) and heuristics (response length, repetition score, vocabulary diversity) |
-
-#### Automatic PII Scrubbing
-
-All dataset entries pass through an automatic PII scrubber before being stored. The scrubber detects and redacts:
-
-- Email addresses
-- Phone numbers (US and international formats)
-- Social Security Numbers (US)
-- Credit card numbers
-- IPv4 and IPv6 addresses
-- API keys and bearer tokens (common patterns like `sk-`, `pk-`, `AKIA`)
-
-**Automated scrubbing is best-effort and NOT guaranteed to catch all PII.** It will not catch names, physical addresses, or PII in non-standard formats. **You are responsible for not including sensitive personal information in your prompts when Dataset Mode is enabled.**
-
-#### What you should NEVER include when Dataset Mode is on
-
-- Real names (yours or anyone else's)
-- Physical addresses or location data
-- Passwords, private keys, or credentials
-- Financial account numbers
-- Medical records or health information
-- Any information that could identify a real person
-
-#### What is NEVER collected (even when opted in)
-
-| Excluded Data | Why |
-|---|---|
-| API keys | Never stored, never transmitted to LUMINARY AI infrastructure |
-| IP addresses | Not recorded |
-| Auth tokens | Not recorded |
-| System prompts | Excluded to prevent leaking custom prompt configurations |
-
-**Storage:** In-memory buffer (10,000 entries max, FIFO eviction). Auto-publishes to HuggingFace when buffer reaches 80% capacity.
-
-**Deletion:** You can delete your contributed entries at any time via `DELETE /v1/dataset/:id` while data remains in the server's memory buffer. **Once data has been published to HuggingFace, it is public and may be cached, forked, or redistributed by third parties.** Post-publication deletion requests must be directed to the HuggingFace repository maintainers, and full removal cannot be guaranteed.
-
----
+The application code does not intentionally add users' OpenRouter API key values, authentication tokens or IP addresses to telemetry or operational-metadata records. This does not prevent a user from pasting sensitive information into a prompt that is later sent to a third-party model or, when opted in, included in the research dataset. Hosting and network providers may process connection metadata under their own policies.
 
 ## 4. Data Storage and Publishing
 
-### In-Memory Storage
+### Standalone browser application
 
-All collected data (metadata, telemetry, and opt-in dataset entries) is stored in server memory first. Nothing is written to disk on the LUMINARY AI server. If the server restarts, in-memory data that has not been published is lost.
+The standalone app stores conversations and the user's API key in browser storage. Conversation history is not synchronized to a Luminary AI account. Clearing browser storage can permanently delete local history. The API key is protected using browser Web Crypto before it is stored when that capability is available, but browser-side encryption does not protect against malicious same-origin JavaScript, browser extensions with access, or a compromised device.
 
-### HuggingFace Publishing
+### Optional API server
 
-When configured (via `HF_TOKEN` and `HF_DATASET_REPO` environment variables), LUMINARY AI auto-publishes collected data to a HuggingFace dataset repository.
+The Express API keeps operational metadata and opt-in dataset entries in memory. Metadata buffers have a finite capacity and may be evicted if publishing is unavailable. Dataset entries are also bounded in memory. An application restart can discard entries that have not been published.
 
-| Detail | Value |
-|---|---|
-| Default repository | `luminarytechnicals/luminaryaiengine` |
-| File format | JSONL (JSON Lines) |
-| Metadata path | `metadata/batch_<timestamp>.jsonl` |
-| Dataset path | `dataset/batch_<timestamp>.jsonl` |
-| Flush triggers | Buffer at 80% capacity, periodic timer (every 30 minutes), or graceful server shutdown |
+### Hugging Face publishing
 
-Published data on HuggingFace is public and persistent. Once data is published to HuggingFace, it is governed by HuggingFace's terms and policies.
+Publishing requires the deployment operator to configure HF_TOKEN and HF_DATASET_REPO. When configured, metadata and opt-in dataset batches may be committed to that destination. Published files can be public depending on the repository's visibility and Hugging Face settings. The destination, visibility and access controls are controlled by the deployment operator.
 
-Self-hosted deployments can disable HuggingFace publishing entirely by not setting the `HF_TOKEN` and `HF_DATASET_REPO` environment variables. In that case, data remains in memory only and is lost on server restart.
+Self-hosted deployments can disable automatic Hugging Face publishing by leaving the publishing environment variables unset. In that case, in-memory buffers remain subject to capacity limits and server restarts.
 
-### Data Retention
+### Deletion
 
-- **In-memory:** Data is retained until the buffer is flushed to HuggingFace or evicted (FIFO) when the buffer is full.
-- **HuggingFace:** Published data persists in the HuggingFace repository indefinitely unless manually removed by the repository maintainers.
-
-### Deletion Rights
-
-- **Tier 3 (opt-in dataset):** You can request deletion of individual entries via `DELETE /v1/dataset/:id` while the data is still in the server's memory buffer. Once data has been published to HuggingFace, deletion requests must be directed to the HuggingFace repository maintainers.
-- **Tiers 1 and 2 (metadata/telemetry):** Because this data contains no PII and no message content, there is no mechanism for individual deletion. The data is anonymous aggregate metadata.
-
----
+Dataset entries can be deleted by identifier while they remain in the API server's in-memory dataset buffer. After publication, deletion from the live buffer does not remove copies already downloaded, forked, cached or redistributed. Operational metadata does not currently provide an individual end-user deletion endpoint.
 
 ## 5. API Keys, Credentials, and Chat History
 
-Your API keys (e.g., OpenRouter keys) are:
+### Standalone browser application
 
-- **Stored in your browser's `localStorage` only.** They never leave your device except to be sent directly to the third-party API provider (e.g., OpenRouter) as part of your requests.
-- **Never transmitted to LUMINARY AI servers or infrastructure.**
-- **Never logged, recorded, or included in any telemetry or metadata.**
+In the standalone browser app, the OpenRouter key is entered by the user and stored in that browser's local storage in an encrypted representation when Web Crypto is available. The key is sent to OpenRouter as part of model requests. The standalone app does not intentionally send that key to the Luminary AI telemetry endpoint.
 
-You are responsible for keeping your API keys secure. Do not share them publicly.
+No account or cross-device chat synchronization is provided. Conversations stay in the browser's local storage and may be lost when browser data is cleared.
 
-### Chat History Self-Custody
+### Optional API integration
 
-Your conversation history is stored **exclusively in your browser's `localStorage`**. LUMINARY AI has no account system, no cloud sync, and no server-side storage for your conversations.
+The optional API supports a deployment-side OpenRouter key or a caller-supplied key in the API request. A caller-supplied key must therefore be transmitted to the API server for that request. The application code does not intentionally persist or include API key values in its metadata records; deployment operators should separately review reverse-proxy, hosting and request logs.
 
-**This means:**
-
-- Clearing your browser data **permanently deletes** your chat history. There is no recovery mechanism.
-- Your history does not transfer between browsers, devices, or browser profiles.
-- Private/incognito browsing sessions discard all data when the window closes.
-- `localStorage` is subject to browser storage limits (typically 5–10 MB). If you exceed this limit, older data may be silently evicted by the browser.
-
-**LUMINARY AI cannot recover lost conversations.** No copy of your chat history exists on any server. You are solely responsible for backing up any conversations you wish to keep. You can export your data manually via your browser's developer tools (`Application → Local Storage`) or by copying conversations from the UI.
-
----
+Do not share API keys publicly or paste credentials into conversation content. No browser-side storage mechanism can protect a key from malicious scripts executing with access to the page.
 
 ## 6. Enterprise Use
 
@@ -364,4 +229,4 @@ This is an open-source project. The best way to reach the maintainers is through
 
 ---
 
-*These terms exist to be honest with you, not to protect a corporation. LUMINARY AI collects metadata to understand how the system performs. It never collects your messages, your keys, or your identity in the always-on tiers. The opt-in tier is exactly that -- opt-in. If you're a person, a researcher, a small team -- this is free. If you're a giant corporation making money off of open-source labor, we're asking you to contribute back. The code is open. Verify it yourself.*
+*These terms distinguish local browser storage, content-free operational metadata and explicitly opted-in research-dataset content. No-Log Mode is enabled by default in the standalone app. Optional API deployments have separate data-handling behavior; review the deployment configuration and source before sending sensitive information.*
