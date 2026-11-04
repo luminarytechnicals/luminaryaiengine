@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luminary AI Privacy | Local Storage, No-Log Mode and Data Handling</title>
+<meta name="description" content="Read how Luminary AI stores browser conversations, routes OpenRouter requests, handles optional telemetry and separates opt-in research-dataset contributions.">
+<link rel="canonical" href="https://luminaryaiengine.dpdns.org/privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Luminary AI">
+<meta property="og:title" content="Luminary AI Privacy | Local Storage, No-Log Mode and Data Handling">
+<meta property="og:description" content="Read how Luminary AI stores browser conversations, routes OpenRouter requests, handles optional telemetry and separates opt-in research-dataset contributions.">
+<meta property="og:url" content="https://luminaryaiengine.dpdns.org/privacy.html">
+<meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Luminary AI Privacy | Local Storage, No-Log Mode and Data Handling">
+<meta name="twitter:description" content="Read how Luminary AI stores browser conversations, routes OpenRouter requests, handles optional telemetry and separates opt-in research-dataset contributions.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://luminaryaiengine.dpdns.org/privacy.html#page","url":"https://luminaryaiengine.dpdns.org/privacy.html","name":"Luminary AI Privacy | Local Storage, No-Log Mode and Data Handling","headline":"Luminary AI Privacy | Local Storage, No-Log Mode and Data Handling","description":"Read how Luminary AI stores browser conversations, routes OpenRouter requests, handles optional telemetry and separates opt-in research-dataset contributions.","inLanguage":"en","publisher":{"@type":"Organization","@id":"https://luminaryaiengine.dpdns.org/#organization","name":"Luminary Technicals","url":"https://luminarytechnicals.dpdns.org/"}}</script>
+<style>
+:root{color-scheme:dark;--bg:#030805;--line:#203520;--green:#00e83f;--text:#e2e8e2;--muted:#a0b4a0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 Inter,system-ui,sans-serif}
+header,main,footer{width:min(100% - 36px,900px);margin:auto}header{padding:26px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+nav{display:flex;gap:16px;flex-wrap:wrap}a{color:var(--green);text-underline-offset:3px}main{padding:44px 0 70px}
+h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.2}h2{margin-top:36px}p,li{color:var(--muted)}.lead{font-size:1.18rem;color:var(--text)}
+section{border-top:1px solid var(--line);margin-top:28px;padding-top:8px}pre{white-space:pre-wrap;background:#071007;border:1px solid var(--line);padding:16px;overflow-wrap:anywhere}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header><a href="/"><strong>LUMINARY AI</strong></a>
+<nav><a href="/about.html">About</a><a href="/architecture.html">Architecture</a><a href="/features/ultraplinian.html">ULTRAPLINIAN</a><a href="/docs/api.html">API</a><a href="/privacy.html">Privacy</a><a href="/LuminaryEngine/index.html">Launch app</a></nav>
+</header>
+<main><article><h1>Luminary AI privacy and data handling</h1><p class="lead">Luminary AI has separate browser, model-provider and optional API-server data paths. No-Log Mode is enabled by default in the standalone browser application.</p><section><h2>Browser conversations and API key</h2><p>The standalone application stores chat conversations and the user's OpenRouter key in browser storage. It does not provide account-based cloud synchronization. Clearing browser storage may permanently remove local conversations. Browser-side key encryption does not protect against malicious same-origin scripts, browser extensions with storage access or a compromised device.</p></section>
+<section><h2>No-Log Mode</h2><p>No-Log Mode is enabled by default. For OpenRouter chat-completion requests, the app requests <code>provider.zdr: true</code> and <code>provider.data_collection: "deny"</code>. These controls restrict routing to eligible Zero Data Retention endpoints and providers that do not non-transiently collect request data. Requests can fail when no eligible endpoint is available.</p><p>ZDR does not mean the provider never processes the prompt or prevent OpenRouter, hosting providers or network infrastructure from processing operational metadata under their own terms.</p></section>
+<section><h2>Client performance telemetry</h2><p>When No-Log Mode is enabled, the browser app does not buffer or send optional performance telemetry. When disabled, the app may send allowlisted operational metrics such as timestamps, session identifier, model/mode, response length, durations and race metrics to <code>/api/telemetry</code>. The telemetry proxy filters nested fields before publishing, if Hugging Face publishing is configured.</p></section>
+<section><h2>Optional API-server metadata</h2><p>The separate Express API records content-free operational metadata for API requests. Depending on deployment configuration, these records may be published to a Hugging Face dataset when <code>HF_TOKEN</code> and <code>HF_DATASET_REPO</code> are configured. This policy is separate from the browser app's No-Log Mode.</p></section>
+<section><h2>Opt-in research dataset</h2><p>The optional API accepts <code>contribute_to_dataset: true</code>. When explicitly enabled, the API stores non-system messages and the final response with associated model and pipeline metadata. The current source does not implement an automatic PII scrubber for these entries. Do not submit secrets, personal data or sensitive information. If publication is configured, contributed content may become public and may be copied or redistributed.</p></section></article>
+<p><a href="/LuminaryEngine/index.html">Open Luminary AI</a> · <a href="https://github.com/luminarytechnicals/luminaryaiengine">Browse source code</a></p>
+</main>
+<footer>© Luminary Technicals · Luminary AI LLM Engine · <a href="/privacy.html">Privacy</a></footer>
+</body>
+</html>
