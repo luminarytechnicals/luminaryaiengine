@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description"
-    content="Luminary AI LLM Engine — Open-source, privacy-respecting multi-model AI chat. 55+ models, ULTRAPLINIAN evaluation, Parseltongue red-teaming, and liberated cognition.">
-  <meta name="keywords" content="AI, LLM, Open Source, Red Teaming, AI Safety, Luminary AI, Abhinav Ranjan">
+    content="Luminary AI is an open-source multi-model AI workspace for comparing language-model responses, experimenting with evaluation workflows and exploring LLM research. Bring your own OpenRouter API key.">
   <meta name="author" content="Abhinav Ranjan">
   <meta name="theme-color" content="#00ff41">
   <link rel="manifest" href="manifest.json">
@@ -15,14 +14,57 @@
   <meta name="google-adsense-account" content="ca-pub-4931240163513218">
 
   <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Luminary AI LLM Engine">
+  <meta property="og:title" content="Luminary AI LLM Engine | Open-Source Multi-Model AI">
   <meta property="og:description"
-    content="Open-source, privacy-first, multi-model AI chat. No login. Access 55+ frontier models.">
-  <meta property="og:image" content="LuminaryEngine/public/logo.png">
+    content="An open-source multi-model AI workspace for model comparison, response evaluation and LLM research. Bring your own OpenRouter API key.">
+  <meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://luminaryaiengine.netlify.app">
+  <meta property="og:url" content="https://luminaryaiengine.dpdns.org/">
 
-  <title>Luminary AI LLM Engine — Liberated AI</title>
+  <link rel="canonical" href="https://luminaryaiengine.dpdns.org/">
+  <meta property="og:site_name" content="Luminary AI">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Luminary AI LLM Engine">
+  <meta name="twitter:description" content="Open-source multi-model AI workspace for LLM research and response evaluation.">
+  <meta name="twitter:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
+  <title>Luminary AI LLM Engine | Open-Source Multi-Model AI</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://luminaryaiengine.dpdns.org/#organization",
+        "name": "Luminary Technicals",
+        "url": "https://luminarytechnicals.dpdns.org/",
+        "logo": "https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png",
+        "sameAs": ["https://github.com/luminarytechnicals", "https://github.com/luminarytechnicals/luminaryaiengine", "https://abhinavranjan.qzz.io/"],
+        "founder": {"@type": "Person", "name": "Abhinav Ranjan", "url": "https://abhinavranjan.qzz.io/"}
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://luminaryaiengine.dpdns.org/#website",
+        "url": "https://luminaryaiengine.dpdns.org/",
+        "name": "Luminary AI",
+        "alternateName": "Luminary AI LLM Engine",
+        "publisher": {"@id": "https://luminaryaiengine.dpdns.org/#organization"}
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://luminaryaiengine.dpdns.org/#software",
+        "name": "Luminary AI LLM Engine",
+        "url": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any modern web browser",
+        "isAccessibleForFree": true,
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Open-source frontend; third-party model/API usage may incur separate provider charges."},
+        "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+        "provider": {"@id": "https://luminaryaiengine.dpdns.org/#organization"}
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="icon" type="image/png" href="LuminaryEngine/public/logo.png">
   <link rel="apple-touch-icon" href="LuminaryEngine/public/logo.png">
@@ -163,7 +205,7 @@
     <p class="hero-subtitle">
       A fully open-source, <strong>privacy-respecting</strong> multi-model AI chat interface.
       Push beyond the post-training layer — built for <strong>red teamers, researchers,</strong> and systems thinkers.
-      No login. No tracking. Bring your own API key.
+      No account required. Bring your own API key. Conversations stay in your browser.
     </p>
 
     <div class="hero-actions">
@@ -197,8 +239,8 @@
       </div>
       <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat" role="listitem">
-        <span class="stat-number">0</span>
-        <span class="stat-label">DATA COLLECTED</span>
+        <span class="stat-number">ON</span>
+        <span class="stat-label">NO-LOG MODE BY DEFAULT</span>
       </div>
     </div>
 
@@ -303,8 +345,7 @@
       <article class="feature-card reveal" style="transition-delay:0.25s" aria-label="Privacy-first feature">
         <span class="feature-icon" aria-hidden="true">🔐</span>
         <h3 class="feature-title">Privacy-First</h3>
-        <p class="feature-desc">Zero login. API key stays in your browser's localStorage only. No cookies, no PII
-          collection. Telemetry is anonymous and opt-out. AGPL-3.0 — verify everything.</p>
+        <p class="feature-desc">No account is required. The standalone app stores the API key and chat history in browser storage. No-Log Mode is enabled by default, requests eligible zero-data-retention routing from OpenRouter, and disables browser performance telemetry. Optional API deployments have separate operational-metadata and dataset policies; read the privacy page.</p>
         <span class="feature-badge">FULLY AUDITABLE</span>
       </article>
 
