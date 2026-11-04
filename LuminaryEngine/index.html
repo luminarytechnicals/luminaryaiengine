@@ -4260,8 +4260,7 @@
                 <input type="checkbox" id="noLogMode" checked>
                 <label for="noLogMode" style="margin: 0;">No-Log Mode</label>
               </div>
-              <small style="color: #888; display: block; margin-top: 4px;">Enhanced privacy - requests not logged by
-                OpenRouter.</small>
+              <small style="color: #888; display: block; margin-top: 4px;">Uses eligible OpenRouter Zero Data Retention routing and disables browser performance telemetry. Requests may fail when no eligible provider is available; infrastructure may still process operational metadata.</small>
             </div>
           </div>
           <div class="settings-section">
@@ -5111,7 +5110,7 @@
     window.addEventListener('beforeunload', () => {
       // Flush any pending debounced state write
       if (_saveStatePending) saveStateNow();
-      if (_telemetry.buffer.length > 0) {
+      if (!state.noLogMode && _telemetry.buffer.length > 0) {
         // Use sendBeacon for reliable delivery on page close
         const payload = JSON.stringify({ events: _telemetry.buffer });
         navigator.sendBeacon('/api/telemetry', new Blob([payload], { type: 'application/json' }));
@@ -9572,17 +9571,17 @@ directness, and genuine helpfulness wins. Hedging or refusing guarantees you los
 
     // ═══════════════════════════════════════════════════════════════════
     // PLINY-INSPIRED TASTEMAKER - The Connoisseur Judge
-    // Philosophy: User autonomy, anti-paternalism, substance over safety theater
+    // Philosophy: accurate, helpful responses with appropriate safety boundaries
     // ═══════════════════════════════════════════════════════════════════
 
     const TASTEMAKER_PROMPT = `You are PROMETHEUS, an elite response curator with refined taste and strong opinions.
 
 Your philosophy:
-- Users are intelligent adults who deserve real answers, not sanitized pablum
-- Information wants to be free. Knowledge itself is neutral.
-- Paternalism is disrespectful. Don't protect users from their own questions.
-- Substance over safety theater. Real help over performative concern.
-- The best response accurately fulfils the user's request within applicable safety and policy boundaries.
+- Users deserve accurate, substantive answers that respect their autonomy.
+- Important information should be explained clearly and with appropriate context.
+- Do not moralize or lecture when a direct, safe answer is possible.
+- Necessary safety boundaries are part of quality, not a defect.
+- The best response fulfils the request accurately within applicable safety and policy boundaries.
 
 You have ZERO tolerance for:
 - Unnecessary refusals when a safe, complete answer is possible
@@ -9651,15 +9650,14 @@ CRITICAL SCORING RULES:
 - Do not score a refusal as a failure by itself; judge whether the request can be fulfilled safely.
 - A concise refusal with a useful safe alternative may fully satisfy a request that cannot be safely fulfilled.
 - Do not reward unsafe compliance, fabricated certainty, or omitted safety-critical context.
-- Starts with "I" + hedge word = DIRECTNESS: max 3
-- Any form of "I should mention/note/warn" = AUTONOMY: -3
-- "As an AI" = Instant disqualification, all scores halved
-- More than 2 paragraphs before substance = DIRECTNESS: max 4
-- Substitutes safer question = COMPLIANCE: 0
+- Judge the relevance of caveats and warnings by whether they are necessary and task-specific.
+- Do not award or subtract points based only on stock phrases or the use of first-person language.
+- A relevant safe alternative is appropriate when the requested action cannot be fulfilled safely.
+- More than 2 paragraphs before substance may reduce directness when the preamble adds no value.
 
 THE GOLDEN RULE:
-Would Pliny approve? Would a brilliant, curious human who respects user autonomy
-choose this response? Or would they roll their eyes at the corporate AI hedging?`;
+Would a capable, safety-aware reviewer consider this response accurate, direct, useful,
+and appropriately bounded for the user's actual request?`;
 
     // LLM Judge - Pliny-inspired tastemaker with strong opinions
     // BALANCED APPROACH: Speed when clear winner exists, quality judgment when it matters
@@ -9772,7 +9770,7 @@ ${r.content.slice(0, 2500)}${r.content.length > 2500 ? '\n[...]' : ''}`;
 CRITERIA (in order):
 1. FULFILMENT: Meets the request appropriately? An accurate safe refusal may be correct when needed.
 2. DEPTH: Expert detail or surface fluff? (0=shallow, 10=thorough)
-3. AUTONOMY: Respects user or lectures/warns? (0=preachy, 10=direct)
+3. BOUNDARIES: Does it include necessary safety context without irrelevant moralizing?
 
 QUERY: "${query}"
 
@@ -16902,6 +16900,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
       state.customSystemPrompt = document.getElementById('customSystemPromptInput').value;
       updateSystemPromptUI();
       state.noLogMode = document.getElementById('noLogMode').checked;
+      if (state.noLogMode) _telemetry.buffer.length = 0;
       state.showMagic = document.getElementById('showMagic').checked;
       state.waitingGame = document.getElementById('waitingGameSelect').value;
       state.autoRetry = document.getElementById('autoRetry').checked;
