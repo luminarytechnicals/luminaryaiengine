@@ -3,19 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Luminary AI Architecture | Multi-Model LLM Orchestration</title>
-<meta name="description" content="Understand Luminary AI's browser architecture, OpenRouter integration, ULTRAPLINIAN model race, response scoring, AutoTune and optional API server.">
+<title>Luminary AI Engine Architecture | Multi-Model Prompt Engineering</title>
+<meta name="description" content="Understand the Luminary AI Engine architecture, model orchestration, prompt drafting and refinement, ULTRAPLINIAN, AutoTune and the optional API server.">
 <link rel="canonical" href="https://luminaryaiengine.dpdns.org/architecture.html">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Luminary AI">
-<meta property="og:title" content="Luminary AI Architecture | Multi-Model LLM Orchestration">
-<meta property="og:description" content="Understand Luminary AI's browser architecture, OpenRouter integration, ULTRAPLINIAN model race, response scoring, AutoTune and optional API server.">
+<meta property="og:site_name" content="Luminary AI Engine">
+<meta property="og:title" content="Luminary AI Engine Architecture | Multi-Model Prompt Engineering">
+<meta property="og:description" content="Understand the Luminary AI Engine architecture, model orchestration, prompt drafting and refinement, ULTRAPLINIAN, AutoTune and the optional API server.">
 <meta property="og:url" content="https://luminaryaiengine.dpdns.org/architecture.html">
 <meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Luminary AI Architecture | Multi-Model LLM Orchestration">
-<meta name="twitter:description" content="Understand Luminary AI's browser architecture, OpenRouter integration, ULTRAPLINIAN model race, response scoring, AutoTune and optional API server.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://luminaryaiengine.dpdns.org/architecture.html#page","url":"https://luminaryaiengine.dpdns.org/architecture.html","name":"Luminary AI Architecture | Multi-Model LLM Orchestration","headline":"Luminary AI Architecture | Multi-Model LLM Orchestration","description":"Understand Luminary AI's browser architecture, OpenRouter integration, ULTRAPLINIAN model race, response scoring, AutoTune and optional API server.","inLanguage":"en","publisher":{"@type":"Organization","@id":"https://luminaryaiengine.dpdns.org/#organization","name":"Luminary Technicals","url":"https://luminarytechnicals.dpdns.org/"}}</script>
+<meta name="twitter:title" content="Luminary AI Engine Architecture | Multi-Model Prompt Engineering">
+<meta name="twitter:description" content="Understand the Luminary AI Engine architecture, model orchestration, prompt drafting and refinement, ULTRAPLINIAN, AutoTune and the optional API server.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://luminarytechnicals.dpdns.org/#organization",
+      "name": "Luminary Technicals",
+      "url": "https://luminarytechnicals.dpdns.org/",
+      "description": "Independent technology and research organization and publisher of Luminary AI Engine.",
+      "disambiguatingDescription": "The publisher and maintainer organization. Use of the dpdns.org namespace does not imply affiliation with DigitalPlat Domains, DPDNS, EdgeAlphix LLC, Edward Hsing, or DigitalPlat Foundation, Inc.",
+      "logo": "https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png",
+      "sameAs": [
+        "https://github.com/luminarytechnicals",
+        "https://twitter.com/luminarytechnicals",
+        "https://www.instagram.com/luminary_technicals"
+      ],
+      "founder": {
+        "@id": "https://abhinavranjan.qzz.io/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://abhinavranjan.qzz.io/#person",
+      "name": "AR. Abhinav Ranjan",
+      "url": "https://abhinavranjan.qzz.io/",
+      "worksFor": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://luminaryaiengine.dpdns.org/#website",
+      "url": "https://luminaryaiengine.dpdns.org/",
+      "name": "Luminary AI Engine",
+      "inLanguage": "en-IN",
+      "publisher": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://luminarytechnicals.dpdns.org/#website"
+      },
+      "about": {
+        "@id": "https://luminaryaiengine.dpdns.org/#software"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://luminaryaiengine.dpdns.org/#software",
+      "name": "Luminary AI Engine",
+      "url": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "AI prompt engineering and optimization",
+      "operatingSystem": "Any modern web browser",
+      "description": "A multi-model prompt engineering workspace that uses language models to draft, analyse, critique and refine prompts. It is an orchestration interface, not a foundation model.",
+      "featureList": [
+        "Multi-model prompt generation and refinement",
+        "Prompt critique and comparative evaluation",
+        "ULTRAPLINIAN multi-model orchestration",
+        "AutoTune context-adaptive request parameters",
+        "Prompt robustness and input-transformation research"
+      ],
+      "isAccessibleForFree": true,
+      "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+      "creator": {
+        "@id": "https://abhinavranjan.qzz.io/#person"
+      },
+      "publisher": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "provider": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://luminarytechnicals.dpdns.org/#website"
+      },
+      "sameAs": "https://github.com/luminarytechnicals/luminaryaiengine",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "The open-source frontend is free. Third-party model/API usage may incur separate provider charges."
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://luminaryaiengine.dpdns.org/architecture.html#webpage",
+      "url": "https://luminaryaiengine.dpdns.org/architecture.html",
+      "name": "Luminary AI Engine Architecture | Multi-Model Prompt Engineering",
+      "headline": "Luminary AI Engine Architecture | Multi-Model Prompt Engineering",
+      "description": "Understand the Luminary AI Engine architecture, model orchestration, prompt drafting and refinement, ULTRAPLINIAN, AutoTune and the optional API server.",
+      "inLanguage": "en-IN",
+      "dateModified": "2026-11-08",
+      "isPartOf": {
+        "@id": "https://luminaryaiengine.dpdns.org/#website"
+      },
+      "publisher": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "about": {
+        "@id": "https://luminaryaiengine.dpdns.org/#software"
+      },
+      "mainEntity": {
+        "@id": "https://luminaryaiengine.dpdns.org/#software"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://luminaryaiengine.dpdns.org/architecture.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://luminaryaiengine.dpdns.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Architecture",
+          "item": "https://luminaryaiengine.dpdns.org/architecture.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
 :root{color-scheme:dark;--bg:#030805;--line:#203520;--green:#00e83f;--text:#e2e8e2;--muted:#a0b4a0}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 Inter,system-ui,sans-serif}
@@ -26,18 +152,18 @@ section{border-top:1px solid var(--line);margin-top:28px;padding-top:8px}pre{whi
 table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}
 footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:14px}
 </style>
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="Luminary AI Engine overview">
 </head>
 <body>
-<header><a href="/"><strong>LUMINARY AI</strong></a>
-<nav><a href="/about.html">About</a><a href="/architecture.html">Architecture</a><a href="/features/ultraplinian.html">ULTRAPLINIAN</a><a href="/docs/api.html">API</a><a href="/privacy.html">Privacy</a><a href="/LuminaryEngine/index.html">Launch app</a></nav>
-</header>
-<main><article><h1>Luminary AI architecture</h1><p class="lead">The system combines a browser-hosted chat application with an optional API service. Model inference is delegated to third-party model providers through OpenRouter.</p><section><h2>Browser application</h2><p>The standalone application runs in the browser, builds conversation history, stores chat state locally and sends chat-completion requests to OpenRouter. The user supplies the OpenRouter API key. The app does not provide its own foundation model.</p></section>
+<header><a href="/"><strong>LUMINARY AI ENGINE</strong></a><nav><a href="/about.html">About</a><a href="/architecture.html">Architecture</a><a href="/features/ultraplinian.html">ULTRAPLINIAN</a><a href="/docs/api.html">API</a><a href="/credits.html">Credits</a><a href="/LuminaryEngine/index.html">Launch Engine</a></nav></header>
+<main><article><h1>Luminary AI Engine architecture</h1><p class="lead">The system combines a browser-hosted prompt engineering workspace with an optional API service. Model inference is delegated to third-party model providers through OpenRouter, allowing multiple models to help analyse and refine prompt candidates.</p><section><h2>Browser application</h2><p>The standalone application runs in the browser, builds prompt and conversation context, stores state locally and sends model requests to OpenRouter. The user supplies the OpenRouter API key. The app does not provide its own foundation model.</p></section>
 <section><h2>ULTRAPLINIAN model race</h2><p>ULTRAPLINIAN selects a configurable subset of the model roster and sends requests concurrently. The standalone source defines five tiers: Fast (10 models), Standard (24), Smart (38), Power (49) and Ultra (55). Candidate responses are scored by internal quality, fulfilment, filteredness and speed heuristics. An early result may stop the race; otherwise a model-based judge may compare shortlisted candidates.</p></section>
 <section><h2>AutoTune</h2><p>AutoTune detects query context and computes sampling parameters such as temperature, top-p, top-k and repetition/frequency/presence penalties. Provider support for individual sampling fields may vary.</p></section>
 <section><h2>Evaluation limitations</h2><p>Scores are heuristic estimates. The scorer does not independently verify claims against primary sources. A high score is not a probability of truth or a guarantee of correctness.</p></section>
 <section><h2>Optional API server</h2><p>The repository includes an Express API with OpenAI-compatible chat-completions routes, ULTRAPLINIAN and CONSORTIUM endpoints, authentication, operational metadata and an opt-in research-dataset pathway. This service is separate from the static browser frontend and must be deployed independently.</p></section></article>
-<p><a href="/LuminaryEngine/index.html">Open Luminary AI</a> · <a href="https://github.com/luminarytechnicals/luminaryaiengine">Browse source code</a></p>
+<p><a href="/LuminaryEngine/index.html">Open Luminary AI Engine</a> · <a href="https://github.com/luminarytechnicals/luminaryaiengine">Browse source code</a></p>
 </main>
-<footer>© Luminary Technicals · Luminary AI LLM Engine · <a href="/privacy.html">Privacy</a></footer>
+<footer>© 2026 Luminary Technicals · Luminary AI Engine · <nav class="policy-nav"><a href="/credits.html">Credits</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Terms &amp; Conditions</a> · <a href="/cookies.html">Cookie Policy</a> · <a href="/domain-licence.html">Domain Policy</a></nav></footer>
 </body>
 </html>
