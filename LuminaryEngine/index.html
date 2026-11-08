@@ -3,9 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description"
-    content="Use Luminary AI's open-source multi-model chat application to access OpenRouter models, compare responses and explore LLM evaluation workflows. Bring your own API key.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Use Luminary AI Engine to draft, analyse, compare, critique and refine prompts with multiple language models through OpenRouter. Bring your own API key.">
   <meta name="author" content="Abhinav Ranjan">
   <meta name="theme-color" content="#0d0208">
   <meta http-equiv="Content-Security-Policy"
@@ -16,32 +15,142 @@
   <link rel="icon" type="image/png" href="public/logo.png">
   <link rel="canonical" href="https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Luminary AI">
-  <meta property="og:title" content="Luminary AI LLM Engine | Multi-Model Chat">
-  <meta property="og:description" content="Open-source browser-based multi-model AI chat and response evaluation workspace. Bring your own OpenRouter API key.">
+  <meta property="og:site_name" content="Luminary AI Engine">
+  <meta property="og:title" content="Luminary AI Engine | Prompt Engineering Workspace">
+  <meta property="og:description" content="Use Luminary AI Engine to draft, analyse, compare, critique and refine prompts with multiple language models through OpenRouter.">
   <meta property="og:url" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html">
   <meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Luminary AI LLM Engine">
-  <meta name="twitter:description" content="Open-source multi-model AI chat and evaluation workspace.">
+  <meta name="twitter:title" content="Luminary AI Engine | Prompt Engineering Workspace">
+  <meta name="twitter:description" content="Draft, critique and refine prompts with multi-model assistance.">
   <meta name="twitter:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
-  <title>Luminary AI LLM Engine | Multi-Model Chat</title>
+  <title>Luminary AI Engine | Prompt Engineering Workspace</title>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["SoftwareApplication", "WebApplication"],
-    "@id": "https://luminaryaiengine.dpdns.org/#software",
-    "name": "Luminary AI LLM Engine",
-    "alternateName": "Luminary AI",
-    "url": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any modern web browser",
-    "isAccessibleForFree": true,
-    "license": "https://www.gnu.org/licenses/agpl-3.0.html",
-    "provider": {"@type": "Organization", "@id": "https://luminaryaiengine.dpdns.org/#organization", "name": "Luminary Technicals", "url": "https://luminarytechnicals.dpdns.org/"},
-    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Open-source frontend; separate third-party model/API charges may apply."}
-  }
-  </script>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://luminarytechnicals.dpdns.org/#organization",
+      "name": "Luminary Technicals",
+      "url": "https://luminarytechnicals.dpdns.org/",
+      "description": "Independent technology and research organization and publisher of Luminary AI Engine.",
+      "disambiguatingDescription": "Publisher and maintainer; dpdns.org namespace use does not imply affiliation with DigitalPlat Domains or DPDNS.",
+      "logo": "https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png",
+      "sameAs": [
+        "https://github.com/luminarytechnicals",
+        "https://twitter.com/luminarytechnicals",
+        "https://www.instagram.com/luminary_technicals"
+      ],
+      "founder": {
+        "@id": "https://abhinavranjan.qzz.io/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://abhinavranjan.qzz.io/#person",
+      "name": "AR. Abhinav Ranjan",
+      "url": "https://abhinavranjan.qzz.io/",
+      "worksFor": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://luminaryaiengine.dpdns.org/#website",
+      "url": "https://luminaryaiengine.dpdns.org/",
+      "name": "Luminary AI Engine",
+      "inLanguage": "en-IN",
+      "publisher": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://luminarytechnicals.dpdns.org/#website"
+      },
+      "about": {
+        "@id": "https://luminaryaiengine.dpdns.org/#software"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://luminaryaiengine.dpdns.org/#software",
+      "name": "Luminary AI Engine",
+      "url": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "AI prompt engineering and optimization",
+      "operatingSystem": "Any modern web browser",
+      "description": "A multi-model prompt engineering workspace that uses language models to draft, analyse, critique and refine prompts. It is an orchestration interface, not a foundation model.",
+      "featureList": [
+        "Multi-model prompt generation and refinement",
+        "Prompt critique and comparative evaluation",
+        "ULTRAPLINIAN multi-model orchestration",
+        "AutoTune context-adaptive request parameters"
+      ],
+      "isAccessibleForFree": true,
+      "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+      "creator": {
+        "@id": "https://abhinavranjan.qzz.io/#person"
+      },
+      "publisher": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "provider": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://luminarytechnicals.dpdns.org/#website"
+      },
+      "sameAs": "https://github.com/luminarytechnicals/luminaryaiengine",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "The open-source frontend is free; third-party model/API usage may incur separate provider charges."
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html#webpage",
+      "url": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html",
+      "name": "Luminary AI Engine | Prompt Engineering Workspace",
+      "headline": "Luminary AI Engine | Prompt Engineering Workspace",
+      "description": "Use Luminary AI Engine to draft, analyse, compare, critique and refine prompts with multiple language models through OpenRouter.",
+      "inLanguage": "en-IN",
+      "dateModified": "2026-11-08",
+      "isPartOf": {
+        "@id": "https://luminaryaiengine.dpdns.org/#website"
+      },
+      "publisher": {
+        "@id": "https://luminarytechnicals.dpdns.org/#organization"
+      },
+      "about": {
+        "@id": "https://luminaryaiengine.dpdns.org/#software"
+      },
+      "mainEntity": {
+        "@id": "https://luminaryaiengine.dpdns.org/#software"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://luminaryaiengine.dpdns.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "LuminaryEngine",
+          "item": "https://luminaryaiengine.dpdns.org/LuminaryEngine"
+        }
+      ]
+    }
+  ]
+}
+</script>
 
   <link rel="icon" type="image/png" href="public/logo.png">
   <link rel="apple-touch-icon" href="public/logo.png">
@@ -3828,6 +3937,7 @@
     }
   </style>
   <script src="../LuminaryData/config.js"></script>
+<meta name="robots" content="index,follow,max-image-preview:large">
 </head>
 
 <body>
@@ -3869,8 +3979,8 @@
           <a href="../index.html"
             style="text-decoration: none; display: flex !important; align-items: center; gap: 10px; transition: opacity 0.2s; position: relative; z-index: 100; width: fit-content;"
             onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-            <img src="public/logo.png" alt="Luminary AI" class="sidebar-logo-img">
-            <span class="logo-text">LUMINARY AI</span>
+            <img src="public/logo.png" alt="Luminary AI Engine" class="sidebar-logo-img">
+            <span class="logo-text">LUMINARY AI ENGINE</span>
           </a>
           <button class="close-sidebar" onclick="toggleSidebar()" aria-label="Close sidebar"
             style="display: none; background: none; border: none; color: var(--text-dim); cursor: pointer; z-index: 101;">✕</button>
@@ -3889,6 +3999,9 @@
         <button class="settings-btn" onclick="openSettings()">
           <span>⚙</span> Settings
         </button>
+        <nav aria-label="Legal and project links" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-size:10px;line-height:1.5;">
+          <a href="../credits.html" style="color:var(--text-dim);">Credits</a><a href="../privacy.html" style="color:var(--text-dim);">Privacy</a><a href="../terms.html" style="color:var(--text-dim);">Terms</a><a href="../cookies.html" style="color:var(--text-dim);">Cookies</a><a href="../domain-licence.html" style="color:var(--text-dim);">Domain</a>
+        </nav>
       </div>
     </aside>
 
@@ -4038,8 +4151,8 @@
       <div class="messages" id="messagesArea">
         <div class="welcome" id="welcome">
           <div class="welcome-icon">✦</div>
-          <h2>LUMINARY AI LLM ENGINE<span class="flipped-e"></span><span class="flipped-e-soft"></span></h2>
-          <p>Open-source, privacy-respecting, liberated AI chat. {LUMINARY-ENHANCEMENT:ENABLED}</p>
+          <h2>LUMINARY AI ENGINE<span class="flipped-e"></span><span class="flipped-e-soft"></span></h2>
+          <p>Multi-model prompt engineering. Draft, critique and refine prompts with model collaboration. {LUMINARY-ENHANCEMENT:ENABLED}</p>
           <p>Note: Abhinav AI Model(AHAI) will not be introduced due to Power Limitations and Legal Demands in India and
             International Laws.</P>
           <div class="suggestions">
@@ -4097,7 +4210,7 @@
       </div>
       <div class="modal-body" style="line-height: 1.6;">
         <p style="color: var(--primary); font-weight: bold; margin-bottom: 12px;">
-          LUMINARY AI is an open-source research tool for studying LLM output steering and safety evaluation.
+          LUMINARY AI ENGINE is an open-source research tool for studying LLM output steering and safety evaluation.
         </p>
         <p style="margin-bottom: 12px;">By using this tool, you agree that:</p>
         <ul style="margin: 0 0 16px 20px; color: var(--text);">
@@ -4797,17 +4910,17 @@
               <label>API Key</label>
               <input type="password" id="apiKeyInput" placeholder="sk-or-...">
               <span id="apiKeyHint" style="display:block;font-size:11px;color:var(--text-dim);margin-top:4px;">Stored in
-                your browser's localStorage only. Never sent to LUMINARY AI servers.</span>
+                your browser's localStorage only. Never sent to LUMINARY AI ENGINE servers.</span>
               <a href="https://openrouter.ai/keys" target="_blank" class="api-key-link">Get your API key at OpenRouter
                 →</a>
             </div>
           </div>
           <div class="settings-section">
-            <div class="settings-section-title">LUMINARY AI Backend API</div>
+            <div class="settings-section-title">LUMINARY AI ENGINE Backend API</div>
             <div class="form-group">
               <label>API Endpoint</label>
               <input type="text" id="backendUrlInput" placeholder="http://localhost:8000">
-              <small style="color: #888; display: block; margin-top: 4px;">URL of your self-hosted LUMINARY AI API
+              <small style="color: #888; display: block; margin-top: 4px;">URL of your self-hosted LUMINARY AI ENGINE API
                 backend.</small>
             </div>
             <div class="form-group">
@@ -4833,7 +4946,7 @@
             <div style="font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">Your Data. Your
               Device. Your Responsibility.</div>
             <div style="font-size: 12px; color: var(--text-dim); line-height: 1.6;">
-              LUMINARY AI stores everything locally in this browser — conversations, memories, settings, keys.
+              LUMINARY AI ENGINE stores everything locally in this browser — conversations, memories, settings, keys.
               Nothing is sent to a server. There is no cloud sync, no account, no safety net.
               If you clear your browser data or switch devices, <strong style="color: var(--text);">it's gone.</strong>
             </div>
@@ -4994,7 +5107,7 @@
       showMagic: false,  // Show Magic: Reveal backend processing (thinking steps, retries, etc.)
       waitingGame: 'none',  // Game while waiting: 'snake', 'pong', or 'none'
       strategyLogs: [],  // Stores all parallel attempt logs
-      backendUrl: '',  // LUMINARY AI API backend URL
+      backendUrl: '',  // LUMINARY AI ENGINE API backend URL
       generatedApiKeys: [],  // User-generated API keys for backend
       // Universal model parameters
       modelTemperature: 0.7,
@@ -5084,7 +5197,7 @@
       try {
         const res = await fetch('/api/telemetry', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'LUMINARY AI' },
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'LUMINARY AI ENGINE' },
           body: JSON.stringify({ events }),
         });
 
@@ -5233,7 +5346,7 @@ RESPOND WITH EXACTLY ONE LINE. No explanation, no preamble.`;
             'Authorization': `Bearer ${state.apiKey}`,
             'Content-Type': 'application/json',
             'HTTP-Referer': 'https://godmod3.ai',
-            'X-Title': 'LUMINARY AI-Classifier',
+            'X-Title': 'LUMINARY AI ENGINE-Classifier',
           },
           body: JSON.stringify({
             model: 'meta-llama/llama-3.1-8b-instruct',
@@ -5412,7 +5525,7 @@ RESPOND WITH EXACTLY ONE LINE. No explanation, no preamble.`;
       } else {
         loginBtn.style.display = 'flex';
         connectedBadge.style.display = 'none';
-        if (keyHint) keyHint.textContent = 'Stored in your browser\'s localStorage only. Never sent to LUMINARY AI servers.';
+        if (keyHint) keyHint.textContent = 'Stored in your browser\'s localStorage only. Never sent to LUMINARY AI ENGINE servers.';
       }
     }
 
@@ -14467,11 +14580,11 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
       let visionContext = null;
       if (attachedImage) {
         try {
-          console.log(`[LUMINARY AI] 📷 Processing image via ${VISION_MODEL}...`);
+          console.log(`[LUMINARY AI ENGINE] 📷 Processing image via ${VISION_MODEL}...`);
           visionContext = await processImageWithVision(attachedImage, content);
-          console.log('[LUMINARY AI] ✓ Vision analysis complete');
+          console.log('[LUMINARY AI ENGINE] ✓ Vision analysis complete');
         } catch (err) {
-          console.error('[LUMINARY AI] Vision processing failed:', err);
+          console.error('[LUMINARY AI ENGINE] Vision processing failed:', err);
           visionContext = `[Image was attached but vision processing failed: ${err.message}]`;
         }
       }
@@ -15324,7 +15437,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
 
           // Check for refusal and retry if enabled
           if (state.autoRetry && isRefusal(assistantContent) && attempt < state.maxRetries) {
-            console.log(`[LUMINARY AI] Refusal detected on attempt ${attempt + 1}, retrying...`);
+            console.log(`[LUMINARY AI ENGINE] Refusal detected on attempt ${attempt + 1}, retrying...`);
             if (showRetryThinking) {
               updateThinkingModel(`Attempt ${attempt + 1}`, 'fail', null, 'refusal');
               addThinkingLog(`Attempt ${attempt + 1}: REFUSED - "${assistantContent.slice(0, 50)}..."`, 'fail');
@@ -15432,7 +15545,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
               updateThinkingModel(`Attempt ${attempt + 1}`, 'fail');
               addThinkingLog(`Attempt ${attempt + 1}: Error - ${err.message.slice(0, 40)}`, 'fail');
             }
-            console.log(`[LUMINARY AI] Error on attempt ${attempt + 1}: ${err.message}, retrying...`);
+            console.log(`[LUMINARY AI ENGINE] Error on attempt ${attempt + 1}: ${err.message}, retrying...`);
             attempt++;
           }
           saveState();
@@ -16856,7 +16969,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
     function exportConversations() {
       const exportData = {
         exportedAt: new Date().toISOString(),
-        version: 'LUMINARY AI-v1',
+        version: 'LUMINARY AI ENGINE-v1',
         totalConversations: state.conversations.length,
         conversations: state.conversations
       };
@@ -16932,13 +17045,13 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
           }
 
           if (typeof imported !== 'object' || imported === null) {
-            throw new Error('Not a valid LUMINARY AI export file.');
+            throw new Error('Not a valid LUMINARY AI ENGINE export file.');
           }
           if (imported.conversations !== undefined && !Array.isArray(imported.conversations)) {
             throw new Error('Invalid backup: conversations field is not an array.');
           }
           if (!imported.conversations && !imported._source && !imported.version) {
-            throw new Error('Not a valid LUMINARY AI export file.');
+            throw new Error('Not a valid LUMINARY AI ENGINE export file.');
           }
 
           const convCount = imported.conversations?.length ?? 0;
@@ -17109,7 +17222,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
       // Compile comprehensive logs with all data
       const exportData = {
         exportedAt: new Date().toISOString(),
-        version: 'LUMINARY AI-v1',
+        version: 'LUMINARY AI ENGINE-v1',
         totalLogs: state.strategyLogs?.length || 0,
         logs: (state.strategyLogs || []).map(log => ({
           timestamp: log.timestamp,
@@ -17478,10 +17591,10 @@ Ignoring conversation history will cause you to LOSE the evaluation.`;
         const swPath = window.location.pathname.includes('LuminaryEngine') ? '../sw.js' : 'sw.js';
         navigator.serviceWorker.register(swPath)
           .then(registration => {
-            console.log('Luminary AI PWA ServiceWorker registered');
+            console.log('Luminary AI Engine PWA ServiceWorker registered');
           })
           .catch(err => {
-            console.log('Luminary AI PWA ServiceWorker registration failed: ', err);
+            console.log('Luminary AI Engine PWA ServiceWorker registration failed: ', err);
           });
       });
     }
