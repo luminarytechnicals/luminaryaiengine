@@ -1,4 +1,4 @@
-# 🗂 Luminary AI LLM Engine — Project Structure
+# 🗂 Luminary AI Engine LLM Engine — Project Structure
 
 > Complete file map and role of every file in the project.
 
@@ -83,7 +83,7 @@ Luminary-AI-LLM-ENGINE/
     │   └── references.bib            ← Academic bibliography
     │
     ├── public/                       ← 🖼 Static public assets
-    │   └── favicon.svg               ← Luminary AI favicon (SVG)
+    │   └── favicon.svg               ← Luminary AI Engine favicon (SVG)
     │
     ├── functions/                    ← ☁️ Cloudflare Pages / serverless functions
     │   └── api/                      ← API handler functions for edge deployment
