@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+# Search and answer-engine retrieval crawlers
 User-agent: OAI-SearchBot
 Allow: /
 
@@ -14,6 +15,7 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+# Separate model-training crawler preferences; these are not search indexing controls.
 User-agent: GPTBot
 Disallow: /
 
