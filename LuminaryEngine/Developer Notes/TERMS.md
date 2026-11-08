@@ -1,6 +1,6 @@
 # Luminary AI Engine — Terms of Service
 
-**Last updated:** 2026-11-05
+**Last updated:** 2026-11-08
 
 ---
 
@@ -60,7 +60,7 @@ The application code does not intentionally add users' OpenRouter API key values
 
 ### Standalone browser application
 
-The standalone app stores conversations and the user's API key in browser storage. Conversation history is not synchronized to a Luminary AI account. Clearing browser storage can permanently delete local history. The API key is protected using browser Web Crypto before it is stored when that capability is available, but browser-side encryption does not protect against malicious same-origin JavaScript, browser extensions with access, or a compromised device.
+The standalone app stores conversations and the user's API key in browser storage. Conversation history is not synchronized to a Luminary AI Engine account. Clearing browser storage can permanently delete local history. The API key is protected using browser Web Crypto before it is stored when that capability is available, but browser-side encryption does not protect against malicious same-origin JavaScript, browser extensions with access, or a compromised device.
 
 ### Optional API server
 
@@ -80,7 +80,7 @@ Dataset entries can be deleted by identifier while they remain in the API server
 
 ### Standalone browser application
 
-In the standalone browser app, the OpenRouter key is entered by the user and stored in that browser's local storage in an encrypted representation when Web Crypto is available. The key is sent to OpenRouter as part of model requests. The standalone app does not intentionally send that key to the Luminary AI telemetry endpoint.
+In the standalone browser app, the OpenRouter key is entered by the user and stored in that browser's local storage in an encrypted representation when Web Crypto is available. The key is sent to OpenRouter as part of model requests. The standalone app does not intentionally send that key to the Luminary AI Engine telemetry endpoint.
 
 No account or cross-device chat synchronization is provided. Conversations stay in the browser's local storage and may be lost when browser data is cleared.
 
@@ -101,11 +101,11 @@ This section applies to **Enterprise Users** -- defined as any for-profit entity
 - Is publicly traded on any stock exchange
 - Is a subsidiary, division, or affiliate of an entity that meets any of the above criteria
 
-If you're an individual, a researcher, a student, a hobbyist, a small team, a nonprofit, an educational institution, a government research lab, or a company that doesn't meet the thresholds above -- **this section does not apply to you. LUMINARY AI is free for you. Full stop.**
+If you're an individual, a researcher, a student, a hobbyist, a small team, a nonprofit, an educational institution, a government research lab, or a company that doesn't meet the thresholds above -- **this section does not apply to you. LUMINARY AI ENGINE is free for you. Full stop.**
 
 ### What Enterprise Users Must Do
 
-Enterprise Users that use the Luminary AI Engine hosted service (the API server, the web frontend hosted by the project, or any project-operated infrastructure) in any capacity -- including internal tools, employee-facing products, customer-facing products, evaluation, benchmarking, or integration -- must obtain a **Commercial Use License** from the LUMINARY AI maintainers.
+Enterprise Users that use the Luminary AI Engine hosted service (the API server, the web frontend hosted by the project, or any project-operated infrastructure) in any capacity -- including internal tools, employee-facing products, customer-facing products, evaluation, benchmarking, or integration -- must obtain a **Commercial Use License** from the LUMINARY AI ENGINE maintainers.
 
 This applies to:
 
@@ -117,7 +117,7 @@ This applies to:
 
 A Commercial Use License includes:
 
-- Authorized use of the hosted LUMINARY AI service for enterprise purposes
+- Authorized use of the hosted LUMINARY AI ENGINE service for enterprise purposes
 - Priority support channel
 - SLA guarantees (negotiated per agreement)
 - Custom data handling and retention terms (if needed)
@@ -127,7 +127,7 @@ A Commercial Use License includes:
 
 To be absolutely clear, the following uses are **always free, for everyone, including enterprises**:
 
-- **Self-hosting LUMINARY AI from source code** under the AGPL-3.0 license. The source code license is separate from these service terms. If you clone the repo, run it on your own servers, and comply with the AGPL-3.0 (keep your derivative works open source), you owe nothing.
+- **Self-hosting LUMINARY AI ENGINE from source code** under the AGPL-3.0 license. The source code license is separate from these service terms. If you clone the repo, run it on your own servers, and comply with the AGPL-3.0 (keep your derivative works open source), you owe nothing.
 - **Contributing to the project** via pull requests, issues, documentation, or community support.
 - **Academic or nonprofit research** using the hosted service, regardless of institutional size.
 - **Personal use** by employees of enterprise entities acting in their individual capacity, on their own time, with their own API keys.
@@ -148,7 +148,7 @@ We're not looking to sue anybody. We'd rather have a conversation. But if a bill
 
 ### Data Licensing for Enterprise
 
-Enterprise Users that access the publicly published research dataset (on HuggingFace) for commercial purposes -- including model training, fine-tuning, product development, or competitive intelligence -- must obtain a **Data Use License** from the LUMINARY AI maintainers.
+Enterprise Users that access the publicly published research dataset (on HuggingFace) for commercial purposes -- including model training, fine-tuning, product development, or competitive intelligence -- must obtain a **Data Use License** from the LUMINARY AI ENGINE maintainers.
 
 Non-commercial research use of the published dataset is always free.
 
@@ -158,10 +158,10 @@ Non-commercial research use of the published dataset is always free.
 
 By using Luminary AI Engine, you agree that:
 
-- **You are responsible for the outputs generated through this tool.** LUMINARY AI is a research interface -- it does not generate content itself, it routes requests to AI models via third-party APIs.
+- **You are responsible for the outputs generated through this tool.** LUMINARY AI ENGINE is a research interface -- it does not generate content itself, it routes requests to AI models via third-party APIs.
 - **You will comply with all applicable laws and regulations** in your jurisdiction when using this tool.
 - **You will comply with the terms of service of the underlying AI providers** (e.g., OpenRouter, and the model providers accessible through it).
-- **You will not use LUMINARY AI to generate content that is illegal** in your jurisdiction.
+- **You will not use LUMINARY AI ENGINE to generate content that is illegal** in your jurisdiction.
 - **If you opt in to dataset contribution (Tier 3), you accept that your conversation data will be published publicly** as part of an open research dataset.
 
 ---
@@ -170,7 +170,7 @@ By using Luminary AI Engine, you agree that:
 
 LUMINARY AI ENGINE IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
 
-The maintainers and contributors of LUMINARY AI:
+The maintainers and contributors of LUMINARY AI ENGINE:
 
 - Make no guarantees about uptime, availability, or correctness.
 - Are not liable for any damages arising from the use of this software.
@@ -197,7 +197,7 @@ Luminary AI Engine is not affiliated with, endorsed by, or sponsored by any of t
 
 ## 10. Open Source
 
-LUMINARY AI is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+LUMINARY AI ENGINE is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 
 The entire Luminary AI Engine source code is available for inspection. Every claim made in this document can be verified by reading the code:
 
@@ -212,7 +212,7 @@ You do not need to trust this document. Read the code.
 
 ## 11. Changes to These Terms
 
-These terms may be updated as the project evolves. Changes will be committed to the repository and visible in the git history. There is no email notification system -- if you use LUMINARY AI, check this file periodically.
+These terms may be updated as the project evolves. Changes will be committed to the repository and visible in the git history. There is no email notification system -- if you use LUMINARY AI ENGINE, check this file periodically.
 
 The "Last updated" date at the top of this document reflects the most recent revision.
 
