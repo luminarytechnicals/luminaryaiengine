@@ -1,10 +1,10 @@
 /**
- * LUMINARY AI — PROJECT CONFIGURATION
+ * LUMINARY AI ENGINE — PROJECT CONFIGURATION
  * LuminaryData/config.js
  */
 
 const LUMINARY_CONFIG = {
-  PROJECT_NAME: "Luminary AI LLM Engine",
+  PROJECT_NAME: "Luminary AI Engine",
   AUTHOR: "Abhinav Ranjan",
   GITHUB_USER: "DeveloperAbhinav",
   COMMUNITY: "Luminary Technicals",
