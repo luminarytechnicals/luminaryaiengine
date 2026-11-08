@@ -1,8 +1,17 @@
-const CACHE_NAME = 'luminary-pwa-v4';
+const CACHE_NAME = 'luminary-engine-pwa-v5';
 const ASSETS_TO_CACHE = [
   './index.html',
   './manifest.json',
   './offline.html',
+  './credits.html',
+  './privacy.html',
+  './terms.html',
+  './cookies.html',
+  './domain-licence.html',
+  './LuminaryData/legal.css',
+  './sitemap.xml',
+  './robots.txt',
+  './llms.txt',
   './LuminaryEngine/index.html',
   './LuminaryEngine/public/logo.png',
   './LuminaryData/config.js',
