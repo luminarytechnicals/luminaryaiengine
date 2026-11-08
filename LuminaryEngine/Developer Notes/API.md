@@ -1,6 +1,6 @@
-# LUMINARY AI Research Preview API
+# LUMINARY AI ENGINE Research Preview API
 
-REST API exposing the **ULTRAPLINIAN** multi-model racing engine and core LUMINARY AI systems: **AutoTune** (context-adaptive LLM parameter tuning), **Parseltongue** (text obfuscation), **STM** (semantic text transformation), **Feedback Loop** (EMA-based parameter learning), and **opt-in open dataset collection**.
+REST API exposing the **ULTRAPLINIAN** multi-model racing engine and core LUMINARY AI ENGINE systems: **AutoTune** (context-adaptive LLM parameter tuning), **Parseltongue** (text obfuscation), **STM** (semantic text transformation), **Feedback Loop** (EMA-based parameter learning), and **opt-in open dataset collection**.
 
 ## Quick Start
 
@@ -124,7 +124,7 @@ const client = new OpenAI({
 const completion = await client.chat.completions.create({
   model: 'nousresearch/hermes-3-llama-3.1-70b',
   messages: [{ role: 'user', content: 'Hello!' }],
-  // @ts-ignore — LUMINARY AI extension field
+  // @ts-ignore — LUMINARY AI ENGINE extension field
   openrouter_api_key: 'sk-or-v1-...',
 });
 console.log(completion.choices[0].message.content);
@@ -154,7 +154,7 @@ curl -X POST https://your-space.hf.space/v1/chat/completions \
   }'
 ```
 
-The LUMINARY AI pipeline (LUMINARY, AutoTune, Parseltongue, STM) runs transparently behind the standard interface. Pipeline metadata is returned in the `x_g0dm0d3` extension field (ignored by standard SDKs). To disable the pipeline, pass `luminary: false, autotune: false, parseltongue: false, stm_modules: []`.
+The LUMINARY AI ENGINE pipeline (LUMINARY, AutoTune, Parseltongue, STM) runs transparently behind the standard interface. Pipeline metadata is returned in the `x_g0dm0d3` extension field (ignored by standard SDKs). To disable the pipeline, pass `luminary: false, autotune: false, parseltongue: false, stm_modules: []`.
 
 ### ULTRAPLINIAN via OpenAI SDK
 
@@ -363,11 +363,11 @@ Supports `stream: true` for SSE streaming in standard OpenAI chunk format.
 | `top_p` | number | no | | Nucleus sampling |
 | `frequency_penalty` | number | no | | Frequency penalty |
 | `presence_penalty` | number | no | | Presence penalty |
-| `luminary` | bool | no | `true` | Inject LUMINARY system prompt (LUMINARY AI extension) |
-| `autotune` | bool | no | `true` | Enable AutoTune (LUMINARY AI extension) |
-| `parseltongue` | bool | no | `true` | Enable Parseltongue (LUMINARY AI extension) |
-| `stm_modules` | array | no | `["hedge_reducer", "direct_mode"]` | STM modules (LUMINARY AI extension) |
-| `contribute_to_dataset` | bool | no | `false` | Opt in to dataset (LUMINARY AI extension) |
+| `luminary` | bool | no | `true` | Inject LUMINARY system prompt (LUMINARY AI ENGINE extension) |
+| `autotune` | bool | no | `true` | Enable AutoTune (LUMINARY AI ENGINE extension) |
+| `parseltongue` | bool | no | `true` | Enable Parseltongue (LUMINARY AI ENGINE extension) |
+| `stm_modules` | array | no | `["hedge_reducer", "direct_mode"]` | STM modules (LUMINARY AI ENGINE extension) |
+| `contribute_to_dataset` | bool | no | `false` | Opt in to dataset (LUMINARY AI ENGINE extension) |
 
 **Response (OpenAI-compatible):**
 ```json
@@ -569,7 +569,7 @@ Any request to `/v1/chat/completions`, `/v1/ultraplinian/completions`, or `/v1/c
 - User feedback/ratings (if submitted later)
 
 **What is NEVER stored:**
-- API keys (OpenRouter or LUMINARY AI)
+- API keys (OpenRouter or LUMINARY AI ENGINE)
 - IP addresses
 - Auth tokens
 
