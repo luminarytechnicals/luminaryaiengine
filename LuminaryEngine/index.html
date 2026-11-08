@@ -4946,9 +4946,7 @@
             <div style="font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">Your Data. Your
               Device. Your Responsibility.</div>
             <div style="font-size: 12px; color: var(--text-dim); line-height: 1.6;">
-              LUMINARY AI ENGINE stores everything locally in this browser — conversations, memories, settings, keys.
-              Nothing is sent to a server. There is no cloud sync, no account, no safety net.
-              If you clear your browser data or switch devices, <strong style="color: var(--text);">it's gone.</strong>
+              The standalone app stores conversations, memories, settings and credentials in this browser. Model requests are sent to selected third-party providers; No-Log Mode disables optional browser performance telemetry and requests eligible ZDR routing. There is no account-based cloud sync. If you clear your browser data or switch devices, <strong style="color: var(--text);">it's gone.</strong>
             </div>
           </div>
 
@@ -5050,13 +5048,14 @@
       </div>
       <div class="modal-body" style="font-size: 14px; line-height: 1.6; color: var(--text-dim); max-height: 70vh; overflow-y: auto;">
         <h4 style="color: var(--primary);">1. Application Use</h4>
-        <p>Luminary AI Engine is provided for legal research and model evaluation purposes only. Users must comply with jurisdictional laws and the terms of service of any third-party providers (e.g., OpenRouter, OpenAI, Anthropic).</p>
+        <p>Luminary AI Engine is a multi-model prompt engineering workspace that helps users draft, analyse, compare and refine prompts. Users must comply with applicable laws and the terms of third-party providers such as OpenRouter and upstream model providers.</p>
         <h4 style="color: var(--primary);">2. Responsibility</h4>
-        <p>You assume all responsibility for generated content. The developers are not liable for model outputs or any misuse of the tool.</p>
+        <p>You are responsible for reviewing prompts and model outputs before relying on them. The Engine does not guarantee factual accuracy, prompt effectiveness or uninterrupted availability.</p>
         <h4 style="color: var(--primary);">3. Data Handling</h4>
-        <p>API keys and conversation data are stored strictly in your browser's LocalStorage. Structural metadata (metadata only, no prompt/response content) is recorded for research and development.</p>
+        <p>Standalone conversations and settings are stored in browser storage. No-Log Mode requests eligible ZDR routing and disables optional browser performance telemetry. Optional API metadata and opt-in research dataset handling are described in the Privacy Policy.</p>
+        <p><a href="../terms.html">Full Terms &amp; Conditions</a> · <a href="../privacy.html">Privacy Policy</a> · <a href="../cookies.html">Cookie Policy</a></p>
         <h4 style="color: var(--primary);">4. Disclaimer</h4>
-        <p>The software is provided "as is" without warranty of any kind. Use at your own risk.</p>
+        <p>The software is provided "as is" to the extent permitted by law. Use at your own risk and review third-party provider terms and charges.
       </div>
       <div class="modal-footer" style="padding: 20px; text-align: center; border-top: 1px solid var(--border);">
         <button onclick="closeTerms()" style="padding: 10px 32px; background: var(--primary); color: var(--bg); border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Close</button>
