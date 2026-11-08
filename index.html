@@ -812,31 +812,23 @@
         `
       },
       terms: {
-        title: "TERMS OF SERVICE",
+        title: "TERMS & CONDITIONS",
         content: `
-          <h2>1. Acceptance</h2>
-          <p>By using LUMINARY AI ENGINE, you agree to these terms. This tool is provided for research and educational purposes only.</p>
-          <h2>2. Privacy-by-Construction</h2>
-          <p>We do not collect your prompts, responses, or API keys. All core data remains on your device (browser storage).</p>
-          <h2>3. Metadata Collection</h2>
-          <p>Anonymous structural metadata is auto-published to HuggingFace for open science research. Opt-in is required for dataset contribution.</p>
-          <h2>4. Responsibility</h2>
-          <p>Users are solely responsible for compliance with laws. This software is provided "AS-IS" without warranty.</p>
+          <h2>Hosted service terms</h2>
+          <p>Use of the hosted Luminary AI Engine website is governed by the published Terms &amp; Conditions. The source code is separately licensed under AGPL-3.0.</p>
+          <p>The Engine stores standalone conversations and settings in browser storage. Model requests are sent to OpenRouter and the selected upstream provider. No-Log Mode requests eligible ZDR routing and disables optional browser performance telemetry; it does not eliminate all provider or infrastructure processing.</p>
+          <p><a href="/terms.html">Read full Terms &amp; Conditions</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/cookies.html">Cookie Policy</a></p>
         `
       },
       api: {
         title: "API DOCUMENTATION",
         content: `
-          <h2>Unified Interface</h2>
-          <p>Luminary AI Engine provides a standardized API for over 55+ models. You can query models via the web interface using your own OpenRouter key.</p>
-          <h2>ZDR Metadata</h2>
-          <p>Every request tracks performance metadata (latency, score, model) while maintaining Zero Data Retention of the content itself.</p>
-          <h2>Advanced Modes</h2>
-          <ul>
-            <li><strong>ULTRAPLINIAN:</strong> Parallel racing across multiple models.</li>
-            <li><strong>PARSELTONGUE:</strong> Red-teaming transformations.</li>
-            <li><strong>AutoTune:</strong> Intelligent parameter optimization.</li>
-          </ul>
+          <h2>Optional API service</h2>
+          <p>The repository includes an optional self-hostable Express API. The hosted static website should not be assumed to expose these API routes unless the service is separately deployed.</p>
+          <h2>Privacy controls</h2>
+          <p>No-Log Mode is enabled by default in the standalone application. When enabled, it requests eligible OpenRouter ZDR routing and disables optional browser performance telemetry. The optional API has separate operational metadata handling.</p>
+          <h2>Reference</h2>
+          <p><a href="/docs/api.html">Read the API documentation</a> · <a href="/privacy.html">Read the Privacy Policy</a>.</p>
         `
       },
       security: {
