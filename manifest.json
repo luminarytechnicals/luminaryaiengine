@@ -1,8 +1,8 @@
 {
   "name": "Luminary AI Engine",
-  "short_name": "Luminary",
-  "description": "Professional Grade Multi-Model Chat Interface. 55+ Frontier Models. Privacy-First.",
-  "start_url": "index.html",
+  "short_name": "Luminary Engine",
+  "description": "Multi-model prompt engineering workspace for drafting, analysing, critiquing and refining prompts.",
+  "start_url": "/LuminaryEngine/index.html",
   "display": "standalone",
   "background_color": "#0d0208",
   "theme_color": "#00ff41",
@@ -21,12 +21,17 @@
       "purpose": "maskable"
     }
   ],
-  "categories": ["productivity", "utilities", "education"],
+  "categories": [
+    "productivity",
+    "utilities",
+    "education"
+  ],
   "shortcuts": [
     {
       "name": "Launch Engine",
       "url": "LuminaryEngine/index.html",
       "description": "Open the AI Engine directly"
     }
-  ]
+  ],
+  "scope": "/"
 }
