@@ -8,7 +8,7 @@ const blockedPage = `<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Access restricted | Luminary AI</title>
+  <title>Access restricted | Luminary AI Engine</title>
   <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
@@ -37,7 +37,7 @@ const blockedPage = `<!doctype html>
 </head>
 <body>
   <main>
-    <div class="brand">LUMINARY AI</div>
+    <div class="brand">LUMINARY AI ENGINE</div>
     <h1>Access restricted</h1>
     <p>Access to this website is currently unavailable from your location.</p>
     <small>If you believe your location has been identified incorrectly, contact the site administrator.</small>
