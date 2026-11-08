@@ -1,4 +1,4 @@
-# LUMINARY AI -- Terms of Service
+# Luminary AI Engine — Terms of Service
 
 **Last updated:** 2026-11-05
 
@@ -6,19 +6,19 @@
 
 ## 1. Acceptance
 
-By using LUMINARY AI -- whether through the web frontend, the API server, or a self-hosted deployment -- you agree to these terms. If you do not agree, do not use the software.
+By using Luminary AI Engine — whether through the hosted website, optional API server, or a self-hosted deployment — you agree to these terms. If you do not agree, do not use the software.
 
 ---
 
-## 2. What LUMINARY AI Is
+## 2. What Luminary AI Engine Is
 
-LUMINARY AI is an open-source research tool for AI safety, red teaming, and cognition research. It is provided **as-is** for experimentation and study. It is not a commercial product, and is maintained by Abhinav Ranjan and Luminary Technicals.
+Luminary AI Engine is an open-source multi-model prompt engineering workspace. It uses language models to help draft, analyse, compare, critique and refine prompts. It is an interface and orchestration layer, not a foundation model. The project is created by AR. Abhinav Ranjan and published and maintained by Luminary Technicals.
 
 ---
 
 ## 3. Data Collection
 
-LUMINARY AI has separate browser and optional API-server data paths. The standalone browser app does not upload chat history by default, but an optional API deployment can record operational metadata, and the API dataset feature can store message content when explicitly requested.
+Luminary AI Engine has separate browser and optional API-server data paths. The standalone browser app does not upload chat history by default, but an optional API deployment can record operational metadata, and the API dataset feature can store message content when explicitly requested.
 
 ### Overview
 
@@ -105,7 +105,7 @@ If you're an individual, a researcher, a student, a hobbyist, a small team, a no
 
 ### What Enterprise Users Must Do
 
-Enterprise Users that use the LUMINARY AI hosted service (the API server, the web frontend hosted by the project, or any project-operated infrastructure) in any capacity -- including internal tools, employee-facing products, customer-facing products, evaluation, benchmarking, or integration -- must obtain a **Commercial Use License** from the LUMINARY AI maintainers.
+Enterprise Users that use the Luminary AI Engine hosted service (the API server, the web frontend hosted by the project, or any project-operated infrastructure) in any capacity -- including internal tools, employee-facing products, customer-facing products, evaluation, benchmarking, or integration -- must obtain a **Commercial Use License** from the LUMINARY AI maintainers.
 
 This applies to:
 
@@ -156,7 +156,7 @@ Non-commercial research use of the published dataset is always free.
 
 ## 7. Your Responsibilities
 
-By using LUMINARY AI, you agree that:
+By using Luminary AI Engine, you agree that:
 
 - **You are responsible for the outputs generated through this tool.** LUMINARY AI is a research interface -- it does not generate content itself, it routes requests to AI models via third-party APIs.
 - **You will comply with all applicable laws and regulations** in your jurisdiction when using this tool.
@@ -168,7 +168,7 @@ By using LUMINARY AI, you agree that:
 
 ## 8. No Warranty / Disclaimer
 
-LUMINARY AI IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+LUMINARY AI ENGINE IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
 
 The maintainers and contributors of LUMINARY AI:
 
@@ -183,7 +183,7 @@ Use this tool at your own risk.
 
 ## 9. Third-Party Services
 
-LUMINARY AI interacts with third-party services. Your use of these services is governed by their respective terms:
+Luminary AI Engine interacts with third-party services. Your use of these services is governed by their respective terms:
 
 | Service | Role | Their Terms |
 |---|---|---|
@@ -191,7 +191,7 @@ LUMINARY AI interacts with third-party services. Your use of these services is g
 | **HuggingFace** | Hosts published metadata and dataset files | [huggingface.co/terms-of-service](https://huggingface.co/terms-of-service) |
 | **Cloudflare Pages** | Hosts the web frontend and telemetry proxy | [cloudflare.com/terms](https://www.cloudflare.com/terms/) |
 
-LUMINARY AI is not affiliated with, endorsed by, or sponsored by any of these services.
+Luminary AI Engine is not affiliated with, endorsed by, or sponsored by any of these services.
 
 ---
 
@@ -199,7 +199,7 @@ LUMINARY AI is not affiliated with, endorsed by, or sponsored by any of these se
 
 LUMINARY AI is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 
-The entire source code is available for inspection. Every claim made in this document can be verified by reading the code:
+The entire Luminary AI Engine source code is available for inspection. Every claim made in this document can be verified by reading the code:
 
 - Tier 1 metadata: `api/lib/metadata.ts`
 - Tier 2 telemetry: `src/lib/telemetry.ts`
@@ -216,11 +216,13 @@ These terms may be updated as the project evolves. Changes will be committed to 
 
 The "Last updated" date at the top of this document reflects the most recent revision.
 
+Public policy pages: [Terms & Conditions](https://luminaryaiengine.dpdns.org/terms.html) · [Privacy Policy](https://luminaryaiengine.dpdns.org/privacy.html) · [Cookie Policy](https://luminaryaiengine.dpdns.org/cookies.html) · [Domain Policy](https://luminaryaiengine.dpdns.org/domain-licence.html).
+
 ---
 
 ## 12. Contact
 
-This is an open-source project. The best way to reach the maintainers is through the project's GitHub repository:
+Luminary AI Engine is an open-source project. The best way to reach the maintainers is through the project's GitHub repository:
 
 - **Questions or concerns:** Open a GitHub issue.
 - **Data deletion requests:** Open a GitHub issue or use the `DELETE /v1/dataset/:id` API endpoint for Tier 3 data.
