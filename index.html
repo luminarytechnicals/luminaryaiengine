@@ -465,7 +465,7 @@
       Self-host: <code
         style="color:var(--primary);font-family:var(--font-mono)">open LuminaryEngine/index.html</code>&nbsp;&nbsp;·&nbsp;&nbsp;
       <a href="javascript:void(0)" onclick="openModal('docs')">Read the docs</a>&nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="javascript:void(0)" onclick="openModal('terms')">Terms</a>
+      <a href="/terms.html">Terms &amp; Conditions</a>
     </p>
   </section>
 
@@ -484,7 +484,6 @@
       <a href="/docs/api.html" class="footer-link">API reference</a>
       <a href="javascript:void(0)" onclick="openModal('docs')" class="footer-link">Docs</a>
       <a href="javascript:void(0)" onclick="openModal('api')" class="footer-link">API</a>
-      <a href="/terms.html" class="footer-link">Terms &amp; Conditions</a>
       <a href="javascript:void(0)" onclick="openModal('security')" class="footer-link">Security</a>
       <a href="javascript:void(0)" onclick="openModal('contribute')" class="footer-link">Contribute</a>
       <a href="javascript:void(0)" onclick="openModal('github')" class="footer-link">Check GitHub Repository ↗</a>
@@ -655,12 +654,10 @@
         title: "PROJECT DOCUMENTATION",
         content: `
           <h2>Getting Started</h2>
-          <p>Luminary AI Engine is designed to be a high-performance, privacy-respecting interface for modern LLMs. Unlike other platforms, we don't store your data or API keys on our servers.</p>
+          <p>Luminary AI Engine is a multi-model prompt engineering and optimization system. It uses multiple AI models to generate, critique and refine prompt candidates from your requirements. Review the <a href="/privacy.html">Privacy Policy</a> for details about browser storage, provider processing and optional API-server data.</p>
           <h2>Key Features</h2>
           <ul>
-            <li><strong>Privacy-First:</strong> Zero data retention by construction.</li>
-            <li><strong>Multi-Model:</strong> Access 55+ models via a unified interface.</li>
-            <li><strong>Research Tools:</strong> Built-in red-teaming and safety testing modes.</li>
+            <li><strong>Multi-Model Prompt Generation:</strong> Generate candidate prompts from your requirements.</li><li><strong>Prompt Critique:</strong> Compare and refine candidates using multiple models.</li><li><strong>Prompt Optimization:</strong> Produce a clearer prompt ready to copy into your preferred AI model.</li>
           </ul>
           <h2>Documentation Root</h2>
           <p>For deep technical details, check the source code in relevant directories or view the README files directly on GitHub.</p>
@@ -669,14 +666,7 @@
       terms: {
         title: "TERMS OF SERVICE",
         content: `
-          <h2>1. Acceptance</h2>
-          <p>By using LUMINARY AI, you agree to these terms. This tool is provided for research and educational purposes only.</p>
-          <h2>2. Privacy-by-Construction</h2>
-          <p>We do not collect your prompts, responses, or API keys. All core data remains on your device (browser storage).</p>
-          <h2>3. Metadata Collection</h2>
-          <p>Anonymous structural metadata is auto-published to HuggingFace for open science research. Opt-in is required for dataset contribution.</p>
-          <h2>4. Responsibility</h2>
-          <p>Users are solely responsible for compliance with laws. This software is provided "AS-IS" without warranty.</p>
+          <p>Read the complete <a href="/terms.html">Terms and Conditions</a> and <a href="/privacy.html">Privacy Policy</a> before using the service. The full terms describe third-party model providers, geographic restrictions, user responsibilities and service limitations.</p>
         `
       },
       api: {
