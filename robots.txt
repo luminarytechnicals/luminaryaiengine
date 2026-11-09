@@ -1,25 +1,28 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
 
+# Search and answer engines may crawl public product and documentation pages.
 User-agent: OAI-SearchBot
 Allow: /
-
 User-agent: ChatGPT-User
 Allow: /
-
 User-agent: Claude-SearchBot
 Allow: /
-
 User-agent: PerplexityBot
 Allow: /
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
 
+# Model-training crawlers are not granted permission by this robots policy.
 User-agent: GPTBot
 Disallow: /
-
 User-agent: ClaudeBot
 Disallow: /
-
 User-agent: Google-Extended
 Disallow: /
 
