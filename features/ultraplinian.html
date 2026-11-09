@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ULTRAPLINIAN | Luminary AI Multi-Model Evaluation</title>
-<meta name="description" content="Learn how ULTRAPLINIAN queries multiple language models, scores candidate answers, applies early stopping and optionally uses a model-based judge.">
+<title>ULTRAPLINIAN | Luminary AI Engine Prompt Council</title>
+<meta name="description" content="Learn how ULTRAPLINIAN coordinates multiple models to propose, critique and refine prompt candidates.">
 <link rel="canonical" href="https://luminaryaiengine.dpdns.org/features/ultraplinian.html">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Luminary AI">
-<meta property="og:title" content="ULTRAPLINIAN | Luminary AI Multi-Model Evaluation">
-<meta property="og:description" content="Learn how ULTRAPLINIAN queries multiple language models, scores candidate answers, applies early stopping and optionally uses a model-based judge.">
+<meta property="og:site_name" content="Luminary AI Engine">
+<meta property="og:title" content="ULTRAPLINIAN | Luminary AI Engine Prompt Council">
+<meta property="og:description" content="Learn how ULTRAPLINIAN coordinates multiple models to propose, critique and refine prompt candidates.">
 <meta property="og:url" content="https://luminaryaiengine.dpdns.org/features/ultraplinian.html">
 <meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ULTRAPLINIAN | Luminary AI Multi-Model Evaluation">
-<meta name="twitter:description" content="Learn how ULTRAPLINIAN queries multiple language models, scores candidate answers, applies early stopping and optionally uses a model-based judge.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://luminaryaiengine.dpdns.org/features/ultraplinian.html#page","url":"https://luminaryaiengine.dpdns.org/features/ultraplinian.html","name":"ULTRAPLINIAN | Luminary AI Multi-Model Evaluation","headline":"ULTRAPLINIAN | Luminary AI Multi-Model Evaluation","description":"Learn how ULTRAPLINIAN queries multiple language models, scores candidate answers, applies early stopping and optionally uses a model-based judge.","inLanguage":"en","publisher":{"@type":"Organization","@id":"https://luminaryaiengine.dpdns.org/#organization","name":"Luminary Technicals","url":"https://luminarytechnicals.dpdns.org/"}}</script>
+<meta name="twitter:title" content="ULTRAPLINIAN | Luminary AI Engine Prompt Council">
+<meta name="twitter:description" content="Learn how ULTRAPLINIAN coordinates multiple models to propose, critique and refine prompt candidates.">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://luminaryaiengine.dpdns.org/#organization","name":"Luminary Technicals","url":"https://luminarytechnicals.dpdns.org/","logo":"https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png","sameAs":["https://github.com/luminarytechnicals","https://github.com/luminarytechnicals/luminaryaiengine","https://abhinavranjan.qzz.io/"],"founder":{"@type":"Person","name":"Abhinav Ranjan","url":"https://abhinavranjan.qzz.io/"}},{"@type":"WebSite","@id":"https://luminaryaiengine.dpdns.org/#website","url":"https://luminaryaiengine.dpdns.org/","name":"Luminary AI Engine","alternateName":"LUMINARY AI ENGINE","publisher":{"@id":"https://luminaryaiengine.dpdns.org/#organization"},"inLanguage":"en"},{"@type":"TechArticle","@id":"https://luminaryaiengine.dpdns.org/features/ultraplinian.html#page","url":"https://luminaryaiengine.dpdns.org/features/ultraplinian.html","name":"ULTRAPLINIAN | Luminary AI Engine Prompt Council","headline":"ULTRAPLINIAN | Luminary AI Engine Prompt Council","description":"Learn how ULTRAPLINIAN coordinates multiple models to propose, critique and refine prompt candidates.","isPartOf":{"@id":"https://luminaryaiengine.dpdns.org/#website"},"publisher":{"@id":"https://luminaryaiengine.dpdns.org/#organization"},"inLanguage":"en"}]}</script>
 <style>
 :root{color-scheme:dark;--bg:#030805;--line:#203520;--green:#00e83f;--text:#e2e8e2;--muted:#a0b4a0}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 Inter,system-ui,sans-serif}
@@ -31,11 +31,11 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
 <header><a href="/"><strong>LUMINARY AI</strong></a>
 <nav><a href="/about.html">About</a><a href="/architecture.html">Architecture</a><a href="/features/ultraplinian.html">ULTRAPLINIAN</a><a href="/docs/api.html">API</a><a href="/privacy.html">Privacy</a><a href="/LuminaryEngine/index.html">Launch app</a></nav>
 </header>
-<main><article><h1>ULTRAPLINIAN multi-model evaluation</h1><p class="lead">ULTRAPLINIAN is Luminary AI's multi-model orchestration workflow. It requests candidate answers from several models, compares them and selects a response using an internal evaluation pipeline.</p><section><h2>How it works</h2><ol><li>The application collects the current query and conversation history.</li><li>It prepares model-specific requests and sampling parameters.</li><li>It sends requests concurrently in staggered waves.</li><li>It scores successful responses for quality, request fulfilment, filteredness and speed.</li><li>A qualifying early result may stop the race. Otherwise, a shortlist can be passed to an LLM judge.</li><li>The selected answer may receive an optional coaching pass or refinement.</li></ol></section>
+<main><article><h1>ULTRAPLINIAN multi-model evaluation</h1><p class="lead">ULTRAPLINIAN is Luminary AI Engine’s multi-model prompt-council workflow. It can use several models to propose prompt candidates, critique alternatives and help refine a stronger prompt. Its evaluation process should focus on prompt clarity, completeness, constraints and task fit.</p><section><h2>How it works</h2><ol><li>The application collects the current query and conversation history.</li><li>It prepares model-specific requests and sampling parameters.</li><li>It sends requests concurrently in staggered waves.</li><li>It scores successful responses for quality, request fulfilment, filteredness and speed.</li><li>A qualifying early result may stop the race. Otherwise, a shortlist can be passed to an LLM judge.</li><li>The selected answer may receive an optional coaching pass or refinement.</li></ol></section>
 <section><h2>Available standalone tiers</h2><table><thead><tr><th>Tier</th><th>Configured model count</th></tr></thead><tbody><tr><td>Fast</td><td>10</td></tr><tr><td>Standard</td><td>24</td></tr><tr><td>Smart</td><td>38</td></tr><tr><td>Power</td><td>49</td></tr><tr><td>Ultra</td><td>55</td></tr></tbody></table><p>Actual successful responses depend on provider availability, model access, rate limits and user account credits.</p></section>
 <section><h2>Evaluation limitations</h2><p>The Tastemaker combines quality, fulfilment, filteredness and speed signals. Scores are not factual-accuracy probabilities and do not independently verify sources, code execution or numerical claims. More candidates do not guarantee a more accurate answer.</p></section></article>
-<p><a href="/LuminaryEngine/index.html">Open Luminary AI</a> · <a href="https://github.com/luminarytechnicals/luminaryaiengine">Browse source code</a></p>
+<p><a href="/LuminaryEngine/index.html">Open Luminary AI Engine</a> · <a href="https://github.com/luminarytechnicals/luminaryaiengine">Browse source code</a></p>
 </main>
-<footer>© Luminary Technicals · Luminary AI LLM Engine · <a href="/privacy.html">Privacy</a></footer>
+<footer>© Luminary Technicals · Luminary AI Engine · <a href="/privacy.html">Privacy</a></footer>
 </body>
 </html>
