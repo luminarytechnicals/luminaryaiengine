@@ -40,6 +40,7 @@ Luminary AI Engine is a prompt-engineering and multi-model orchestration system.
 Luminary Technicals is the publisher. The website uses a subdomain in the provider-managed dpdns.org namespace. This does not imply that Luminary Technicals is affiliated with, owned by, sponsored by or endorsed by DigitalPlat Domains, DPDNS or the namespace operator. DNS, hosting, edge delivery and source-code maintenance are separate roles. See the Domain Policy.
 
 ## Public documentation
+- FAQ: https://luminaryaiengine.dpdns.org/faq.html
 - About: https://luminaryaiengine.dpdns.org/about.html
 - Architecture: https://luminaryaiengine.dpdns.org/architecture.html
 - ULTRAPLINIAN: https://luminaryaiengine.dpdns.org/features/ultraplinian.html
