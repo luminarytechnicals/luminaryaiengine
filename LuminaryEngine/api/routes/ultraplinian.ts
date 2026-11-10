@@ -67,7 +67,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
       stm_modules = ['hedge_reducer', 'direct_mode'],
       // Param overrides
       temperature,
-      max_tokens = 4096,
+      max_tokens: requestedMaxTokens = 4096,
       top_p,
       top_k,
       frequency_penalty,
@@ -80,6 +80,12 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
       contribute_to_dataset = false,
       dataset_consent = false,
     } = req.body
+    const outputTokenCeiling = req.tierConfig?.maxOutputTokens ?? 2048
+    const requestedTokenCount = Number(requestedMaxTokens)
+    const max_tokens = Number.isFinite(requestedTokenCount)
+      ? Math.max(1, Math.min(Math.floor(requestedTokenCount), outputTokenCeiling))
+      : Math.min(4096, outputTokenCeiling)
+
 
     // Validate
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
