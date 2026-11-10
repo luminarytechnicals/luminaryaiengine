@@ -50,6 +50,11 @@ datasetRoutes.get('/stats', (_req, res) => {
 
 datasetRoutes.get('/export', (req, res) => {
   const format = req.query.format || 'json'
+  const allowedFormats = req.tierConfig?.datasetExportFormats || []
+  if (!allowedFormats.includes(format as 'json' | 'jsonl')) {
+    res.status(403).json({ error: 'Dataset export is not available for this API tier.' })
+    return
+  }
   const dataset = getDataset()
 
   if (format === 'jsonl') {
