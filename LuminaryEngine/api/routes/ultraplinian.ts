@@ -78,6 +78,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
       liquid_min_delta = 8, // Min score improvement to trigger a leader upgrade (1-50)
       // Dataset opt-in
       contribute_to_dataset = false,
+      dataset_consent = false,
     } = req.body
 
     // Validate
@@ -367,7 +368,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
 
       // Dataset collection
       let datasetId: string | null = null
-      if (contribute_to_dataset && winner) {
+      if (contribute_to_dataset === true && dataset_consent === true && winner) {
         datasetId = addEntry({
           endpoint: '/v1/ultraplinian/completions',
           model: winner.model, mode: 'ultraplinian',
@@ -418,7 +419,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
           parseltongue: parseltongueResult,
           stm: stmResult,
         },
-        dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
+        dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
       })
 
       // ── ZDR Metadata (content-free) ─────────────────────────────
@@ -545,7 +546,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
 
     // ── Dataset collection (opt-in) ──────────────────────────────────
     let datasetId: string | null = null
-    if (contribute_to_dataset) {
+    if (contribute_to_dataset === true && dataset_consent === true) {
       datasetId = addEntry({
         endpoint: '/v1/ultraplinian/completions',
         model: winner.model, mode: 'ultraplinian',
@@ -624,7 +625,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
         parseltongue: parseltongueResult,
         stm: stmResult,
       },
-      dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
+      dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
     })
   } catch (err: any) {
     console.error('[ultraplinian]', err)
