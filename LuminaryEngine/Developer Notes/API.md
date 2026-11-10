@@ -271,7 +271,8 @@ The flagship endpoint. Queries N models in parallel with the LUMINARY system pro
   "parseltongue": true,
   "stm_modules": ["hedge_reducer", "direct_mode"],
   "max_tokens": 4096,
-  "contribute_to_dataset": true
+  "contribute_to_dataset": true,
+  "dataset_consent": true
 }
 ```
 
