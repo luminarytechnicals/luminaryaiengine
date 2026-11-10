@@ -26,6 +26,7 @@ import { consortiumRoutes } from './routes/consortium'
 import { datasetRoutes } from './routes/dataset'
 import { metadataRoutes } from './routes/metadata'
 import { researchRoutes } from './routes/research'
+import { catalogRoutes } from './routes/catalog'
 import { isPublisherEnabled, startPeriodicFlush, shutdownFlush, getPublisherStatus } from './lib/hf-publisher'
 import { TIER_CONFIGS } from './lib/tiers'
 import { ULTRAPLINIAN_MODELS } from './lib/ultraplinian'
@@ -209,6 +210,9 @@ app.get('/v1/tier', apiKeyAuth, (req, res) => {
       : undefined,
   })
 })
+
+// ── Model catalogue and cost estimation ───────────────────────────────
+app.use('/v1/catalog', catalogRoutes)
 
 // ── Core routes (all tiers) ───────────────────────────────────────────
 app.use('/v1/ultraplinian', apiKeyAuth, rateLimit, ultraplinianRoutes)
