@@ -133,7 +133,7 @@ app.get('/v1/info', (_req, res) => {
       tier_assignment: 'Set LUMINARY_TIER_KEYS="enterprise:key1,pro:key2" to assign tiers to keys',
     },
     dataset: {
-      note: 'Opt-in per request via contribute_to_dataset: true. No PII stored. Exportable as JSONL for HuggingFace Datasets.',
+      note: 'Contribution requires contribute_to_dataset=true and dataset_consent=true. Best-effort redaction is applied; review /v1/dataset/policy and /v1/dataset/preview before opting in.',
     },
     auto_publish: getPublisherStatus(),
     source: 'https://github.com/luminarytechnicals/luminaryaiengine',
@@ -224,8 +224,8 @@ app.use('/v1/transform', apiKeyAuth, rateLimit, transformRoutes)
 app.use('/v1/feedback', apiKeyAuth, rateLimit, feedbackRoutes)
 
 // ── Gated routes ──────────────────────────────────────────────────────
-// Dataset: Pro+ for export, stats accessible by all
-app.use('/v1/dataset', apiKeyAuth, rateLimit, tierGate('dataset:export'), datasetRoutes)
+// Dataset routes are authenticated; export is tier-gated inside the router.
+app.use('/v1/dataset', apiKeyAuth, rateLimit, datasetRoutes)
 
 // Metadata: stats open to all auth'd users, events gated to Enterprise
 app.use('/v1/metadata', apiKeyAuth, metadataRoutes) // individual route-level gating in metadata routes
