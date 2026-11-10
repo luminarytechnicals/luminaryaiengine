@@ -32,7 +32,7 @@ const PORT = parseInt(process.env.PORT || '7860', 10) // HF Spaces default
 app.use(cors({
   origin: process.env.CORS_ORIGIN === '*'
     ? true
-    : [process.env.CORS_ORIGIN || 'https://godmod3.ai'].filter(Boolean),
+    : [process.env.CORS_ORIGIN || 'https://luminaryaiengine.dpdns.org'].filter(Boolean),
   credentials: false,
 }))
 app.use(express.json({ limit: '1mb' }))
