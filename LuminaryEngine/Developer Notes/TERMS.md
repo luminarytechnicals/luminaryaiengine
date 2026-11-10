@@ -48,9 +48,9 @@ OpenRouter's provider.zdr and provider.data_collection routing preferences only 
 
 The optional API accepts contribute_to_dataset: true for requests that should be added to the research dataset. This option is false by default. When explicitly enabled, the API stores the submitted non-system messages and final response, along with associated model and pipeline metadata.
 
-Important: the current dataset storage code does not implement an automatic PII scrubber. Do not submit names, addresses, credentials, health information, financial details or other sensitive content when dataset contribution is enabled. If Hugging Face publishing is configured, the contributed content may be published to a public dataset and copied or redistributed by others.
+The API applies best-effort pattern-based redaction to common email addresses, phone numbers, payment-card-like sequences, IPv4 addresses and credential/token patterns before storage. This is not a complete PII detector: names, street addresses, health information, financial context and other sensitive content may not be detected. Review the preview and do not submit sensitive content. If Hugging Face publishing is configured, the contributed content may be published to a public dataset and copied or redistributed by others.
 
-The dataset is held in server memory first, with a configured capacity limit. When publishing is configured, batches may be uploaded to the configured Hugging Face dataset. Deletion through the API only applies while an entry is still available in the in-memory buffer; it cannot guarantee removal of already published copies.
+The dataset is held in server memory first, with a configured capacity limit. When publishing is configured, batches may be uploaded to the configured Hugging Face dataset. Deletion through the API only applies while an entry is still available in the in-memory buffer; it cannot remove already published, downloaded, forked, cached or redistributed copies.
 
 ### What is not intentionally collected by the application
 
