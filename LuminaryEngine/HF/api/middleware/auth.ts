@@ -2,32 +2,42 @@
  * API Key Authentication Middleware
  *
  * Research preview uses a simple bearer token scheme.
- * Keys are loaded from the GODMODE_API_KEYS environment variable
- * (comma-separated list) or a single GODMODE_API_KEY.
+ * Keys are loaded from the LUMINARY_API_KEYS environment variable
+ * (comma-separated list) or a single LUMINARY_API_KEY.
  *
- * If neither is set, auth is disabled (open access for local dev).
+ * Production requires a key. Anonymous access is local-only and explicit.
  */
 
 import type { Request, Response, NextFunction } from 'express'
+import { createHash, timingSafeEqual } from 'node:crypto'
 
 function getValidKeys(): Set<string> | null {
-  const multi = process.env.GODMODE_API_KEYS
+  const multi = process.env.LUMINARY_API_KEYS
   if (multi) {
     return new Set(multi.split(',').map(k => k.trim()).filter(Boolean))
   }
-  const single = process.env.GODMODE_API_KEY
+  const single = process.env.LUMINARY_API_KEY
   if (single) {
     return new Set([single.trim()])
   }
-  return null // Auth disabled
+  return null // No configured keys
+}
+
+const localUnauthenticatedMode = process.env.NODE_ENV !== 'production' && process.env.ALLOW_INSECURE_LOCAL_API === 'true'
+
+if (!getValidKeys() && process.env.NODE_ENV === 'production') {
+  throw new Error('Set LUMINARY_API_KEY or LUMINARY_API_KEYS before starting the API in production.')
 }
 
 export function apiKeyAuth(req: Request, res: Response, next: NextFunction): void {
   const validKeys = getValidKeys()
 
-  // If no keys configured, allow all requests (local dev mode)
   if (!validKeys) {
-    ;(req as any).apiKeyId = 'anonymous'
+    if (!localUnauthenticatedMode) {
+      res.status(503).json({ error: 'API authentication is not configured. Set LUMINARY_API_KEY(S).' })
+      return
+    }
+    ;(req as any).apiKeyId = 'local-development'
     next()
     return
   }
@@ -41,12 +51,13 @@ export function apiKeyAuth(req: Request, res: Response, next: NextFunction): voi
   }
 
   const key = authHeader.slice(7).trim()
-  if (!validKeys.has(key)) {
+  const keyHash = createHash('sha256').update(key).digest()
+  const matches = [...validKeys].some(valid => timingSafeEqual(keyHash, createHash('sha256').update(valid).digest()))
+  if (!matches) {
     res.status(403).json({ error: 'Invalid API key' })
     return
   }
 
-  // Attach a key identifier for rate limiting (first 8 chars)
-  ;(req as any).apiKeyId = key.slice(0, 8)
+  ;(req as any).apiKeyId = createHash('sha256').update(key).digest('hex').slice(0, 16)
   next()
 }
