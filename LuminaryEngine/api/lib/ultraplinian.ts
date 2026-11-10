@@ -376,7 +376,7 @@ export async function queryModel(
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://godmod3.ai',
+        'HTTP-Referer': 'https://luminaryaiengine.dpdns.org',
         'X-Title': 'LUMINARY-AI-ultraplinian-api',
       },
       body: JSON.stringify(body),
