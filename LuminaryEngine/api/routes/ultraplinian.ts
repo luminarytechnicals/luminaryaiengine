@@ -120,7 +120,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
         current_tier: currentTier,
         allowed_tiers: tierConfig.ultraplinianTiers,
         requested_tier: tier,
-        upgrade: 'Contact sales or set GODMODE_TIER_KEYS to upgrade your API key tier.',
+        upgrade: 'Contact sales or set LUMINARY_TIER_KEYS to upgrade your API key tier.',
       })
       return
     }
