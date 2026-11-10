@@ -27,6 +27,7 @@ COPY src/stm/ ./src/stm/
 RUN addgroup --system app && adduser --system --ingroup app app
 
 # HF Spaces expects port 7860
+ENV NODE_ENV=production
 ENV PORT=7860
 EXPOSE 7860
 
