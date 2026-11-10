@@ -229,6 +229,7 @@ chatRoutes.post('/completions', async (req, res) => {
       repetition_penalty,
       // Dataset opt-in
       contribute_to_dataset = false,
+      dataset_consent = false,
     } = req.body
 
     // Validate
@@ -346,7 +347,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
       // Dataset
       let datasetId: string | null = null
-      if (contribute_to_dataset) {
+      if (contribute_to_dataset === true && dataset_consent === true) {
         datasetId = addEntry({
           endpoint: '/v1/chat/completions',
           model: winner.model, mode: 'ultraplinian',
@@ -429,7 +430,7 @@ chatRoutes.post('/completions', async (req, res) => {
             parseltongue: pipeline.parseltongueResult,
             stm: stmResult,
           },
-          dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
+          dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
         },
       })
       return
@@ -530,7 +531,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
       // Dataset
       let datasetId: string | null = null
-      if (contribute_to_dataset) {
+      if (contribute_to_dataset === true && dataset_consent === true) {
         datasetId = addEntry({
           endpoint: '/v1/chat/completions',
           model: orchestratorModel, mode: 'consortium',
@@ -614,7 +615,7 @@ chatRoutes.post('/completions', async (req, res) => {
             parseltongue: pipeline.parseltongueResult,
             stm: stmResult,
           },
-          dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
+          dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
         },
       })
       return
@@ -856,7 +857,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
     // Dataset collection (opt-in)
     let datasetId: string | null = null
-    if (contribute_to_dataset) {
+    if (contribute_to_dataset === true && dataset_consent === true) {
       datasetId = addEntry({
         endpoint: '/v1/chat/completions',
         model,
