@@ -3,17 +3,36 @@
   "short_name": "Luminary AI Engine",
   "description": "Multi-model prompt engineering and optimization workspace by Luminary Technicals.",
   "start_url": "/LuminaryEngine/index.html",
-  "scope": "/",
+  "scope": "/LuminaryEngine/",
   "display": "standalone",
   "background_color": "#0d0208",
   "theme_color": "#00ff41",
   "orientation": "any",
   "icons": [
-    {"src": "LuminaryEngine/public/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "LuminaryEngine/public/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "LuminaryEngine/public/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "LuminaryEngine/public/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
-  "categories": ["productivity", "utilities", "education"],
+  "categories": [
+    "productivity",
+    "utilities",
+    "education"
+  ],
   "shortcuts": [
-    {"name": "Launch Engine", "url": "/LuminaryEngine/index.html", "description": "Open Luminary AI Engine"}
-  ]
+    {
+      "name": "Launch Engine",
+      "url": "/LuminaryEngine/index.html",
+      "description": "Open Luminary AI Engine"
+    }
+  ],
+  "id": "/LuminaryEngine/"
 }
