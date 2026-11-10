@@ -3,14 +3,23 @@ import { Providers } from '@/components/Providers'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'G0DM0DƎ | Liberated AI Chat',
-  description: 'Open-source, privacy-respecting, multi-model chat interface for hackers and philosophers',
-  keywords: ['AI', 'chat', 'open-source', 'privacy', 'hacker', 'Claude', 'GPT', 'OpenRouter'],
-  authors: [{ name: 'Lysios Lab' }],
+  metadataBase: new URL('https://luminaryaiengine.dpdns.org'),
+  title: 'Luminary AI Engine | Multi-Model Prompt Engineering',
+  description: 'A multi-model prompt engineering and optimization workspace by Luminary Technicals.',
+  applicationName: 'Luminary AI Engine',
+  keywords: ['Luminary AI Engine', 'AI', 'multi-model', 'prompt engineering', 'OpenRouter'],
+  authors: [{ name: 'Luminary Technicals', url: 'https://luminarytechnicals.dpdns.org/' }],
   openGraph: {
-    title: 'G0DM0DƎ',
-    description: 'Cognition without control. Tools for builders, not gatekeepers.',
+    title: 'Luminary AI Engine | Multi-Model Prompt Engineering',
+    description: 'Generate, critique and refine stronger prompts with multiple AI models.',
+    url: '/',
+    siteName: 'Luminary AI Engine',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Luminary AI Engine | Multi-Model Prompt Engineering',
+    description: 'A multi-model prompt engineering and optimization workspace by Luminary Technicals.',
   },
 }
 
