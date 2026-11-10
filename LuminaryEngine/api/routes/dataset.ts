@@ -18,7 +18,7 @@ datasetRoutes.get('/policy', (_req, res) => {
     contribution: 'disabled unless both contribute_to_dataset=true and dataset_consent=true are supplied for an individual request',
     redaction: 'best-effort pattern-based redaction is applied before storage; names, addresses and contextual personal data may not be detected',
     publication: isPublisherEnabled()
-      ? 'automatic publication is enabled for this deployment; contributed records may be copied to the configured public dataset repository'
+      ? 'automatic publication is enabled for this deployment; contributed records may be copied to the configured Hugging Face dataset repository (visibility depends on that repository's settings)'
       : 'automatic publication is not configured for this deployment',
     deletion: 'DELETE /v1/dataset/:id removes an entry only while it remains in the live in-memory buffer; already published or copied files cannot be reliably recalled',
   })
