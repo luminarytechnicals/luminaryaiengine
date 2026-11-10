@@ -26,7 +26,7 @@ LUMINARY AI has separate browser and optional API-server data paths. The standal
 |---|---|---|---|
 | API operational metadata | Optional Express API server | On for API requests | No prompt or response text |
 | Browser telemetry | Standalone app and telemetry proxy | Off by default while No-Log Mode is enabled | No prompt or response text |
-| Research dataset | Optional Express API server | Off; requires contribute_to_dataset: true | Yes, messages and response |
+| Research dataset | Optional Express API server | Off; requires contribute_to_dataset: true and dataset_consent: true | Yes, messages and response |
 
 ### Tier 1: API operational metadata
 
