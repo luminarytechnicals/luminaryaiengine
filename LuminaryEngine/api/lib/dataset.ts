@@ -32,13 +32,13 @@ import { registerDatasetStore, checkDatasetThreshold } from './hf-publisher'
  */
 export function redactDatasetText(value: string): string {
   return String(value || '')
-    .replace(/\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b/gi, '[REDACTED_EMAIL]')
-    .replace(/\\b(?:sk-or-v1-|sk-|hf_)[A-Za-z0-9_-]{12,}\\b/g, '[REDACTED_SECRET]')
-    .replace(/\\b(password|passwd|api[_ -]?key|access[_ -]?token|secret)\\s*[:=]\\s*[^\\s,;]+/gi, '$1=[REDACTED]')
-    .replace(/\\b(?:\\d[ -]*?){13,19}\\b/g, '[REDACTED_PAYMENT_CARD]')
-    .replace(/\\b(?:\\+?\\d[\\d .()/-]{7,}\\d)\\b/g, '[REDACTED_PHONE]')
-    .replace(/\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b/g, '[REDACTED_IP]')
-    .replace(/([?&](?:token|key|secret|password|auth)=)[^&#\\s]+/gi, '$1[REDACTED]');
+    .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, '[REDACTED_EMAIL]')
+    .replace(/\b(?:sk-or-v1-|sk-|hf_)[A-Za-z0-9_-]{12,}\b/g, '[REDACTED_SECRET]')
+    .replace(/\b(password|passwd|api[_ -]?key|access[_ -]?token|secret)\s*[:=]\s*[^\s,;]+/gi, '$1=[REDACTED]')
+    .replace(/\b(?:\d[ -]*?){13,19}\b/g, '[REDACTED_PAYMENT_CARD]')
+    .replace(/\b(?:\+?\d[\d .()/-]{7,}\d)\b/g, '[REDACTED_PHONE]')
+    .replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g, '[REDACTED_IP]')
+    .replace(/([?&](?:token|key|secret|password|auth)=)[^&#\s]+/gi, '$1[REDACTED]');
 }
 
 export function previewDatasetText(value: string): { text: string; changed: boolean } {
