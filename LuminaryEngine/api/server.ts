@@ -199,6 +199,7 @@ app.get('/v1/tier', apiKeyAuth, (req, res) => {
     features: {
       ultraplinian_tiers: config.ultraplinianTiers,
       max_race_models: config.maxRaceModels,
+      max_output_tokens: config.maxOutputTokens,
       research_access: config.researchAccess,
       dataset_export_formats: config.datasetExportFormats,
       can_flush: config.canFlush,
