@@ -5,7 +5,8 @@
  * Keys are loaded from the LUMINARY_API_KEYS environment variable
  * (comma-separated list) or a single LUMINARY_API_KEY.
  *
- * If neither is set, auth is disabled (open access for local dev).
+ * Production requires at least one configured key. Anonymous access is available only
+ * when ALLOW_INSECURE_LOCAL_API=true outside production.
  *
  * After authentication, the request is annotated with:
  *   - req.apiKeyId  — hashed key for rate-limit bucketing
