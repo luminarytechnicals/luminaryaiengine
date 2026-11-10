@@ -32,6 +32,12 @@ export function redactDatasetText(value: string): string {
     .replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g, '[REDACTED_IP]')
 }
 
+export function previewDatasetText(value: string): { text: string; changed: boolean } {
+  const original = String(value || '')
+  const text = redactDatasetText(original)
+  return { text, changed: text !== original }
+}
+
 // ── Types ────────────────────────────────────────────────────────────
 
 export interface DatasetEntry {
