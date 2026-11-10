@@ -12,17 +12,40 @@
  * - User feedback/ratings
  * - Parseltongue and STM pipeline metadata
  *
- * Privacy guarantees:
- * - Strictly opt-in per request
- * - No PII: API keys, IPs, and auth tokens are NEVER stored
- * - Dataset is exportable via GET /v1/dataset/export
- * - Caller can request deletion via DELETE /v1/dataset/:id
+ * Privacy controls:
+ * - Requires both contribute_to_dataset=true and dataset_consent=true
+ * - Applies best-effort pattern-based redaction before storage
+ * - Redaction is not a guarantee that all personal or sensitive data is detected
+ * - Published copies cannot be reliably recalled; see the dataset policy endpoint
+ * - Caller can request deletion while an entry remains in the live buffer
  *
  * Persistence: auto-publishes to HuggingFace when buffer fills up.
  */
 
 import { randomUUID } from 'crypto'
 import { registerDatasetStore, checkDatasetThreshold } from './hf-publisher'
+
+/**
+ * Best-effort redaction for common machine-detectable identifiers.
+ * This cannot reliably identify names, street addresses, or all contextual PII.
+ * Dataset publication must therefore remain explicit and opt-in.
+ */
+export function redactDatasetText(value: string): string {
+  return String(value || '')
+    .replace(/\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b/gi, '[REDACTED_EMAIL]')
+    .replace(/\\b(?:sk-or-v1-|sk-|hf_)[A-Za-z0-9_-]{12,}\\b/g, '[REDACTED_SECRET]')
+    .replace(/\\b(?:password|passwd|api[_ -]?key|access[_ -]?token|secret)\\s*[:=]\\s*[^\\s,;]+/gi, '$1=[REDACTED]')
+    .replace(/\\b(?:\\d[ -]*?){13,19}\\b/g, '[REDACTED_PAYMENT_CARD]')
+    .replace(/\\b(?:\\+?\\d[\\d .()/-]{7,}\\d)\\b/g, '[REDACTED_PHONE]')
+    .replace(/\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b/g, '[REDACTED_IP]')
+    .replace(/([?&](?:token|key|secret|password|auth)=)[^&#\\s]+/gi, '$1[REDACTED]');
+}
+
+export function previewDatasetText(value: string): { text: string; changed: boolean } {
+  const original = String(value || '');
+  const text = redactDatasetText(original);
+  return { text, changed: text !== original };
+}
 
 // ── Types ────────────────────────────────────────────────────────────
 
@@ -110,6 +133,14 @@ export function addEntry(entry: Omit<DatasetEntry, 'id' | 'timestamp'>): string 
   const id = randomUUID()
   const record: DatasetEntry = {
     ...entry,
+    messages: entry.messages.map(message => ({
+      ...message,
+      content: redactDatasetText(message.content),
+    })),
+    response: redactDatasetText(entry.response),
+    autotune: entry.autotune
+      ? { ...entry.autotune, reasoning: redactDatasetText(entry.autotune.reasoning || '') }
+      : undefined,
     id,
     timestamp: Date.now(),
   }
