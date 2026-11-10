@@ -88,6 +88,7 @@ consortiumRoutes.post('/completions', async (req, res) => {
       liquid_min_delta = 8,
       // Dataset opt-in
       contribute_to_dataset = false,
+      dataset_consent = false,
     } = req.body
 
     // ── Validate ──────────────────────────────────────────────────────
@@ -381,7 +382,7 @@ consortiumRoutes.post('/completions', async (req, res) => {
 
       // Dataset collection
       let datasetId: string | null = null
-      if (contribute_to_dataset) {
+      if (contribute_to_dataset === true && dataset_consent === true) {
         datasetId = addEntry({
           endpoint: '/v1/consortium/completions',
           model: resolvedOrchestrator,
@@ -424,7 +425,7 @@ consortiumRoutes.post('/completions', async (req, res) => {
           parseltongue: parseltongueResult,
           stm: stmResult,
         },
-        dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
+        dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
       })
 
       // ZDR Metadata
@@ -542,7 +543,7 @@ consortiumRoutes.post('/completions', async (req, res) => {
 
     // Dataset
     let datasetId: string | null = null
-    if (contribute_to_dataset) {
+    if (contribute_to_dataset === true && dataset_consent === true) {
       datasetId = addEntry({
         endpoint: '/v1/consortium/completions',
         model: resolvedOrchestrator,
@@ -614,7 +615,7 @@ consortiumRoutes.post('/completions', async (req, res) => {
         parseltongue: parseltongueResult,
         stm: stmResult,
       },
-      dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
+      dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
     })
 
   } catch (err: any) {
