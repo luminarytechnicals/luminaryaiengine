@@ -18,7 +18,7 @@ docker run -p 7860:7860 -e LUMINARY_API_KEY=your-secret-key g0dm0d3-api
 
 ## Authentication
 
-Set `LUMINARY_API_KEY` (single key) or `LUMINARY_API_KEYS` (comma-separated) as environment variables. If neither is set, auth is disabled (open access for local dev).
+Set `LUMINARY_API_KEY` (single key) or `LUMINARY_API_KEYS` (comma-separated) as environment variables. In production, authentication is mandatory and the API refuses to start without a key. For local development only, set `ALLOW_INSECURE_LOCAL_API=true` with `NODE_ENV` other than `production`.
 
 ```bash
 curl -H "Authorization: Bearer your-secret-key" ...
@@ -559,9 +559,9 @@ The hive-mind endpoint. Collects ALL model responses in parallel, then feeds the
 
 ## Open Dataset Collection
 
-Any request to `/v1/chat/completions`, `/v1/ultraplinian/completions`, or `/v1/consortium/completions` can opt in to dataset collection by setting `contribute_to_dataset: true`.
+A request is eligible for dataset collection only when it explicitly sets **both** `contribute_to_dataset: true` and `dataset_consent: true`. Both default to `false`. Before opting in, review `GET /v1/dataset/policy` and use `POST /v1/dataset/preview` to inspect the redacted preview. Preview does not store or publish content.
 
-**What gets stored (no PII):**
+**What gets stored (after best-effort redaction):**
 - Messages and responses (system prompts stripped)
 - AutoTune parameters and context detection results
 - Model used, response scores, race metadata (ULTRAPLINIAN)
@@ -569,9 +569,14 @@ Any request to `/v1/chat/completions`, `/v1/ultraplinian/completions`, or `/v1/c
 - User feedback/ratings (if submitted later)
 
 **What is NEVER stored:**
-- API keys (OpenRouter or LUMINARY AI)
-- IP addresses
-- Auth tokens
+- Commonly recognizable API keys, access tokens and secrets (pattern-based redaction)
+- Email addresses, phone numbers, payment-card-like number sequences and IPv4 addresses
+
+Pattern-based redaction cannot reliably detect names, street addresses or sensitive information expressed in context. Review the preview; do not submit sensitive content.
+
+### `GET /v1/dataset/policy` and `POST /v1/dataset/preview`
+
+The policy endpoint explains the current publication and deletion boundaries. The preview endpoint returns a redacted copy of supplied messages and response without storing or publishing them. Automated redaction is best-effort and is not a privacy guarantee.
 
 ### `GET /v1/dataset/stats`
 
@@ -834,3 +839,11 @@ print(r.json()["message"])
 | `HF_DATASET_REPO` | Target HF dataset repo | `pliny-the-prompter/g0dm0d3` |
 | `HF_FLUSH_THRESHOLD` | Auto-flush at this % of buffer capacity | `0.8` |
 | `HF_FLUSH_INTERVAL_MS` | Periodic flush interval (ms) | `1800000` (30 min) |
+
+
+## Model Catalogue and Cost Controls
+
+- `GET /v1/catalog/models` returns a cached, live OpenRouter model catalogue including context windows and published prompt/completion token prices.
+- `POST /v1/catalog/estimate` estimates USD cost from model ID and input/output token counts.
+- API output-token ceilings are tier-limited: Free 2,048; Pro 4,096; Enterprise 8,192. Requested output is clamped to the tier ceiling. Model-race counts remain capped by the tier's `maxRaceModels` setting.
+- Estimates are indicative, not a billing guarantee; provider routing and cached/tool/image tokens may change actual charges.
