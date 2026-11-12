@@ -752,33 +752,7 @@
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    /* ── Animated counter for stats ── */
-    function animateCounter(el, target, suffix = '') {
-      let current = 0;
-      const step = Math.ceil(target / 40);
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = current + suffix;
-        if (current >= target) clearInterval(timer);
-      }, 35);
-    }
-
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const nums = entry.target.querySelectorAll('.stat-number');
-          const targets = [55, 33, 1, 0];
-          const suffixes = ['+', '', '', ''];
-          nums.forEach((el, i) => {
-            if (targets[i] > 0) animateCounter(el, targets[i], suffixes[i]);
-          });
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    const heroStats = document.querySelector('.hero-stats');
-    if (heroStats) statsObserver.observe(heroStats);
+    /* Stats are descriptive labels; do not replace them with stale hard-coded counts. */
 
     /* ── Terminal typewriter effect ── */
     const lines = document.querySelectorAll('.t-line');
