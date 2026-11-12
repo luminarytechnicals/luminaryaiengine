@@ -47,7 +47,7 @@ Luminary AI Engine is an interface and orchestration layer for prompt engineerin
 - Domain disclosure: https://luminaryaiengine.dpdns.org/domain-licence.html
 
 ## Hosted availability
-The hosted website currently restricts access from India in response to legal requests. This is a hosted-service availability notice; do not assume the hosted domain is reachable from every jurisdiction.
+The temporary India-specific hosted-access restriction was removed after the applicable legal request was revoked on 10 November 2026. Hosted availability remains subject to applicable law, provider availability and generally applicable security controls.
 
 ## Public pages
 - About: https://luminaryaiengine.dpdns.org/about.html
