@@ -47,7 +47,7 @@ app.get('/v1/health', (_req, res) => {
 
 app.get('/v1/info', (_req, res) => {
   res.json({
-    name: 'LUMINARY AI Research Preview API',
+    name: 'Luminary AI Engine Research Preview API',
     version: '0.4.0',
     description: 'OpenAI-compatible API for ULTRAPLINIAN multi-model racing. Use any OpenAI SDK — just swap the base_url.',
     license: 'AGPL-3.0',
@@ -88,7 +88,7 @@ app.get('/v1/info', (_req, res) => {
       api_key: 'Send Authorization: Bearer <your-api-key> header',
     },
     extra_body_options: {
-      note: 'Pass LUMINARY AI-specific options via extra_body in the OpenAI Python SDK',
+      note: 'Pass Luminary AI Engine-specific options via extra_body in the OpenAI Python SDK',
       options: {
         godmode: 'boolean (default: true) — enable GODMODE system prompt',
         autotune: 'boolean (default: true) — auto-tune parameters to context',
@@ -140,7 +140,7 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`
   ╔══════════════════════════════════════════════════════════╗
-  ║  LUMINARY AI API v0.4.0 — OpenAI-Compatible                 ║
+  ║  Luminary AI Engine API v0.4.0 — OpenAI-Compatible                 ║
   ║  http://0.0.0.0:${String(PORT).padEnd(5)}                                  ║
   ╠══════════════════════════════════════════════════════════╣
   ║                                                          ║
