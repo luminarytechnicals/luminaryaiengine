@@ -1,5 +1,5 @@
 /**
- * LUMINARY AI Research Preview API
+ * Luminary AI Engine Research Preview API
  *
  * Exposes the core engines (AutoTune, Parseltongue, STM, Feedback Loop)
  * and the flagship ULTRAPLINIAN multi-model racing mode as a REST API.
@@ -105,7 +105,7 @@ app.get('/v1/info', (_req, res) => {
       requests_per_day: 1000,
       note: 'Research preview — each API key gets 5 total requests by default. Set RATE_LIMIT_TOTAL=0 to uncap.',
     },
-    source: 'https://github.com/LYS10S/LUMINARY AI',
+    source: 'https://github.com/luminarytechnicals/luminaryaiengine',
   })
 })
 
