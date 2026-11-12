@@ -9,7 +9,7 @@
 ───────────────────────────────────────────────────────────────
 ```
 
-# 🚀 LUMINARY AI ENGINE LLM ENGINE
+# 🚀 LUMINARY AI ENGINE
 
 **Developer:** Abhinav Ranjan
 **Organization:** Luminary Technicals
@@ -20,7 +20,7 @@
 
 Luminary AI Engine is published and maintained by Luminary Technicals. Its primary purpose is multi-model prompt engineering: using model collaboration to help users create and refine better prompts.
 
-**LUMINARY AI ENGINE LLM ENGINE** is a modular, privacy-first, multi-model intelligence system built for:
+**Luminary AI Engine** is a multi-model prompt engineering workspace built for:
 
 * Advanced AI interaction
 * Research & red-teaming
