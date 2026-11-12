@@ -26,7 +26,6 @@ import { consortiumRoutes } from './routes/consortium'
 import { datasetRoutes } from './routes/dataset'
 import { metadataRoutes } from './routes/metadata'
 import { researchRoutes } from './routes/research'
-import { catalogRoutes } from './routes/catalog'
 import { isPublisherEnabled, startPeriodicFlush, shutdownFlush, getPublisherStatus } from './lib/hf-publisher'
 import { TIER_CONFIGS } from './lib/tiers'
 import { ULTRAPLINIAN_MODELS } from './lib/ultraplinian'
@@ -36,15 +35,10 @@ const app = express()
 const PORT = parseInt(process.env.PORT || '7860', 10) // HF Spaces default
 
 // ── Middleware ─────────────────────────────────────────────────────────
-// CORS is allow-list based. Comma-separate origins for multi-origin deployments.
-// Wildcard CORS is intentionally disabled in production.
-const configuredCorsOrigins = (process.env.CORS_ORIGIN || 'https://luminaryaiengine.dpdns.org')
-  .split(',')
-  .map(origin => origin.trim())
-  .filter(Boolean)
-if (process.env.HF_SPACE_URL) configuredCorsOrigins.push(process.env.HF_SPACE_URL)
-const allowAllCors = process.env.CORS_ORIGIN === '*' && process.env.NODE_ENV !== 'production'
-const corsOrigins = allowAllCors ? true : configuredCorsOrigins.filter(origin => origin !== '*')
+// CORS: Allow configured origins. When self-hosting, set CORS_ORIGIN=* to allow all.
+const corsOrigins = process.env.CORS_ORIGIN === '*'
+  ? true  // Allow all origins (self-hosted / behind reverse proxy)
+  : [process.env.CORS_ORIGIN || 'https://godmod3.ai', ...(process.env.HF_SPACE_URL ? [process.env.HF_SPACE_URL] : [])].filter(Boolean)
 app.use(cors({ origin: corsOrigins, credentials: false }))
 
 // Security headers via helmet
@@ -129,14 +123,14 @@ app.get('/v1/info', (_req, res) => {
       openrouter_key: process.env.OPENROUTER_API_KEY
         ? 'Server-provided (callers do NOT need their own OpenRouter key)'
         : 'Caller must provide openrouter_api_key in request body',
-      api_key: 'Send Authorization: Bearer <your-api-key> (if server has LUMINARY_API_KEY set)',
-      tier_assignment: 'Set LUMINARY_TIER_KEYS="enterprise:key1,pro:key2" to assign tiers to keys',
+      api_key: 'Send Authorization: Bearer <your-api-key> (if server has GODMODE_API_KEY set)',
+      tier_assignment: 'Set GODMODE_TIER_KEYS="enterprise:key1,pro:key2" to assign tiers to keys',
     },
     dataset: {
-      note: 'Contribution requires contribute_to_dataset=true and dataset_consent=true. Best-effort redaction is applied; review /v1/dataset/policy and /v1/dataset/preview before opting in.',
+      note: 'Opt-in per request via contribute_to_dataset: true. No PII stored. Exportable as JSONL for HuggingFace Datasets.',
     },
     auto_publish: getPublisherStatus(),
-    source: 'https://github.com/luminarytechnicals/luminaryaiengine',
+    source: 'https://github.com/LYS10S/LUMINARY AI',
   })
 })
 
@@ -199,7 +193,6 @@ app.get('/v1/tier', apiKeyAuth, (req, res) => {
     features: {
       ultraplinian_tiers: config.ultraplinianTiers,
       max_race_models: config.maxRaceModels,
-      max_output_tokens: config.maxOutputTokens,
       research_access: config.researchAccess,
       dataset_export_formats: config.datasetExportFormats,
       can_flush: config.canFlush,
@@ -207,13 +200,10 @@ app.get('/v1/tier', apiKeyAuth, (req, res) => {
       can_download_corpus: config.canDownloadCorpus,
     },
     upgrade: tier !== 'enterprise'
-      ? 'Contact sales or set LUMINARY_TIER_KEYS to upgrade your API key tier.'
+      ? 'Contact sales or set GODMODE_TIER_KEYS to upgrade your API key tier.'
       : undefined,
   })
 })
-
-// ── Model catalogue and cost estimation ───────────────────────────────
-app.use('/v1/catalog', catalogRoutes)
 
 // ── Core routes (all tiers) ───────────────────────────────────────────
 app.use('/v1/ultraplinian', apiKeyAuth, rateLimit, ultraplinianRoutes)
@@ -225,8 +215,8 @@ app.use('/v1/transform', apiKeyAuth, rateLimit, transformRoutes)
 app.use('/v1/feedback', apiKeyAuth, rateLimit, feedbackRoutes)
 
 // ── Gated routes ──────────────────────────────────────────────────────
-// Dataset routes are authenticated; export is tier-gated inside the router.
-app.use('/v1/dataset', apiKeyAuth, rateLimit, datasetRoutes)
+// Dataset: Pro+ for export, stats accessible by all
+app.use('/v1/dataset', apiKeyAuth, rateLimit, tierGate('dataset:export'), datasetRoutes)
 
 // Metadata: stats open to all auth'd users, events gated to Enterprise
 app.use('/v1/metadata', apiKeyAuth, metadataRoutes) // individual route-level gating in metadata routes
@@ -290,12 +280,12 @@ app.listen(PORT, '0.0.0.0', () => {
   ╚══════════════════════════════════════════════════════════╝
   `)
 
-  if (!process.env.LUMINARY_API_KEY && !process.env.LUMINARY_API_KEYS) {
-    console.warn('  ⚠  WARNING: No LUMINARY_API_KEY or LUMINARY_API_KEYS set — all routes are unauthenticated!')
+  if (!process.env.GODMODE_API_KEY && !process.env.GODMODE_API_KEYS) {
+    console.warn('  ⚠  WARNING: No GODMODE_API_KEY or GODMODE_API_KEYS set — all routes are unauthenticated!')
   }
 
-  if (!process.env.LUMINARY_TIER_KEYS) {
-    console.warn('  ⚠  WARNING: No LUMINARY_TIER_KEYS set — all keys default to free tier')
+  if (!process.env.GODMODE_TIER_KEYS) {
+    console.warn('  ⚠  WARNING: No GODMODE_TIER_KEYS set — all keys default to free tier')
   }
 
   if (!process.env.HF_TOKEN) {

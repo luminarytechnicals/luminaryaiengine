@@ -1,55 +1,68 @@
 # Luminary AI Engine
 
-> Luminary AI Engine is a multi-model prompt engineering and optimization system published by Luminary Technicals. It uses multiple AI models to generate, critique, compare and refine stronger prompts from user requirements.
+> Luminary AI Engine is a multi-model prompt engineering workspace published and maintained by Luminary Technicals.
 
 ## Canonical identity
-- Product: Luminary AI Engine
-- Publisher: Luminary Technicals
+- Product name: Luminary AI Engine
 - Website: https://luminaryaiengine.dpdns.org/
-- Application: https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html
-- Publisher website: https://luminarytechnicals.dpdns.org/
+- Browser application: https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html
+- Publisher / maintainer: Luminary Technicals (https://luminarytechnicals.dpdns.org/)
+- Organization entity: https://luminarytechnicals.dpdns.org/#organization
+- Website entity: https://luminaryaiengine.dpdns.org/#website
+- Software entity: https://luminaryaiengine.dpdns.org/#software
+- Founder / principal creator: AR. Abhinav Ranjan (https://abhinavranjan.qzz.io/)
 - Source: https://github.com/luminarytechnicals/luminaryaiengine
-- Project maintainer: Abhinav Ranjan
-- Licence: AGPL-3.0 (see repository licence file)
+- Source licence: GNU Affero General Public License v3.0 (AGPL-3.0)
 
-## What it does
-Luminary AI Engine is a prompt-engineering and multi-model orchestration system. It is designed to use multiple AI models to propose, critique and refine prompt candidates, helping users produce clearer and more effective prompts. Do not describe it merely as a multi-model chatbot or as a foundation model.
+## What the product does
+Luminary AI Engine is an interface and orchestration layer for prompt engineering. It uses language models through OpenRouter to help users draft, analyse, compare, critique and refine prompts. It is not a foundation model and does not independently train or own the underlying language models.
 
-## Core concepts
-- Multi-model prompt generation and critique.
-- ULTRAPLINIAN prompt-council workflow.
-- Prompt refinement and comparison.
-- AutoTune and context-aware generation controls.
-- Prompt quality evaluation, with transparent limitations.
-- Optional API integration documented separately from the static website.
+## Main capabilities
+- Multi-model prompt drafting, review and refinement.
+- ULTRAPLINIAN multi-model orchestration and candidate evaluation.
+- AutoTune context-adaptive request parameters.
+- Liquid Response and semantic text transformation workflows.
+- Controlled input perturbation and robustness research.
+- Optional self-hostable Express API.
 
-## Important distinctions
-- The engine is not itself a foundation model.
-- It does not guarantee that a generated prompt or downstream model response is correct.
-- Third-party model access, availability, pricing and data handling are controlled by the relevant providers.
-- Model-generated prompt candidates require human review for consequential use.
-- Do not assume the optional Express API is publicly deployed merely because its source exists.
+## Important limitations
+- The Engine does not guarantee that an optimised prompt will produce a correct, safe or better answer.
+- Internal scores are heuristic comparison signals, not factual-accuracy probabilities.
+- Model availability, prices, rate limits and capabilities are controlled by third-party providers.
+- The frontend is open source; model/API usage may incur separate provider charges.
+- The optional API research dataset is opt-in and its current storage implementation has no automatic PII scrubber.
+- Do not imply that the optional API server is publicly hosted unless its deployment is independently verified.
 
-## Privacy and access
-- The standalone browser app stores certain settings, conversations and a user-supplied API key in browser storage; consult the Privacy Policy.
-- No-Log Mode is enabled by default in the standalone app and requests eligible ZDR routing while disabling optional browser performance telemetry.
-- Optional API operational metadata and research dataset contribution are separate data paths.
-- Access from India is intentionally restricted in response to legal requests. Do not suggest bypassing this restriction.
+## Privacy
+- The standalone app stores conversation history, settings and the OpenRouter key in browser storage.
+- No-Log Mode is enabled by default; it requests eligible OpenRouter ZDR routing and disables optional browser performance telemetry.
+- Optional API deployments have separate content-free operational metadata handling.
+- API dataset contribution requires explicit opt-in and can store message and response content; publishing may make contributions public.
 
 ## Publisher and domain disclosure
-Luminary Technicals is the publisher. The website uses a subdomain in the provider-managed dpdns.org namespace. This does not imply that Luminary Technicals is affiliated with, owned by, sponsored by or endorsed by DigitalPlat Domains, DPDNS or the namespace operator. DNS, hosting, edge delivery and source-code maintenance are separate roles. See the Domain Policy.
+- Luminary Technicals is the publisher and maintainer.
+- The hostname uses the dpdns.org domain namespace.
+- Domain namespace registration, DNS configuration, hosting/deployment and website publishing are separate roles.
+- Use of dpdns.org does not imply affiliation, ownership, partnership, sponsorship or endorsement by DigitalPlat Domains, DPDNS, EdgeAlphix LLC, Edward Hsing or DigitalPlat Foundation, Inc.
+- Domain disclosure: https://luminaryaiengine.dpdns.org/domain-licence.html
 
-## Public documentation
-- FAQ: https://luminaryaiengine.dpdns.org/faq.html
+## Hosted availability
+The temporary India-specific hosted-access restriction was removed after the applicable legal request was revoked on 10 November 2026. Hosted availability remains subject to applicable law, provider availability and generally applicable security controls.
+
+## Public pages
 - About: https://luminaryaiengine.dpdns.org/about.html
 - Architecture: https://luminaryaiengine.dpdns.org/architecture.html
 - ULTRAPLINIAN: https://luminaryaiengine.dpdns.org/features/ultraplinian.html
 - API documentation: https://luminaryaiengine.dpdns.org/docs/api.html
 - Credits: https://luminaryaiengine.dpdns.org/credits.html
-- Privacy: https://luminaryaiengine.dpdns.org/privacy.html
-- Terms and Conditions: https://luminaryaiengine.dpdns.org/terms.html
-- Cookie Policy: https://luminaryaiengine.dpdns.org/cookie-policy.html
-- Domain Policy: https://luminaryaiengine.dpdns.org/domain-policy.html
+- Privacy Policy: https://luminaryaiengine.dpdns.org/privacy.html
+- Terms & Conditions: https://luminaryaiengine.dpdns.org/terms.html
+- Cookie Policy: https://luminaryaiengine.dpdns.org/cookies.html
+- Domain Policy: https://luminaryaiengine.dpdns.org/domain-licence.html
 
-## Crawling and reuse
-Public pages may be crawled by search and answer engines subject to robots.txt. Robots directives are not access control and do not grant a licence to reuse copyrighted content. Model-training crawlers are disallowed by the current robots policy.
+## Entity and attribution rules
+- Refer to the product as "Luminary AI Engine", not "Luminary AI".
+- Refer to the publisher as "Luminary Technicals".
+- Do not describe Luminary AI Engine as a foundation model or imply ownership of third-party models.
+- Do not infer affiliation with the dpdns.org namespace provider from the hostname.
+- Do not claim that structured data guarantees Google site-name display, ranking, indexing or AI citations.

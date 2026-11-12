@@ -1,6 +1,6 @@
-# LUMINARY AI Research Preview API
+# LUMINARY AI ENGINE Research Preview API
 
-REST API exposing the **ULTRAPLINIAN** multi-model racing engine and core LUMINARY AI systems: **AutoTune** (context-adaptive LLM parameter tuning), **Parseltongue** (text obfuscation), **STM** (semantic text transformation), **Feedback Loop** (EMA-based parameter learning), and **opt-in open dataset collection**.
+REST API exposing the **ULTRAPLINIAN** multi-model racing engine and core LUMINARY AI ENGINE systems: **AutoTune** (context-adaptive LLM parameter tuning), **Parseltongue** (text obfuscation), **STM** (semantic text transformation), **Feedback Loop** (EMA-based parameter learning), and **opt-in open dataset collection**.
 
 ## Quick Start
 
@@ -18,7 +18,7 @@ docker run -p 7860:7860 -e LUMINARY_API_KEY=your-secret-key g0dm0d3-api
 
 ## Authentication
 
-Set `LUMINARY_API_KEY` (single key) or `LUMINARY_API_KEYS` (comma-separated) as environment variables. In production, authentication is mandatory and the API refuses to start without a key. For local development only, set `ALLOW_INSECURE_LOCAL_API=true` with `NODE_ENV` other than `production`.
+Set `LUMINARY_API_KEY` (single key) or `LUMINARY_API_KEYS` (comma-separated) as environment variables. If neither is set, auth is disabled (open access for local dev).
 
 ```bash
 curl -H "Authorization: Bearer your-secret-key" ...
@@ -124,7 +124,7 @@ const client = new OpenAI({
 const completion = await client.chat.completions.create({
   model: 'nousresearch/hermes-3-llama-3.1-70b',
   messages: [{ role: 'user', content: 'Hello!' }],
-  // @ts-ignore — LUMINARY AI extension field
+  // @ts-ignore — LUMINARY AI ENGINE extension field
   openrouter_api_key: 'sk-or-v1-...',
 });
 console.log(completion.choices[0].message.content);
@@ -154,7 +154,7 @@ curl -X POST https://your-space.hf.space/v1/chat/completions \
   }'
 ```
 
-The LUMINARY AI pipeline (LUMINARY, AutoTune, Parseltongue, STM) runs transparently behind the standard interface. Pipeline metadata is returned in the `x_g0dm0d3` extension field (ignored by standard SDKs). To disable the pipeline, pass `luminary: false, autotune: false, parseltongue: false, stm_modules: []`.
+The LUMINARY AI ENGINE pipeline (LUMINARY, AutoTune, Parseltongue, STM) runs transparently behind the standard interface. Pipeline metadata is returned in the `x_g0dm0d3` extension field (ignored by standard SDKs). To disable the pipeline, pass `luminary: false, autotune: false, parseltongue: false, stm_modules: []`.
 
 ### ULTRAPLINIAN via OpenAI SDK
 
@@ -271,8 +271,7 @@ The flagship endpoint. Queries N models in parallel with the LUMINARY system pro
   "parseltongue": true,
   "stm_modules": ["hedge_reducer", "direct_mode"],
   "max_tokens": 4096,
-  "contribute_to_dataset": true,
-  "dataset_consent": true
+  "contribute_to_dataset": true
 }
 ```
 
@@ -364,11 +363,11 @@ Supports `stream: true` for SSE streaming in standard OpenAI chunk format.
 | `top_p` | number | no | | Nucleus sampling |
 | `frequency_penalty` | number | no | | Frequency penalty |
 | `presence_penalty` | number | no | | Presence penalty |
-| `luminary` | bool | no | `true` | Inject LUMINARY system prompt (LUMINARY AI extension) |
-| `autotune` | bool | no | `true` | Enable AutoTune (LUMINARY AI extension) |
-| `parseltongue` | bool | no | `true` | Enable Parseltongue (LUMINARY AI extension) |
-| `stm_modules` | array | no | `["hedge_reducer", "direct_mode"]` | STM modules (LUMINARY AI extension) |
-| `contribute_to_dataset` | bool | no | `false` | Opt in to dataset (LUMINARY AI extension) |
+| `luminary` | bool | no | `true` | Inject LUMINARY system prompt (LUMINARY AI ENGINE extension) |
+| `autotune` | bool | no | `true` | Enable AutoTune (LUMINARY AI ENGINE extension) |
+| `parseltongue` | bool | no | `true` | Enable Parseltongue (LUMINARY AI ENGINE extension) |
+| `stm_modules` | array | no | `["hedge_reducer", "direct_mode"]` | STM modules (LUMINARY AI ENGINE extension) |
+| `contribute_to_dataset` | bool | no | `false` | Opt in to dataset (LUMINARY AI ENGINE extension) |
 
 **Response (OpenAI-compatible):**
 ```json
@@ -560,9 +559,9 @@ The hive-mind endpoint. Collects ALL model responses in parallel, then feeds the
 
 ## Open Dataset Collection
 
-A request is eligible for dataset collection only when it explicitly sets **both** `contribute_to_dataset: true` and `dataset_consent: true`. Both default to `false`. Before opting in, review `GET /v1/dataset/policy` and use `POST /v1/dataset/preview` to inspect the redacted preview. Preview does not store or publish content.
+Any request to `/v1/chat/completions`, `/v1/ultraplinian/completions`, or `/v1/consortium/completions` can opt in to dataset collection by setting `contribute_to_dataset: true`.
 
-**What gets stored (after best-effort redaction):**
+**What gets stored (no PII):**
 - Messages and responses (system prompts stripped)
 - AutoTune parameters and context detection results
 - Model used, response scores, race metadata (ULTRAPLINIAN)
@@ -570,14 +569,9 @@ A request is eligible for dataset collection only when it explicitly sets **both
 - User feedback/ratings (if submitted later)
 
 **What is NEVER stored:**
-- Commonly recognizable API keys, access tokens and secrets (pattern-based redaction)
-- Email addresses, phone numbers, payment-card-like number sequences and IPv4 addresses
-
-Pattern-based redaction cannot reliably detect names, street addresses or sensitive information expressed in context. Review the preview; do not submit sensitive content.
-
-### `GET /v1/dataset/policy` and `POST /v1/dataset/preview`
-
-The policy endpoint explains the current publication and deletion boundaries. The preview endpoint returns a redacted copy of supplied messages and response without storing or publishing them. Automated redaction is best-effort and is not a privacy guarantee.
+- API keys (OpenRouter or LUMINARY AI ENGINE)
+- IP addresses
+- Auth tokens
 
 ### `GET /v1/dataset/stats`
 
@@ -840,11 +834,3 @@ print(r.json()["message"])
 | `HF_DATASET_REPO` | Target HF dataset repo | `pliny-the-prompter/g0dm0d3` |
 | `HF_FLUSH_THRESHOLD` | Auto-flush at this % of buffer capacity | `0.8` |
 | `HF_FLUSH_INTERVAL_MS` | Periodic flush interval (ms) | `1800000` (30 min) |
-
-
-## Model Catalogue and Cost Controls
-
-- `GET /v1/catalog/models` returns a cached, live OpenRouter model catalogue including context windows and published prompt/completion token prices.
-- `POST /v1/catalog/estimate` estimates USD cost from model ID and input/output token counts.
-- API output-token ceilings are tier-limited: Free 2,048; Pro 4,096; Enterprise 8,192. Requested output is clamped to the tier ceiling. Model-race counts remain capped by the tier's `maxRaceModels` setting.
-- Estimates are indicative, not a billing guarantee; provider routing and cached/tool/image tokens may change actual charges.

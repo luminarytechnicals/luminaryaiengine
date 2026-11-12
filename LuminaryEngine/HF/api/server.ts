@@ -29,11 +29,10 @@ const app = express()
 const PORT = parseInt(process.env.PORT || '7860', 10) // HF Spaces default
 
 // ── Middleware ─────────────────────────────────────────────────────────
-const configuredCorsOrigins = (process.env.CORS_ORIGIN || 'https://luminaryaiengine.dpdns.org')
-  .split(',').map(origin => origin.trim()).filter(Boolean)
-const allowAllCors = process.env.CORS_ORIGIN === '*' && process.env.NODE_ENV !== 'production'
 app.use(cors({
-  origin: allowAllCors ? true : configuredCorsOrigins.filter(origin => origin !== '*'),
+  origin: process.env.CORS_ORIGIN === '*'
+    ? true
+    : [process.env.CORS_ORIGIN || 'https://godmod3.ai'].filter(Boolean),
   credentials: false,
 }))
 app.use(express.json({ limit: '1mb' }))
@@ -106,7 +105,7 @@ app.get('/v1/info', (_req, res) => {
       requests_per_day: 1000,
       note: 'Research preview — each API key gets 5 total requests by default. Set RATE_LIMIT_TOTAL=0 to uncap.',
     },
-    source: 'https://github.com/luminarytechnicals/luminaryaiengine',
+    source: 'https://github.com/LYS10S/LUMINARY AI',
   })
 })
 

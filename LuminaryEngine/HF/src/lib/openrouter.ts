@@ -96,7 +96,7 @@ export async function sendMessage({
     headers: {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://luminaryaiengine.dpdns.org',
+      'HTTP-Referer': 'https://godmod3.ai',
       'X-Title': 'LUMINARY-AI'
     },
     body: JSON.stringify(body),
@@ -159,7 +159,7 @@ export async function* streamMessage({
     headers: {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://luminaryaiengine.dpdns.org',
+      'HTTP-Referer': 'https://godmod3.ai',
       'X-Title': 'LUMINARY-AI'
     },
     body: JSON.stringify(streamBody),
@@ -216,7 +216,7 @@ export async function getModels(apiKey: string): Promise<string[]> {
   const response = await fetch('https://openrouter.ai/api/v1/models', {
     headers: {
       'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': 'https://luminaryaiengine.dpdns.org',
+      'HTTP-Referer': 'https://godmod3.ai',
       'X-Title': 'LUMINARY-AI'
     }
   })

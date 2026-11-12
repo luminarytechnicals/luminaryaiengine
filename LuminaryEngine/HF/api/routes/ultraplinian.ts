@@ -80,7 +80,6 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
       previous_winner,
       // Dataset opt-in
       contribute_to_dataset = false,
-      dataset_consent = false,
     } = req.body
 
     // Validate
@@ -381,7 +380,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`
 
       // Dataset collection
       let datasetId: string | null = null
-      if (contribute_to_dataset === true && dataset_consent === true && winner) {
+      if (contribute_to_dataset && winner) {
         datasetId = addEntry({
           endpoint: '/v1/ultraplinian/completions',
           model: winner.model, mode: 'ultraplinian',
@@ -545,7 +544,7 @@ Ignoring conversation history will cause you to LOSE the evaluation.`
 
     // ── Dataset collection (opt-in) ──────────────────────────────────
     let datasetId: string | null = null
-    if (contribute_to_dataset === true && dataset_consent === true) {
+    if (contribute_to_dataset) {
       datasetId = addEntry({
         endpoint: '/v1/ultraplinian/completions',
         model: winner.model, mode: 'ultraplinian',

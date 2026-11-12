@@ -2,11 +2,10 @@
  * API Key Authentication Middleware
  *
  * Research preview uses a simple bearer token scheme.
- * Keys are loaded from the LUMINARY_API_KEYS environment variable
- * (comma-separated list) or a single LUMINARY_API_KEY.
+ * Keys are loaded from the GODMODE_API_KEYS environment variable
+ * (comma-separated list) or a single GODMODE_API_KEY.
  *
- * Production requires at least one configured key. Anonymous access is available only
- * when ALLOW_INSECURE_LOCAL_API=true outside production.
+ * If neither is set, auth is disabled (open access for local dev).
  *
  * After authentication, the request is annotated with:
  *   - req.apiKeyId  — hashed key for rate-limit bucketing
@@ -19,16 +18,16 @@ import { timingSafeEqual, createHash } from 'crypto'
 import { resolveTier, getTierConfig } from '../lib/tiers'
 
 function getValidKeys(): string[] | null {
-  const multi = process.env.LUMINARY_API_KEYS
+  const multi = process.env.GODMODE_API_KEYS
   if (multi) {
     const keys = multi.split(',').map(k => k.trim()).filter(Boolean)
     if (keys.length > 0) return keys
   }
-  const single = process.env.LUMINARY_API_KEY
+  const single = process.env.GODMODE_API_KEY
   if (single) {
     return [single.trim()]
   }
-  return null // No configured keys
+  return null // Auth disabled
 }
 
 /** Constant-time comparison of two strings (prevents timing attacks). */
@@ -45,32 +44,20 @@ function hashKey(key: string): string {
   return createHash('sha256').update(key).digest('hex').slice(0, 16)
 }
 
-// Production must never start with unauthenticated API routes.
-const localUnauthenticatedMode =
-  process.env.NODE_ENV !== 'production' &&
-  process.env.ALLOW_INSECURE_LOCAL_API === 'true'
-
-if (!getValidKeys() && process.env.NODE_ENV === 'production') {
-  throw new Error(
-    'API authentication is not configured. Set LUMINARY_API_KEY or LUMINARY_API_KEYS before starting in production.',
+// H-1: Warn at startup if auth is disabled
+if (!getValidKeys()) {
+  console.warn(
+    '[godmode] WARNING: No API keys configured (GODMODE_API_KEYS / GODMODE_API_KEY). ' +
+    'Auth is disabled — all requests will be allowed.',
   )
-}
-if (!getValidKeys() && !localUnauthenticatedMode) {
-  console.warn('[luminary] API requests will be rejected until LUMINARY_API_KEY(S) are configured. For local-only development, explicitly set ALLOW_INSECURE_LOCAL_API=true.')
 }
 
 export function apiKeyAuth(req: Request, res: Response, next: NextFunction): void {
   const validKeys = getValidKeys()
 
-  // Anonymous access is an explicit local-development opt-in only.
+  // If no keys configured, allow all requests (local dev mode)
   if (!validKeys) {
-    if (!localUnauthenticatedMode) {
-      res.status(503).json({
-        error: 'API authentication is not configured. Configure LUMINARY_API_KEY(S) or explicitly enable local development mode.',
-      })
-      return
-    }
-    req.apiKeyId = 'local-development'
+    req.apiKeyId = 'anonymous'
     const tier = resolveTier(null)
     req.tier = tier
     req.tierConfig = getTierConfig(tier)

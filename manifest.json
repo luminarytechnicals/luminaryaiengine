@@ -1,9 +1,8 @@
 {
   "name": "Luminary AI Engine",
-  "short_name": "Luminary AI Engine",
-  "description": "Multi-model prompt engineering and optimization workspace by Luminary Technicals.",
+  "short_name": "Luminary Engine",
+  "description": "Multi-model prompt engineering workspace for drafting, analysing, critiquing and refining prompts.",
   "start_url": "/LuminaryEngine/index.html",
-  "scope": "/LuminaryEngine/",
   "display": "standalone",
   "background_color": "#0d0208",
   "theme_color": "#00ff41",
@@ -30,9 +29,9 @@
   "shortcuts": [
     {
       "name": "Launch Engine",
-      "url": "/LuminaryEngine/index.html",
-      "description": "Open Luminary AI Engine"
+      "url": "LuminaryEngine/index.html",
+      "description": "Open the AI Engine directly"
     }
   ],
-  "id": "/LuminaryEngine/"
+  "scope": "/"
 }

@@ -210,7 +210,7 @@ chatRoutes.post('/completions', async (req, res) => {
       model = 'nousresearch/hermes-4-70b',
       openrouter_api_key: caller_key,
       stream = false,
-      max_tokens: requestedMaxTokens = 4096,
+      max_tokens = 4096,
       // LUMINARY AI pipeline options (optional — transparent to OpenAI SDK users)
       godmode = true,
       custom_system_prompt,
@@ -229,14 +229,7 @@ chatRoutes.post('/completions', async (req, res) => {
       repetition_penalty,
       // Dataset opt-in
       contribute_to_dataset = false,
-      dataset_consent = false,
     } = req.body
-    const outputTokenCeiling = req.tierConfig?.maxOutputTokens ?? 2048
-    const requestedTokenCount = Number(requestedMaxTokens)
-    const max_tokens = Number.isFinite(requestedTokenCount)
-      ? Math.max(1, Math.min(Math.floor(requestedTokenCount), outputTokenCeiling))
-      : Math.min(4096, outputTokenCeiling)
-
 
     // Validate
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -353,7 +346,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
       // Dataset
       let datasetId: string | null = null
-      if (contribute_to_dataset === true && dataset_consent === true) {
+      if (contribute_to_dataset) {
         datasetId = addEntry({
           endpoint: '/v1/chat/completions',
           model: winner.model, mode: 'ultraplinian',
@@ -436,7 +429,7 @@ chatRoutes.post('/completions', async (req, res) => {
             parseltongue: pipeline.parseltongueResult,
             stm: stmResult,
           },
-          dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
+          dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
         },
       })
       return
@@ -537,7 +530,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
       // Dataset
       let datasetId: string | null = null
-      if (contribute_to_dataset === true && dataset_consent === true) {
+      if (contribute_to_dataset) {
         datasetId = addEntry({
           endpoint: '/v1/chat/completions',
           model: orchestratorModel, mode: 'consortium',
@@ -621,7 +614,7 @@ chatRoutes.post('/completions', async (req, res) => {
             parseltongue: pipeline.parseltongueResult,
             stm: stmResult,
           },
-          dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
+          dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
         },
       })
       return
@@ -668,7 +661,7 @@ chatRoutes.post('/completions', async (req, res) => {
           headers: {
             'Authorization': `Bearer ${openrouter_api_key}`,
             'Content-Type': 'application/json',
-            'HTTP-Referer': 'https://luminaryaiengine.dpdns.org',
+            'HTTP-Referer': 'https://godmod3.ai',
             'X-Title': 'LUMINARY-AI',
           },
           body: JSON.stringify(streamBody),
@@ -863,7 +856,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
     // Dataset collection (opt-in)
     let datasetId: string | null = null
-    if (contribute_to_dataset === true && dataset_consent === true) {
+    if (contribute_to_dataset) {
       datasetId = addEntry({
         endpoint: '/v1/chat/completions',
         model,

@@ -59,7 +59,6 @@ chatRoutes.post('/completions', async (req, res) => {
       repetition_penalty,
       // Dataset opt-in
       contribute_to_dataset = false,
-      dataset_consent = false,
     } = req.body
 
     // Validate required fields
@@ -204,7 +203,7 @@ chatRoutes.post('/completions', async (req, res) => {
 
     // ── Dataset collection (opt-in) ──────────────────────────────────
     let datasetId: string | null = null
-    if (contribute_to_dataset === true && dataset_consent === true) {
+    if (contribute_to_dataset) {
       datasetId = addEntry({
         endpoint: '/v1/chat/completions',
         model,

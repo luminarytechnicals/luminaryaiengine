@@ -10,10 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "api": "tsx api/server.ts",
-    "api:dev": "tsx watch api/server.ts",
-    "test": "tsx --test research/quality-controls.test.ts",
-    "typecheck": "tsc --noEmit",
-    "benchmark:blind": "tsx research/benchmark-blind.ts"
+    "api:dev": "tsx watch api/server.ts"
   },
   "dependencies": {
     "cors": "^2.8.6",

@@ -4,11 +4,11 @@
 # Build:  docker build -t g0dm0d3-api .
 # Run:    docker run -p 7860:7860 \
 #           -e OPENROUTER_API_KEY=sk-or-... \
-#           -e LUMINARY_API_KEY=your-secret-key \
+#           -e GODMODE_API_KEY=your-secret-key \
 #           g0dm0d3-api
 #
 # OPENROUTER_API_KEY: Your OpenRouter key (powers all model calls)
-# LUMINARY_API_KEY:    Auth key callers must send as Bearer token
+# GODMODE_API_KEY:    Auth key callers must send as Bearer token
 
 FROM node:20-slim
 
@@ -27,7 +27,6 @@ COPY src/stm/ ./src/stm/
 RUN addgroup --system app && adduser --system --ingroup app app
 
 # HF Spaces expects port 7860
-ENV NODE_ENV=production
 ENV PORT=7860
 EXPOSE 7860
 

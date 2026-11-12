@@ -67,7 +67,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
       stm_modules = ['hedge_reducer', 'direct_mode'],
       // Param overrides
       temperature,
-      max_tokens: requestedMaxTokens = 4096,
+      max_tokens = 4096,
       top_p,
       top_k,
       frequency_penalty,
@@ -78,14 +78,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
       liquid_min_delta = 8, // Min score improvement to trigger a leader upgrade (1-50)
       // Dataset opt-in
       contribute_to_dataset = false,
-      dataset_consent = false,
     } = req.body
-    const outputTokenCeiling = req.tierConfig?.maxOutputTokens ?? 2048
-    const requestedTokenCount = Number(requestedMaxTokens)
-    const max_tokens = Number.isFinite(requestedTokenCount)
-      ? Math.max(1, Math.min(Math.floor(requestedTokenCount), outputTokenCeiling))
-      : Math.min(4096, outputTokenCeiling)
-
 
     // Validate
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -120,7 +113,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
         current_tier: currentTier,
         allowed_tiers: tierConfig.ultraplinianTiers,
         requested_tier: tier,
-        upgrade: 'Contact sales or set LUMINARY_TIER_KEYS to upgrade your API key tier.',
+        upgrade: 'Contact sales or set GODMODE_TIER_KEYS to upgrade your API key tier.',
       })
       return
     }
@@ -374,7 +367,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
 
       // Dataset collection
       let datasetId: string | null = null
-      if (contribute_to_dataset === true && dataset_consent === true && winner) {
+      if (contribute_to_dataset && winner) {
         datasetId = addEntry({
           endpoint: '/v1/ultraplinian/completions',
           model: winner.model, mode: 'ultraplinian',
@@ -425,7 +418,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
           parseltongue: parseltongueResult,
           stm: stmResult,
         },
-        dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
+        dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
       })
 
       // ── ZDR Metadata (content-free) ─────────────────────────────
@@ -552,7 +545,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
 
     // ── Dataset collection (opt-in) ──────────────────────────────────
     let datasetId: string | null = null
-    if (contribute_to_dataset === true && dataset_consent === true) {
+    if (contribute_to_dataset) {
       datasetId = addEntry({
         endpoint: '/v1/ultraplinian/completions',
         model: winner.model, mode: 'ultraplinian',
@@ -631,7 +624,7 @@ ultraplinianRoutes.post('/completions', async (req, res) => {
         parseltongue: parseltongueResult,
         stm: stmResult,
       },
-      dataset: (contribute_to_dataset === true && dataset_consent === true) ? { contributed: true, entry_id: datasetId } : { contributed: false },
+      dataset: contribute_to_dataset ? { contributed: true, entry_id: datasetId } : { contributed: false },
     })
   } catch (err: any) {
     console.error('[ultraplinian]', err)

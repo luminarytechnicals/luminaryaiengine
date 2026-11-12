@@ -2,11 +2,11 @@
  * Tier System — Enterprise Paywall
  *
  * Three tiers: free, pro, enterprise.
- * Keys are mapped to tiers via LUMINARY_TIER_KEYS env var.
+ * Keys are mapped to tiers via GODMODE_TIER_KEYS env var.
  *
- * Format:  LUMINARY_TIER_KEYS="enterprise:sk-ent-xxx,pro:sk-pro-yyy,pro:sk-pro-zzz"
+ * Format:  GODMODE_TIER_KEYS="enterprise:sk-ent-xxx,pro:sk-pro-yyy,pro:sk-pro-zzz"
  *
- * Any key in LUMINARY_API_KEY(S) that isn't in LUMINARY_TIER_KEYS defaults to "free".
+ * Any key in GODMODE_API_KEY(S) that isn't in GODMODE_TIER_KEYS defaults to "free".
  * Anonymous access (no auth configured) defaults to "free".
  */
 
@@ -25,8 +25,6 @@ export interface TierConfig {
   ultraplinianTiers: ('fast' | 'standard' | 'smart' | 'power' | 'ultra')[]
   /** Max models in a single race */
   maxRaceModels: number
-  /** Hard ceiling for requested output tokens per API call */
-  maxOutputTokens: number
   /** Research API access level */
   researchAccess: 'none' | 'read' | 'full'
   /** Dataset export formats allowed */
@@ -50,7 +48,6 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
     },
     ultraplinianTiers: ['fast'],
     maxRaceModels: 12,
-    maxOutputTokens: 2048,
     researchAccess: 'none',
     datasetExportFormats: [],
     canFlush: false,
@@ -68,7 +65,6 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
     },
     ultraplinianTiers: ['fast', 'standard', 'smart', 'power'],
     maxRaceModels: 36,
-    maxOutputTokens: 4096,
     researchAccess: 'read',
     datasetExportFormats: ['json'],
     canFlush: false,
@@ -86,7 +82,6 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
     },
     ultraplinianTiers: ['fast', 'standard', 'smart', 'power', 'ultra'],
     maxRaceModels: 56,
-    maxOutputTokens: 8192,
     researchAccess: 'full',
     datasetExportFormats: ['json', 'jsonl'],
     canFlush: true,
@@ -96,13 +91,13 @@ export const TIER_CONFIGS: Record<Tier, TierConfig> = {
 }
 
 /**
- * Parse LUMINARY_TIER_KEYS into a map of raw key → tier.
+ * Parse GODMODE_TIER_KEYS into a map of raw key → tier.
  *
  * Format: "enterprise:sk-xxx,pro:sk-yyy,enterprise:sk-zzz"
  */
 function parseTierKeys(): Map<string, Tier> {
   const map = new Map<string, Tier>()
-  const raw = process.env.LUMINARY_TIER_KEYS
+  const raw = process.env.GODMODE_TIER_KEYS
   if (!raw) return map
 
   for (const entry of raw.split(',')) {

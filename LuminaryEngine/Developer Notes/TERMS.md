@@ -1,24 +1,24 @@
-# LUMINARY AI -- Terms of Service
+# Luminary AI Engine — Terms of Service
 
-**Last updated:** 2026-11-05
+**Last updated:** 2026-11-08
 
 ---
 
 ## 1. Acceptance
 
-By using LUMINARY AI -- whether through the web frontend, the API server, or a self-hosted deployment -- you agree to these terms. If you do not agree, do not use the software.
+By using Luminary AI Engine — whether through the hosted website, optional API server, or a self-hosted deployment — you agree to these terms. If you do not agree, do not use the software.
 
 ---
 
-## 2. What LUMINARY AI Is
+## 2. What Luminary AI Engine Is
 
-LUMINARY AI is an open-source research tool for AI safety, red teaming, and cognition research. It is provided **as-is** for experimentation and study. It is not a commercial product, and is maintained by Abhinav Ranjan and Luminary Technicals.
+Luminary AI Engine is an open-source multi-model prompt engineering workspace. It uses language models to help draft, analyse, compare, critique and refine prompts. It is an interface and orchestration layer, not a foundation model. The project is created by AR. Abhinav Ranjan and published and maintained by Luminary Technicals.
 
 ---
 
 ## 3. Data Collection
 
-LUMINARY AI has separate browser and optional API-server data paths. The standalone browser app does not upload chat history by default, but an optional API deployment can record operational metadata, and the API dataset feature can store message content when explicitly requested.
+Luminary AI Engine has separate browser and optional API-server data paths. The standalone browser app does not upload chat history by default, but an optional API deployment can record operational metadata, and the API dataset feature can store message content when explicitly requested.
 
 ### Overview
 
@@ -26,7 +26,7 @@ LUMINARY AI has separate browser and optional API-server data paths. The standal
 |---|---|---|---|
 | API operational metadata | Optional Express API server | On for API requests | No prompt or response text |
 | Browser telemetry | Standalone app and telemetry proxy | Off by default while No-Log Mode is enabled | No prompt or response text |
-| Research dataset | Optional Express API server | Off; requires contribute_to_dataset: true and dataset_consent: true | Yes, messages and response |
+| Research dataset | Optional Express API server | Off; requires contribute_to_dataset: true | Yes, messages and response |
 
 ### Tier 1: API operational metadata
 
@@ -48,9 +48,9 @@ OpenRouter's provider.zdr and provider.data_collection routing preferences only 
 
 The optional API accepts contribute_to_dataset: true for requests that should be added to the research dataset. This option is false by default. When explicitly enabled, the API stores the submitted non-system messages and final response, along with associated model and pipeline metadata.
 
-The API applies best-effort pattern-based redaction to common email addresses, phone numbers, payment-card-like sequences, IPv4 addresses and credential/token patterns before storage. This is not a complete PII detector: names, street addresses, health information, financial context and other sensitive content may not be detected. Review the preview and do not submit sensitive content. If Hugging Face publishing is configured, the contributed content may be published to a public dataset and copied or redistributed by others.
+Important: the current dataset storage code does not implement an automatic PII scrubber. Do not submit names, addresses, credentials, health information, financial details or other sensitive content when dataset contribution is enabled. If Hugging Face publishing is configured, the contributed content may be published to a public dataset and copied or redistributed by others.
 
-The dataset is held in server memory first, with a configured capacity limit. When publishing is configured, batches may be uploaded to the configured Hugging Face dataset. Deletion through the API only applies while an entry is still available in the in-memory buffer; it cannot remove already published, downloaded, forked, cached or redistributed copies.
+The dataset is held in server memory first, with a configured capacity limit. When publishing is configured, batches may be uploaded to the configured Hugging Face dataset. Deletion through the API only applies while an entry is still available in the in-memory buffer; it cannot guarantee removal of already published copies.
 
 ### What is not intentionally collected by the application
 
@@ -60,7 +60,7 @@ The application code does not intentionally add users' OpenRouter API key values
 
 ### Standalone browser application
 
-The standalone app stores conversations and the user's API key in browser storage. Conversation history is not synchronized to a Luminary AI account. Clearing browser storage can permanently delete local history. The API key is protected using browser Web Crypto before it is stored when that capability is available, but browser-side encryption does not protect against malicious same-origin JavaScript, browser extensions with access, or a compromised device.
+The standalone app stores conversations and the user's API key in browser storage. Conversation history is not synchronized to a Luminary AI Engine account. Clearing browser storage can permanently delete local history. The API key is protected using browser Web Crypto before it is stored when that capability is available, but browser-side encryption does not protect against malicious same-origin JavaScript, browser extensions with access, or a compromised device.
 
 ### Optional API server
 
@@ -80,7 +80,7 @@ Dataset entries can be deleted by identifier while they remain in the API server
 
 ### Standalone browser application
 
-In the standalone browser app, the OpenRouter key is entered by the user and stored in that browser's local storage in an encrypted representation when Web Crypto is available. The key is sent to OpenRouter as part of model requests. The standalone app does not intentionally send that key to the Luminary AI telemetry endpoint.
+In the standalone browser app, the OpenRouter key is entered by the user and stored in that browser's local storage in an encrypted representation when Web Crypto is available. The key is sent to OpenRouter as part of model requests. The standalone app does not intentionally send that key to the Luminary AI Engine telemetry endpoint.
 
 No account or cross-device chat synchronization is provided. Conversations stay in the browser's local storage and may be lost when browser data is cleared.
 
@@ -101,11 +101,11 @@ This section applies to **Enterprise Users** -- defined as any for-profit entity
 - Is publicly traded on any stock exchange
 - Is a subsidiary, division, or affiliate of an entity that meets any of the above criteria
 
-If you're an individual, a researcher, a student, a hobbyist, a small team, a nonprofit, an educational institution, a government research lab, or a company that doesn't meet the thresholds above -- **this section does not apply to you. LUMINARY AI is free for you. Full stop.**
+If you're an individual, a researcher, a student, a hobbyist, a small team, a nonprofit, an educational institution, a government research lab, or a company that doesn't meet the thresholds above -- **this section does not apply to you. LUMINARY AI ENGINE is free for you. Full stop.**
 
 ### What Enterprise Users Must Do
 
-Enterprise Users that use the LUMINARY AI hosted service (the API server, the web frontend hosted by the project, or any project-operated infrastructure) in any capacity -- including internal tools, employee-facing products, customer-facing products, evaluation, benchmarking, or integration -- must obtain a **Commercial Use License** from the LUMINARY AI maintainers.
+Enterprise Users that use the Luminary AI Engine hosted service (the API server, the web frontend hosted by the project, or any project-operated infrastructure) in any capacity -- including internal tools, employee-facing products, customer-facing products, evaluation, benchmarking, or integration -- must obtain a **Commercial Use License** from the LUMINARY AI ENGINE maintainers.
 
 This applies to:
 
@@ -117,7 +117,7 @@ This applies to:
 
 A Commercial Use License includes:
 
-- Authorized use of the hosted LUMINARY AI service for enterprise purposes
+- Authorized use of the hosted LUMINARY AI ENGINE service for enterprise purposes
 - Priority support channel
 - SLA guarantees (negotiated per agreement)
 - Custom data handling and retention terms (if needed)
@@ -127,7 +127,7 @@ A Commercial Use License includes:
 
 To be absolutely clear, the following uses are **always free, for everyone, including enterprises**:
 
-- **Self-hosting LUMINARY AI from source code** under the AGPL-3.0 license. The source code license is separate from these service terms. If you clone the repo, run it on your own servers, and comply with the AGPL-3.0 (keep your derivative works open source), you owe nothing.
+- **Self-hosting LUMINARY AI ENGINE from source code** under the AGPL-3.0 license. The source code license is separate from these service terms. If you clone the repo, run it on your own servers, and comply with the AGPL-3.0 (keep your derivative works open source), you owe nothing.
 - **Contributing to the project** via pull requests, issues, documentation, or community support.
 - **Academic or nonprofit research** using the hosted service, regardless of institutional size.
 - **Personal use** by employees of enterprise entities acting in their individual capacity, on their own time, with their own API keys.
@@ -148,7 +148,7 @@ We're not looking to sue anybody. We'd rather have a conversation. But if a bill
 
 ### Data Licensing for Enterprise
 
-Enterprise Users that access the publicly published research dataset (on HuggingFace) for commercial purposes -- including model training, fine-tuning, product development, or competitive intelligence -- must obtain a **Data Use License** from the LUMINARY AI maintainers.
+Enterprise Users that access the publicly published research dataset (on HuggingFace) for commercial purposes -- including model training, fine-tuning, product development, or competitive intelligence -- must obtain a **Data Use License** from the LUMINARY AI ENGINE maintainers.
 
 Non-commercial research use of the published dataset is always free.
 
@@ -156,21 +156,21 @@ Non-commercial research use of the published dataset is always free.
 
 ## 7. Your Responsibilities
 
-By using LUMINARY AI, you agree that:
+By using Luminary AI Engine, you agree that:
 
-- **You are responsible for the outputs generated through this tool.** LUMINARY AI is a research interface -- it does not generate content itself, it routes requests to AI models via third-party APIs.
+- **You are responsible for the outputs generated through this tool.** LUMINARY AI ENGINE is a research interface -- it does not generate content itself, it routes requests to AI models via third-party APIs.
 - **You will comply with all applicable laws and regulations** in your jurisdiction when using this tool.
 - **You will comply with the terms of service of the underlying AI providers** (e.g., OpenRouter, and the model providers accessible through it).
-- **You will not use LUMINARY AI to generate content that is illegal** in your jurisdiction.
+- **You will not use LUMINARY AI ENGINE to generate content that is illegal** in your jurisdiction.
 - **If you opt in to dataset contribution (Tier 3), you accept that your conversation data will be published publicly** as part of an open research dataset.
 
 ---
 
 ## 8. No Warranty / Disclaimer
 
-LUMINARY AI IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+LUMINARY AI ENGINE IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
 
-The maintainers and contributors of LUMINARY AI:
+The maintainers and contributors of LUMINARY AI ENGINE:
 
 - Make no guarantees about uptime, availability, or correctness.
 - Are not liable for any damages arising from the use of this software.
@@ -183,7 +183,7 @@ Use this tool at your own risk.
 
 ## 9. Third-Party Services
 
-LUMINARY AI interacts with third-party services. Your use of these services is governed by their respective terms:
+Luminary AI Engine interacts with third-party services. Your use of these services is governed by their respective terms:
 
 | Service | Role | Their Terms |
 |---|---|---|
@@ -191,15 +191,15 @@ LUMINARY AI interacts with third-party services. Your use of these services is g
 | **HuggingFace** | Hosts published metadata and dataset files | [huggingface.co/terms-of-service](https://huggingface.co/terms-of-service) |
 | **Cloudflare Pages** | Hosts the web frontend and telemetry proxy | [cloudflare.com/terms](https://www.cloudflare.com/terms/) |
 
-LUMINARY AI is not affiliated with, endorsed by, or sponsored by any of these services.
+Luminary AI Engine is not affiliated with, endorsed by, or sponsored by any of these services.
 
 ---
 
 ## 10. Open Source
 
-LUMINARY AI is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+LUMINARY AI ENGINE is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 
-The entire source code is available for inspection. Every claim made in this document can be verified by reading the code:
+The entire Luminary AI Engine source code is available for inspection. Every claim made in this document can be verified by reading the code:
 
 - Tier 1 metadata: `api/lib/metadata.ts`
 - Tier 2 telemetry: `src/lib/telemetry.ts`
@@ -212,15 +212,17 @@ You do not need to trust this document. Read the code.
 
 ## 11. Changes to These Terms
 
-These terms may be updated as the project evolves. Changes will be committed to the repository and visible in the git history. There is no email notification system -- if you use LUMINARY AI, check this file periodically.
+These terms may be updated as the project evolves. Changes will be committed to the repository and visible in the git history. There is no email notification system -- if you use LUMINARY AI ENGINE, check this file periodically.
 
 The "Last updated" date at the top of this document reflects the most recent revision.
+
+Public policy pages: [Terms & Conditions](https://luminaryaiengine.dpdns.org/terms.html) · [Privacy Policy](https://luminaryaiengine.dpdns.org/privacy.html) · [Cookie Policy](https://luminaryaiengine.dpdns.org/cookies.html) · [Domain Policy](https://luminaryaiengine.dpdns.org/domain-licence.html).
 
 ---
 
 ## 12. Contact
 
-This is an open-source project. The best way to reach the maintainers is through the project's GitHub repository:
+Luminary AI Engine is an open-source project. The best way to reach the maintainers is through the project's GitHub repository:
 
 - **Questions or concerns:** Open a GitHub issue.
 - **Data deletion requests:** Open a GitHub issue or use the `DELETE /v1/dataset/:id` API endpoint for Tier 3 data.
