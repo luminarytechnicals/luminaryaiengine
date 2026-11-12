@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Use Luminary AI Engine to draft, analyse, compare, critique and refine prompts with multiple language models through OpenRouter. Bring your own API key.">
+  <meta name="description" content="Open-source AI prompt engineering workspace for drafting, comparing, critiquing and refining LLM prompts with configured models through OpenRouter.">
   <meta name="author" content="Abhinav Ranjan">
   <meta name="theme-color" content="#0d0208">
   <meta http-equiv="Content-Security-Policy"
@@ -16,13 +16,13 @@
   <link rel="canonical" href="https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Luminary AI Engine">
-  <meta property="og:title" content="Luminary AI Engine | Prompt Engineering Workspace">
+  <meta property="og:title" content="Luminary AI Engine | AI Prompt Engineering Workspace">
   <meta property="og:description" content="Use Luminary AI Engine to draft, analyse, compare, critique and refine prompts with multiple language models through OpenRouter.">
   <meta property="og:url" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/index.html">
   <meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Luminary AI Engine | Prompt Engineering Workspace">
-  <meta name="twitter:description" content="Draft, critique and refine prompts with multi-model assistance.">
+  <meta name="twitter:title" content="Luminary AI Engine | AI Prompt Engineering Workspace">
+  <meta name="twitter:description" content="Draft, compare, critique and refine LLM prompts in an open-source multi-model workspace powered by OpenRouter.">
   <meta name="twitter:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
   <title>Luminary AI Engine | Prompt Engineering Workspace</title>
   <script type="application/ld+json">
@@ -36,7 +36,7 @@
       "url": "https://luminarytechnicals.dpdns.org/",
       "description": "Independent technology and research organization and publisher of Luminary AI Engine.",
       "disambiguatingDescription": "Publisher and maintainer; dpdns.org namespace use does not imply affiliation with DigitalPlat Domains or DPDNS.",
-      "logo": "https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png",
+      "logo": "https://luminarytechnicals.dpdns.org/assets/images/logo-luminarytechnicals.webp",
       "sameAs": [
         "https://github.com/luminarytechnicals",
         "https://twitter.com/luminarytechnicals",
@@ -118,7 +118,7 @@
       "inLanguage": "en-IN",
       "dateModified": "2026-11-08",
       "isPartOf": {
-        "@id": "https://luminaryaiengine.dpdns.org/#website"
+        "@id": "https://luminarytechnicals.dpdns.org/#website"
       },
       "publisher": {
         "@id": "https://luminarytechnicals.dpdns.org/#organization"
@@ -416,6 +416,19 @@
       border-color: var(--primary);
       background: var(--hover);
     }
+
+    .sidebar-support {
+      display: block;
+      margin-top: 10px;
+      padding: 8px 6px 0;
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1.5;
+      text-align: center;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .sidebar-support:hover, .sidebar-support:focus-visible { color: var(--primary); }
 
     /* Main Chat Area */
     .main {
@@ -3999,6 +4012,7 @@
         <button class="settings-btn" onclick="openSettings()">
           <span>⚙</span> Settings
         </button>
+        <a class="sidebar-support" href="../contact.html" aria-label="Luminary AI Engine help and support">Help &amp; Support</a>
       </div>
     </aside>
 
