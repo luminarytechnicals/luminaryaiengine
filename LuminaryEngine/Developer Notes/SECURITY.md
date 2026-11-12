@@ -2,9 +2,11 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in LUMINARY AI, please report it responsibly.
+If you discover a security vulnerability in Luminary AI Engine, please report it responsibly.
 
 **Please do NOT open a public GitHub issue for security vulnerabilities.**
+
+Report security issues privately to [luminaryaiengine@luminarytechnicals.dpdns.org](mailto:luminaryaiengine@luminarytechnicals.dpdns.org) using the subject `[Security] Luminary AI Engine vulnerability report`.
 
 ### What to include
 
@@ -22,7 +24,7 @@ If you discover a security vulnerability in LUMINARY AI, please report it respon
 ### Scope
 
 In scope:
-- The LUMINARY AI API server (`api/`)
+- The Luminary AI Engine API server (`api/`)
 - The frontend application (`src/`)
 - Docker / deployment configuration
 - Authentication and authorization logic

@@ -36,7 +36,7 @@ The repository contains multiple surfaces:
 - `LuminaryEngine/api/`: optional Express API server.
 - `LuminaryEngine/Developer Notes/`: technical documentation, privacy notes, terms and security policy.
 - `features/` and `docs/`: crawlable product and API documentation.
-- `netlify/edge-functions/`: deployment edge controls, including the current legal/geographic access restriction.
+- `netlify/edge-functions/`: deployment edge controls and generally applicable request handling.
 
 The standalone production interface is a browser-based HTML/CSS/JavaScript application. The modular TypeScript/Next.js implementation and optional API are separate development/deployment surfaces; the static website should not be assumed to expose the API unless it is separately deployed.
 
@@ -72,7 +72,14 @@ Directly opening local files may restrict browser features such as service worke
 
 Luminary AI Engine is a Luminary Technicals project. The public hostname uses the `dpdns.org` namespace; this does not imply affiliation with DigitalPlat Domains, DPDNS or related provider entities. Read the [Domain Policy](https://luminaryaiengine.dpdns.org/domain-licence.html).
 
-The hosted website currently restricts access from India in response to legal requests. This applies to hosted availability and does not change the source-code licence.
+The temporary India-specific hosted-access restriction was removed after the applicable legal request was revoked on 10 November 2026. Hosted availability remains subject to applicable law, provider availability and generally applicable security controls.
+
+## Contact and support
+
+For product help, technical questions or feedback, contact [luminaryaiengine@luminarytechnicals.dpdns.org](mailto:luminaryaiengine@luminarytechnicals.dpdns.org). For privacy and legal matters, use [legal@luminarytechnicals.dpdns.org](mailto:legal@luminarytechnicals.dpdns.org). Security reports should follow the [Security Policy](https://luminaryaiengine.dpdns.org/security.html) and must not be posted publicly before coordinated disclosure.
+
+- [Contact & Support](https://luminaryaiengine.dpdns.org/contact.html)
+- [Security Policy](https://luminaryaiengine.dpdns.org/security.html)
 
 ## Credits and licence
 
