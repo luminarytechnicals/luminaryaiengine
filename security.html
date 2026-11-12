@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security Policy | Luminary AI Engine</title>
+  <meta name="description" content="Read the Luminary AI Engine vulnerability disclosure policy, reporting scope and security contact instructions.">
+  <meta name="author" content="Luminary Technicals">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://luminaryaiengine.dpdns.org/security.html">
+  <meta name="theme-color" content="#080d12">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Luminary AI Engine">
+  <meta property="og:title" content="Security Policy | Luminary AI Engine">
+  <meta property="og:description" content="Responsible vulnerability disclosure guidance for the Luminary AI Engine project.">
+  <meta property="og:url" content="https://luminaryaiengine.dpdns.org/security.html">
+  <meta property="og:image" content="https://luminaryaiengine.dpdns.org/LuminaryEngine/public/logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Security Policy | Luminary AI Engine">
+  <meta name="twitter:description" content="Responsible vulnerability disclosure guidance for the Luminary AI Engine project.">
+  <link rel="icon" type="image/png" href="/LuminaryEngine/public/logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/LuminaryData/legal.css?v=20261112">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://luminarytechnicals.dpdns.org/#organization",
+        "name": "Luminary Technicals",
+        "url": "https://luminarytechnicals.dpdns.org/",
+        "logo": "https://luminarytechnicals.dpdns.org/assets/images/logo-luminarytechnicals.webp"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://luminaryaiengine.dpdns.org/#website",
+        "url": "https://luminaryaiengine.dpdns.org/",
+        "name": "Luminary AI Engine",
+        "publisher": {"@id": "https://luminarytechnicals.dpdns.org/#organization"},
+        "isPartOf": {"@id": "https://luminarytechnicals.dpdns.org/#website"}
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://luminaryaiengine.dpdns.org/security.html#webpage",
+        "url": "https://luminaryaiengine.dpdns.org/security.html",
+        "name": "Security Policy | Luminary AI Engine",
+        "description": "Responsible vulnerability disclosure guidance for Luminary AI Engine.",
+        "inLanguage": "en-IN",
+        "isPartOf": {"@id": "https://luminaryaiengine.dpdns.org/#website"},
+        "publisher": {"@id": "https://luminarytechnicals.dpdns.org/#organization"}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Luminary AI Engine home">
+      <img src="/LuminaryEngine/public/logo.png" alt="" width="38" height="38">
+      <span>LUMINARY AI ENGINE<small> A LUMINARY TECHNICALS PROJECT</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="/">Home</a><a href="/about.html">About</a><a href="/LuminaryEngine/index.html">Launch Engine</a>
+      <a href="/contact.html">Support</a><a href="/security.html" aria-current="page">Security</a>
+    </nav>
+  </header>
+  <main>
+    <div class="breadcrumb"><a href="/">Home</a> / Security Policy</div>
+    <p class="eyebrow">RESPONSIBLE DISCLOSURE</p>
+    <h1>Security Policy</h1>
+    <p class="lead">Luminary Technicals welcomes responsible security research that helps protect Luminary AI Engine and its users. Please report suspected vulnerabilities privately and give maintainers enough information to reproduce and assess the issue.</p>
+    <p class="updated">Project security policy · Updated 12 November 2026</p>
+    <section class="policy-section">
+      <h2>How to report a vulnerability</h2>
+      <p>Email <a href="mailto:luminaryaiengine@luminarytechnicals.dpdns.org?subject=%5BSecurity%5D%20Luminary%20AI%20Engine%20vulnerability%20report">luminaryaiengine@luminarytechnicals.dpdns.org</a> with the subject <strong>[Security] Luminary AI Engine vulnerability report</strong>.</p>
+      <p>Include a description, affected component, safe steps to reproduce, impact assessment and a suggested mitigation when available. Do not include passwords, API keys, user conversations or unrelated personal data.</p>
+      <p><strong>Do not open a public GitHub issue for an unpatched security vulnerability.</strong> Coordinate disclosure with the maintainers before sharing technical details publicly.</p>
+    </section>
+    <section class="policy-section">
+      <h2>Scope</h2>
+      <ul>
+        <li>Luminary AI Engine frontend and browser application.</li>
+        <li>Optional API services and their routes, authentication and authorization.</li>
+        <li>Rate limiting, data-handling and research-dataset controls.</li>
+        <li>Deployment configuration, Docker images and security headers.</li>
+      </ul>
+      <p>Third-party services and dependencies are not directly maintained by this project. Report vulnerabilities to their respective maintainers as well, and provide relevant context to this project when our integration is affected.</p>
+    </section>
+    <section class="policy-section">
+      <h2>Safe testing</h2>
+      <p>Test only systems you own or have explicit permission to assess. Avoid service disruption, denial-of-service testing, accessing other users’ data, persistence, destructive actions or social engineering. Stop testing and report the issue when sensitive data or production impact is encountered.</p>
+    </section>
+    <section class="policy-section">
+      <h2>Response expectations</h2>
+      <p>The repository’s security notes describe an intended acknowledgement within 48 hours, an initial assessment within 7 days and a fix or mitigation target within 30 days for critical issues. These are project targets, not a guarantee of resolution. Complex issues, upstream dependencies and circumstances outside the project’s control may affect timelines.</p>
+    </section>
+    <section class="policy-section">
+      <h2>Technical security notes</h2>
+      <p>Read the <a href="https://github.com/luminarytechnicals/luminaryaiengine/blob/main/LuminaryEngine/Developer%20Notes/SECURITY.md">repository security notes</a> for implementation details and supported-version information. Review the <a href="/privacy.html">Privacy Policy</a> for data-handling disclosures.</p>
+    </section>
+    <p>For general product issues, use the <a href="/contact.html">Contact &amp; Support</a> page.</p>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <strong>Luminary AI Engine · Published by Luminary Technicals</strong>
+      <nav class="policy-nav" aria-label="Legal and support links">
+        <a href="/credits.html">Credits</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms &amp; Conditions</a>
+        <a href="/cookies.html">Cookie Policy</a><a href="/domain-licence.html">Domain Policy</a><a href="/contact.html">Contact &amp; Support</a>
+      </nav>
+    </div>
+    <p>© 2026 Luminary Technicals. Security reports: <a href="mailto:luminaryaiengine@luminarytechnicals.dpdns.org?subject=%5BSecurity%5D%20Luminary%20AI%20Engine%20vulnerability%20report">luminaryaiengine@luminarytechnicals.dpdns.org</a>.</p>
+  </footer>
+</body>
+</html>
