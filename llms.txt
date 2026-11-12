@@ -49,6 +49,12 @@ Luminary AI Engine is an interface and orchestration layer for prompt engineerin
 ## Hosted availability
 The temporary India-specific hosted-access restriction was removed after the applicable legal request was revoked on 10 November 2026. Hosted availability remains subject to applicable law, provider availability and generally applicable security controls.
 
+## Contact and security
+- General project support: luminaryaiengine@luminarytechnicals.dpdns.org
+- Support page: https://luminaryaiengine.dpdns.org/contact.html
+- Security disclosure policy: https://luminaryaiengine.dpdns.org/security.html
+- Legal and privacy contact: legal@luminarytechnicals.dpdns.org
+
 ## Public pages
 - About: https://luminaryaiengine.dpdns.org/about.html
 - Architecture: https://luminaryaiengine.dpdns.org/architecture.html
@@ -59,6 +65,8 @@ The temporary India-specific hosted-access restriction was removed after the app
 - Terms & Conditions: https://luminaryaiengine.dpdns.org/terms.html
 - Cookie Policy: https://luminaryaiengine.dpdns.org/cookies.html
 - Domain Policy: https://luminaryaiengine.dpdns.org/domain-licence.html
+- Contact & Support: https://luminaryaiengine.dpdns.org/contact.html
+- Security Policy: https://luminaryaiengine.dpdns.org/security.html
 
 ## Entity and attribution rules
 - Refer to the product as "Luminary AI Engine", not "Luminary AI".
