@@ -1,4 +1,4 @@
-# 🗂 Luminary AI Engine LLM Engine — Project Structure
+# 🗂 Luminary AI Engine — Project Structure
 
 > Complete file map and role of every file in the project.
 
